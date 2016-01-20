@@ -8,10 +8,15 @@
         Icon="images\icon.ico"
         Title="MainWindow" MinHeight="760" Height="760" MaxHeight="760" MinWidth="1024" Width="1024" MaxWidth="1024" Loaded="Window_Loaded" Closing="Window_Closing" Background="#FFE0E0E0">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="127*"/>
+            <ColumnDefinition Width="702*"/>
+            <ColumnDefinition Width="187*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="106*" />
         </Grid.RowDefinitions>
-        <TabControl Name="TabControl1" Margin="10,57,10,29" TabStripPlacement="Top" SelectedIndex="6" Grid.Row="0" Grid.ColumnSpan="2" Background="{x:Null}">
+        <TabControl Name="TabControl1" Margin="10,57,10,29" TabStripPlacement="Top" SelectedIndex="6" Grid.Row="0" Grid.ColumnSpan="3" Background="{x:Null}">
             <TabItem Header="Параметры смены" Name="TabItem1" Background="{x:Null}">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -168,16 +173,14 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button Margin="0,10,133,0" Width="90" Height="35" HorizontalAlignment="Right" VerticalAlignment="Top" Content="БД" Click="Button_Click"/>
-        <Button Margin="0,10,35,0" Width="90" Height="35" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Архив" Name="Button_Archive" Click="Button_Archive_Click" />
-        <Button Margin="10,15,133,0" Width="115" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Новая смена" Name="button_NS" Click="button_NS_Click"></Button>
-        <Button Margin="125,15,133,0" Width="115" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Новая плавка" Name="button_NP" Click="button_NP_Click"></Button>
-        <Button Margin="245,15,133,0" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Content="K.O." Name="button_KO" Click="button_KO_Click"></Button>
-        <Button Margin="275,15,133,0" Width="65" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Контроль" Name="button_CONTROL" Click="button_CONTROL_Click"></Button>
+        <Button Margin="0,10,133,0" Width="90" Height="35" HorizontalAlignment="Right" VerticalAlignment="Top" Content="БД" Click="Button_Click" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <Button Margin="0,10,35,0" Width="90" Height="35" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Архив" Name="Button_Archive" Click="Button_Archive_Click" Grid.Column="2" />
+        <Button Margin="10,15,0,0" Width="115" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Новая смена" Name="button_NS" Click="button_NS_Click"></Button>
+        <Button Margin="125,15,0,0" Width="115" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Новая плавка" Name="button_NP" Click="button_NP_Click" Grid.ColumnSpan="2"></Button>
+        <Button Margin="117.727,15,0,0" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Content="K.O." Name="button_KO" Click="button_KO_Click" Grid.Column="1"></Button>
+        <Button Margin="147.727,15,0,0" Width="65" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Контроль" Name="button_CONTROL" Click="button_CONTROL_Click" Grid.Column="1"></Button>
         <StatusBar
-        Grid.Row="1"
-        DockPanel.Dock="Bottom"
-        Height="24" VerticalAlignment="Bottom" >
+        Height="24" VerticalAlignment="Bottom" Grid.ColumnSpan="3" >
             <!--            <TextBlock x:Name="ReadyStatus" Margin="3,0,0,0">Ready</TextBlock> -->
             <TextBlock x:Name="ReadyStatus" Margin="3,0,0,0" Text="Ready" />
             <TextBlock x:Name="BdStatus" HorizontalAlignment="Right" Text="Bad" MouseDown="BdStatus_MouseDown"  />

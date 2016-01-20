@@ -34,7 +34,9 @@ namespace test2
         public Dictionary<string, double> Parameters2 = new Dictionary<string, double>();
         //
         public BDEditorWindow bdEditorWindow = null;
+
         public ArchiveWindow archiveWindow = null;
+        public Thread myThrArchive = null;
         public static MainWindow mainWindow = null;
 
         private int flNewTube = 2;
@@ -105,31 +107,119 @@ namespace test2
             try
             {
                 Parameters.Clear();
-                Parameters.Add("smena", ((KeyValuePair<int, string>)ComBoxSmena.SelectedItem).Key);
-                Parameters.Add("smena_time", ((KeyValuePair<int, string>)ComBoxVremiaSmeny.SelectedItem).Key);
-                Parameters.Add("operator1", ((KeyValuePair<int, string>)ComBoxSpecialistASK.SelectedItem).Key);
-                Parameters.Add("operator2", ((KeyValuePair<int, string>)ComBoxSpecialistOKKP.SelectedItem).Key);
-                Parameters.Add("part", Convert.ToInt32(TextBox_nPlavki.Text));
-                Parameters.Add("gost", ((KeyValuePair<int, string>)ComBox_normDoc.SelectedItem).Key);
-                Parameters.Add("diameter", ((KeyValuePair<int, string>)ComBox_d.SelectedItem).Key);
-                Parameters.Add("control_sample", ((KeyValuePair<int, string>)ComBox_sample.SelectedItem).Key);
-                Parameters.Add("name_defect", ((KeyValuePair<int, string>)ComBox_defect.SelectedItem).Key);
-                Parameters.Add("device", ((KeyValuePair<int, string>)ComBox_hard.SelectedItem).Key);
-                Parameters.Add("porog", Convert.ToInt32(TextBox_porog.Text));
-                Parameters.Add("current", Convert.ToInt32(TextBox_tok.Text));
+                try { Parameters.Add("smena", ((KeyValuePair<int, string>)ComBoxSmena.SelectedItem).Key); } catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("MainWindow.xaml.cs");
+                    Console.WriteLine("FillParameters()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine("ComBoxSmena");
+                    throw (ex);
+                }
+                try { Parameters.Add("smena_time", ((KeyValuePair<int, string>)ComBoxVremiaSmeny.SelectedItem).Key); } catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("MainWindow.xaml.cs");
+                    Console.WriteLine("FillParameters()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine("ComBoxVremiaSmeny");
+                    throw (ex);
+                }
+                try { Parameters.Add("operator1", ((KeyValuePair<int, string>)ComBoxSpecialistASK.SelectedItem).Key); } catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("MainWindow.xaml.cs");
+                    Console.WriteLine("FillParameters()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine("ComBoxSpecialistASK");
+                    throw (ex);
+                }
+                try { Parameters.Add("operator2", ((KeyValuePair<int, string>)ComBoxSpecialistOKKP.SelectedItem).Key); } catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("MainWindow.xaml.cs");
+                    Console.WriteLine("FillParameters()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine("ComBoxSpecialistOKKP");
+                    throw (ex);
+                }
+                try { Parameters.Add("part", Convert.ToInt32(TextBox_nPlavki.Text)); } catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("MainWindow.xaml.cs");
+                    Console.WriteLine("FillParameters()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine("TextBox_nPlavki");
+                    throw (ex);
+                }
+                try { Parameters.Add("gost", ((KeyValuePair<int, string>)ComBox_normDoc.SelectedItem).Key); } catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("MainWindow.xaml.cs");
+                    Console.WriteLine("FillParameters()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine("ComBox_normDoc");
+                    throw (ex);
+                }
+                try { Parameters.Add("diameter", ((KeyValuePair<int, string>)ComBox_d.SelectedItem).Key); } catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("MainWindow.xaml.cs");
+                    Console.WriteLine("FillParameters()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine("ComBox_d");
+                    throw (ex);
+                }
+                try { Parameters.Add("control_sample", ((KeyValuePair<int, string>)ComBox_sample.SelectedItem).Key); } catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("MainWindow.xaml.cs");
+                    Console.WriteLine("FillParameters()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine("ComBox_sample");
+                    throw (ex);
+                }
+                try { Parameters.Add("name_defect", ((KeyValuePair<int, string>)ComBox_defect.SelectedItem).Key); } catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("MainWindow.xaml.cs");
+                    Console.WriteLine("FillParameters()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine("ComBox_defect");
+                    throw (ex);
+                }
+                try { Parameters.Add("device", ((KeyValuePair<int, string>)ComBox_hard.SelectedItem).Key); } catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("MainWindow.xaml.cs");
+                    Console.WriteLine("FillParameters()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine("ComBox_hard");
+                    throw (ex);
+                }
+                try { Parameters.Add("porog", Convert.ToInt32(TextBox_porog.Text)); } catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("MainWindow.xaml.cs");
+                    Console.WriteLine("FillParameters()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine("TextBox_porog");
+                    throw (ex);
+                }
+                try { Parameters.Add("current", Convert.ToInt32(TextBox_tok.Text)); } catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("MainWindow.xaml.cs");
+                    Console.WriteLine("FillParameters()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine("TextBox_tok");
+                    throw (ex);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-
+                throw (ex);
             }
+            Parameters2.Clear();
             try
             {
-                Parameters2.Clear();
                 Parameters2.Add("ho", Convert.ToDouble(TextBox_Ho.Text));
             }
-            catch
+            catch (Exception ex)
             {
-
+                Console.WriteLine("========================================");
+                Console.WriteLine("MainWindow.xaml.cs");
+                Console.WriteLine("FillParameters()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("TextBox_Ho");
+                throw (ex);
             }
             //
             lblinfo1.Content = ((KeyValuePair<int, string>)ComBoxSmena.SelectedItem).Value;
@@ -162,8 +252,11 @@ namespace test2
                 }
                 try
                 {
-                    archiveWindow.Close();
-                    archiveWindow = null;
+                    archiveWindow.Dispatcher.Invoke(delegate
+                    {
+                        archiveWindow.Close();
+                        archiveWindow = null;
+                    });
                 }
                 catch
                 {
@@ -191,14 +284,7 @@ namespace test2
                     for (int i = 0; i < _count; i++)
                     {
                         Canvas.Children.Remove((UIElement)Canvas.FindName("errorLine" + i));
-                        try
-                        {
-                            Canvas.UnregisterName("errorLine" + i);
-                        }
-                        catch
-                        {
-
-                        }
+                        try { Canvas.UnregisterName("errorLine" + i); } catch { }
                     }
                     _count = 0;
                 }));
@@ -268,8 +354,6 @@ namespace test2
 
         private void button_NS_Click(object sender, RoutedEventArgs e)
         {
-            //ButtonCancel.IsEnabled = false;
-            //ButtonSave.IsEnabled = false;
             TabItem2.IsEnabled = false;
             TabItem3.IsEnabled = false;
             TabControl1.SelectedIndex = 0;
@@ -316,8 +400,6 @@ namespace test2
 
         private void button_NP_Click(object sender, RoutedEventArgs e)
         {
-            //ButtonCancel.IsEnabled = false;
-            //ButtonSave.IsEnabled = false;
             TabItem1.IsEnabled = false;
             TabItem3.IsEnabled = false;
             TabControl1.SelectedIndex = 1;
@@ -384,8 +466,6 @@ namespace test2
 
         public void button_CONTROL_Click(object sender, RoutedEventArgs e)
         {
-            //ButtonCancel.IsEnabled = false;
-            //ButtonSave.IsEnabled = false;
             if (ComBoxSmena.SelectedIndex != -1 &&
                 ComBoxVremiaSmeny.SelectedIndex != -1 &&
                 ComBoxSpecialistASK.SelectedIndex != -1 &&
@@ -442,8 +522,6 @@ namespace test2
                     MessageBox.Show("Ошибка подключения к COM порту");
                 }
                 TabControl1.SelectedIndex = 2;
-                //ButtonCancel.IsEnabled = true;
-                //ButtonSave.IsEnabled = true;
                 New_tube_sample();
                 write.sampleDataCount = 0;
             }
@@ -461,11 +539,13 @@ namespace test2
 
         private void Button_Archive_Click(object sender, RoutedEventArgs e)
         {
-            //showArchiveWindow();
-            Thread myThr = new Thread(new ThreadStart(showArchiveWindow));
-            myThr.SetApartmentState(ApartmentState.STA);
-            myThr.IsBackground = true;
-            myThr.Start();
+            if (myThrArchive == null)
+            {
+                myThrArchive = new Thread(new ThreadStart(showArchiveWindow));
+                myThrArchive.SetApartmentState(ApartmentState.STA);
+                myThrArchive.IsBackground = true;
+                myThrArchive.Start();
+            }
         }
         private void showArchiveWindow()
         {

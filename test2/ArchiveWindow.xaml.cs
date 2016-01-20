@@ -61,7 +61,5 @@ namespace test2
             reportWindow = new ReportWindow1((TreeViewItem)TreeView_arc.SelectedItem);
             reportWindow.Show();
         }
-
-
     }
 }
