@@ -75,7 +75,10 @@
     <Reference Include="MigraDoc.RtfRendering-WPF">
       <HintPath>..\lib\MigraDoc.RtfRendering-WPF.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.9.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="PdfSharp-WPF">
       <HintPath>..\lib\PdfSharp-WPF.dll</HintPath>
     </Reference>
@@ -176,7 +179,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="test2_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

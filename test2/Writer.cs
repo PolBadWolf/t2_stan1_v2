@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
@@ -12,9 +13,10 @@ namespace test2
 {
     class Writer
     {
+        public static readonly int maxLenTube = 15000 * 6 / 1000; // 15000 - 15 metrov
         private static readonly Settings ps = Settings.Default;
         private readonly Byte[] buffForRead = new Byte[11];
-        private readonly Byte[] bufferRecive = new Byte[90];
+        private List<byte> bufferRecive = new List<byte>(maxLenTube);
         private readonly Crc crc = new Crc();
         private readonly SerialPort serialPort = new SerialPort(ps.Com);
         public int sampleDataCount = 0;
@@ -26,6 +28,7 @@ namespace test2
             serialPort.DataReceived += SerialPortDataRecived;
             serialPort.BaudRate = 9600;
             serialPort.Parity = Parity.None;
+            bufferRecive.Clear();
         }
 
         private void SerialPortDataRecived(object sender, SerialDataReceivedEventArgs e)
@@ -86,6 +89,7 @@ namespace test2
                 Console.WriteLine("Recived_NewTube()  :  " + DateTime.Now.ToString());
                 Console.WriteLine("Ошибка количества параметров");
             }
+            bufferRecive.Clear();
             //out
             {
                 int last = mainWindow.parAdvn.GetDb_Last_NumberTube();
@@ -107,13 +111,17 @@ namespace test2
             }));
             mainWindow.Move_Tube();
             // запись дефектов
-            try{ bufferRecive[buffForRead[5]] = buffForRead[6]; } catch (Exception ex)
+            if (bufferRecive.Count < maxLenTube)
             {
-                Console.WriteLine("========================================");
-                Console.WriteLine("Write.cs");
-                Console.WriteLine("Recived_SegmentTube()  :  " + DateTime.Now.ToString());
-                Console.WriteLine("Error index : " + buffForRead[5].ToString());
-                Console.WriteLine(ex.ToString());
+                try { bufferRecive.Add(buffForRead[6]); }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("Write.cs");
+                    Console.WriteLine("Recived_SegmentTube()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine("Error index : " + buffForRead[5].ToString());
+                    Console.WriteLine(ex.ToString());
+                }
             }
             // отображение дефектов
             if (buffForRead[6]!=0)

@@ -15,7 +15,7 @@ namespace test2
         {
         }
 
-        public void DoIt(byte[] buffForRead, byte[] bufferRecive)
+        public void DoIt(byte[] buffForRead, List<byte> bufferRecive)
         {
             try
             {
@@ -80,7 +80,7 @@ values(@A, @B, @C, @D, @E, @F, @G, @H, @I)";
             myCommand.Connection = conn;
             return myCommand;
         }
-        private void defectsdata_param(MySqlCommand myCommand, byte[] buffForRead, byte[] bufferRecive)
+        private void defectsdata_param(MySqlCommand myCommand, byte[] buffForRead, List<byte> bufferRecive)
         {
             int hasDeffect = 0;
             myCommand.Parameters.Clear();
@@ -95,12 +95,15 @@ values(@A, @B, @C, @D, @E, @F, @G, @H, @I)";
             // размер трубы
             myCommand.Parameters.AddWithValue("C", buffForRead[5]);
             // дефекты
-            Byte[] deffectsArray = new Byte[buffForRead[5]];
-            for (int k = 0; k < (int)buffForRead[5]; k++)
+            Byte[] deffectsArray = new Byte[bufferRecive.Count];
+            try
             {
-                if (bufferRecive[k] != 0) hasDeffect = 1;
-                deffectsArray[k] = bufferRecive[k];
-            }
+                for (int k = 0; k < bufferRecive.Count; k++)
+                {
+                    if (bufferRecive[k] != 0) hasDeffect = 1;
+                    deffectsArray[k] = bufferRecive[k];
+                }
+            } catch { }
             myCommand.Parameters.AddWithValue("D", deffectsArray);
             // текущая дата
             DateTime theDateTime = DateTime.Now;
