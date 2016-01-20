@@ -1227,11 +1227,20 @@ namespace test2
 
         public int GetDb_Last_Part()
         {
-            Connection connection = new Connection();
             int last = 0;
-
-            connection.Open();
-
+            Connection connection = null;
+            try
+            {
+                connection = new Connection();
+                connection.Open();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("GetDb_Last_Part()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Open BD");
+                throw (ex);
+            }
             MySqlCommand myCommand = new MySqlCommand(@"
                 SELECT
                 NumberPart
@@ -1240,25 +1249,64 @@ namespace test2
                 ORDER BY
                 IndexData DESC
                 LIMIT 1", connection.mySqlConnection);
-            MySqlDataReader mySqlReader = myCommand.ExecuteReader();
-
-            while (mySqlReader.Read())
+            MySqlDataReader mySqlReader = null;
+            try
             {
-                last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("NumberPart"));
+                mySqlReader = myCommand.ExecuteReader();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("GetDb_Last_Part()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("ExecuteReader");
+                throw (ex);
             }
-
-            mySqlReader.Close();
-            connection.Close();
-
+            try
+            {
+                while (mySqlReader.Read())
+                {
+                    last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("NumberPart"));
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("GetDb_Last_Part()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Read");
+                throw (ex);
+            }
+            try
+            {
+                mySqlReader.Close();
+                connection.Close();
+                connection = null;
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("GetDb_Last_Part()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Close BD");
+                throw (ex);
+            }
             return last;
         }
 
         public double GetDb_Last_Ho()
         {
-            Connection connection = new Connection();
             double last = 0;
-
-            connection.Open();
+            Connection connection = null;
+            try
+            {
+                connection = new Connection();
+                connection.Open();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("GetDb_Last_Ho()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Open BD");
+                throw (ex);
+            }
             MySqlCommand myCommand = new MySqlCommand(@"
                 SELECT
                 Id_Sensor
@@ -1267,25 +1315,64 @@ namespace test2
                 ORDER BY
                 Ind DESC
                 LIMIT 1", connection.mySqlConnection);
-            MySqlDataReader mySqlReader = myCommand.ExecuteReader();
-
-            while (mySqlReader.Read())
+            MySqlDataReader mySqlReader = null;
+            try
             {
-                last = mySqlReader.GetDouble(mySqlReader.GetOrdinal("Id_Sensor"));
+                mySqlReader = myCommand.ExecuteReader();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("GetDb_Last_Ho()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("ExecuteReader");
+                throw (ex);
             }
-
-            mySqlReader.Close();
-            connection.Close();
-
+            try
+            {
+                while (mySqlReader.Read())
+                {
+                    last = mySqlReader.GetDouble(mySqlReader.GetOrdinal("Id_Sensor"));
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("GetDb_Last_Ho()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Read");
+                throw (ex);
+            }
+            try
+            {
+                mySqlReader.Close();
+                connection.Close();
+                connection = null;
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("GetDb_Last_Ho()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Close BD");
+                throw (ex);
+            }
             return last;
         }
 
         public int GetDb_Last_Porog()
         {
-            Connection connection = new Connection();
             int last = 0;
-
-            connection.Open();
+            Connection connection = null;
+            try
+            {
+                connection = new Connection();
+                connection.Open();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("GetDb_Last_Porog()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Open BD");
+                throw (ex);
+            }
             MySqlCommand myCommand = new MySqlCommand(@"
                 SELECT
                 Porog
@@ -1294,25 +1381,64 @@ namespace test2
                 ORDER BY
                 IndexData DESC
                 LIMIT 1", connection.mySqlConnection);
-            MySqlDataReader mySqlReader = myCommand.ExecuteReader();
-
-            while (mySqlReader.Read())
+            MySqlDataReader mySqlReader = null;
+            try
             {
-                last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("Porog"));
+                mySqlReader = myCommand.ExecuteReader();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("GetDb_Last_Porog()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("ExecuteReader");
+                throw (ex);
             }
-
-            mySqlReader.Close();
-            connection.Close();
-
+            try
+            {
+                while (mySqlReader.Read())
+                {
+                    last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("Porog"));
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("GetDb_Last_Porog()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Read");
+                throw (ex);
+            }
+            try
+            {
+                mySqlReader.Close();
+                connection.Close();
+                connection = null;
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("GetDb_Last_Porog()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Close BD");
+                throw (ex);
+            }
             return last;
         }
 
         public int GetDb_Last_Current()
         {
-            Connection connection = new Connection();
             int last = 0;
-
-            connection.Open();
+            Connection connection = null;
+            try
+            {
+                connection = new Connection();
+                connection.Open();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("GetDb_Last_Current()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Open BD");
+                throw (ex);
+            }
             MySqlCommand myCommand = new MySqlCommand(@"
                 SELECT
                 Current
@@ -1321,16 +1447,45 @@ namespace test2
                 ORDER BY
                 IndexData DESC
                 LIMIT 1", connection.mySqlConnection);
-            MySqlDataReader mySqlReader = myCommand.ExecuteReader();
-
-            while (mySqlReader.Read())
+            MySqlDataReader mySqlReader = null;
+            try
             {
-                last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("Current"));
+                mySqlReader = myCommand.ExecuteReader();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("GetDb_Last_Current()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("ExecuteReader");
+                throw (ex);
             }
-
-            mySqlReader.Close();
-            connection.Close();
-
+            try
+            {
+                while (mySqlReader.Read())
+                {
+                    last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("Current"));
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("GetDb_Last_Current()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Read");
+                throw (ex);
+            }
+            try
+            {
+                mySqlReader.Close();
+                connection.Close();
+                connection = null;
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("GetDb_Last_Current()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Close BD");
+                throw (ex);
+            }
             return last;
         }
 
@@ -1340,8 +1495,18 @@ namespace test2
             if (MainWindow.mainWindow.Parameters["part"] == GetDb_Last_Part())
             {
                 Connection connection = new Connection();
-
-                connection.Open();
+                try
+                {
+                    connection = new Connection();
+                    connection.Open();
+                } catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("Parameters.cs");
+                    Console.WriteLine("GetDb_Last_NumberTube()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine("Open BD");
+                    throw (ex);
+                }
                 MySqlCommand myCommand = new MySqlCommand(@"
                 SELECT
                 defectsdata.NumberTube
@@ -1350,15 +1515,45 @@ namespace test2
                 ORDER BY
                 defectsdata.IndexData DESC
                 LIMIT 1", connection.mySqlConnection);
-                MySqlDataReader mySqlReader = myCommand.ExecuteReader();
-
-                while (mySqlReader.Read())
+                MySqlDataReader mySqlReader = null;
+                try
                 {
-                    last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("NumberTube"));
+                    mySqlReader = myCommand.ExecuteReader();
+                } catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("Parameters.cs");
+                    Console.WriteLine("GetDb_Last_NumberTube()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine("ExecuteReader");
+                    throw (ex);
                 }
-
-                mySqlReader.Close();
-                connection.Close();
+                try
+                {
+                    while (mySqlReader.Read())
+                    {
+                        last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("NumberTube"));
+                    }
+                } catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("Parameters.cs");
+                    Console.WriteLine("GetDb_Last_NumberTube()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine("Read");
+                    throw (ex);
+                }
+                try
+                {
+                    mySqlReader.Close();
+                    connection.Close();
+                    connection = null;
+                } catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("Parameters.cs");
+                    Console.WriteLine("GetDb_Last_NumberTube()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine("Close BD");
+                    throw (ex);
+                }
             }
             return last;
         }
