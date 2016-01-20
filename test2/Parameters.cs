@@ -9,64 +9,176 @@ namespace test2
 {
     public class Parameters
     {
-        //private Connection connection = new Connection();
-        //                  смена
         public Dictionary<int, string> GetDb_WorkSmens()
         {
-            Connection connection = new Connection();
             var workSmens = new Dictionary<int, string>();
-
-            connection.Open();
-            MySqlCommand myCommand = new MySqlCommand("SELECT Id_WorkSmen, NameSmen FROM worksmens WHERE active = 1", connection.mySqlConnection);
-            MySqlDataReader mySqlDataReader = myCommand.ExecuteReader();
-
-            while(mySqlDataReader.Read())
+            Connection connection = null;
+            try
             {
-                workSmens.Add(mySqlDataReader.GetInt32(mySqlDataReader.GetOrdinal("Id_WorkSmen")),
-                              mySqlDataReader.GetString(mySqlDataReader.GetOrdinal("NameSmen")));
+                connection = new Connection();
+                connection.Open();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_WorkSmens()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Open BD");
+                throw (ex);
             }
-
-            mySqlDataReader.Close();
-            connection.Close();
-
+            MySqlCommand myCommand = new MySqlCommand("SELECT Id_WorkSmen, NameSmen FROM worksmens WHERE active = 1", connection.mySqlConnection);
+            MySqlDataReader mySqlDataReader = null;
+            try { mySqlDataReader = myCommand.ExecuteReader(); } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_WorkSmens()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("ExecuteReader");
+                throw (ex);
+            }
+            try
+            {
+                while (mySqlDataReader.Read())
+                {
+                    workSmens.Add(mySqlDataReader.GetInt32(mySqlDataReader.GetOrdinal("Id_WorkSmen")),
+                                  mySqlDataReader.GetString(mySqlDataReader.GetOrdinal("NameSmen")));
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_WorkSmens()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Read BD");
+                throw (ex);
+            }
+            try
+            {
+                mySqlDataReader.Close();
+                connection.Close();
+                connection = null;
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_WorkSmens()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Close BD");
+                throw (ex);
+            }
             return workSmens;
         }
         public Dictionary<int, string> GetDb_TimeIntervalSmens()
         {
-            Connection connection = new Connection();
             var intervalSmens = new Dictionary<int, string>();
-
-            connection.Open();
-            MySqlCommand mySqlCommand = new MySqlCommand("SELECT Id_TimeIntervalSmen, TimeIntervalSmen FROM timeintervalsmens WHERE active = 1", connection.mySqlConnection);
-            MySqlDataReader mySqlDataReader = mySqlCommand.ExecuteReader();
-
-            while(mySqlDataReader.Read())
+            Connection connection = null;
+            try
             {
-                intervalSmens.Add(mySqlDataReader.GetInt32(mySqlDataReader.GetOrdinal("Id_TimeIntervalSmen")), mySqlDataReader.GetString(mySqlDataReader.GetOrdinal("TimeIntervalSmen")));
+                connection = new Connection();
+                connection.Open();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_TimeIntervalSmens()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Open BD");
+                throw (ex);
             }
-
-            mySqlDataReader.Close();
-            connection.Close();
+            MySqlCommand mySqlCommand = new MySqlCommand("SELECT Id_TimeIntervalSmen, TimeIntervalSmen FROM timeintervalsmens WHERE active = 1", connection.mySqlConnection);
+            MySqlDataReader mySqlDataReader = null;
+            try { mySqlDataReader = mySqlCommand.ExecuteReader(); } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_TimeIntervalSmens()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("ExecuteReader");
+                throw (ex);
+            }
+            try
+            {
+                while (mySqlDataReader.Read())
+                {
+                    intervalSmens.Add(mySqlDataReader.GetInt32(mySqlDataReader.GetOrdinal("Id_TimeIntervalSmen")), mySqlDataReader.GetString(mySqlDataReader.GetOrdinal("TimeIntervalSmen")));
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_TimeIntervalSmens()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Read BD");
+                throw (ex);
+            }
+            try
+            {
+                mySqlDataReader.Close();
+                connection.Close();
+                connection = null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_WorkSmens()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Close BD");
+                throw (ex);
+            }
 
             return intervalSmens;
         }
         // оператор
         public Dictionary<int, string> GetDb_SurNames()
         {
-            Connection connection = new Connection();
             var surNames = new Dictionary<int, string>();
-
-            connection.Open();
-            MySqlCommand mySqlCommand = new MySqlCommand("SELECT Id_Operator, Surname FROM operators WHERE active = 1", connection.mySqlConnection);
-            MySqlDataReader mySqlReader = mySqlCommand.ExecuteReader();
-
-            while(mySqlReader.Read())
+            Connection connection = null;
+            try
             {
-                surNames.Add(mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_Operator")), mySqlReader.GetString(mySqlReader.GetOrdinal("Surname")));
+                connection = new Connection();
+                connection.Open();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_SurNames()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Open BD");
+                throw (ex);
             }
-
-            mySqlReader.Close();
-            connection.Close();
+            MySqlCommand mySqlCommand = new MySqlCommand("SELECT Id_Operator, Surname FROM operators WHERE active = 1", connection.mySqlConnection);
+            MySqlDataReader mySqlReader = null;
+            try
+            {
+                mySqlReader = mySqlCommand.ExecuteReader();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_SurNames()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("ExecuteReader");
+                throw (ex);
+            }
+            try
+            {
+                while (mySqlReader.Read())
+                {
+                    surNames.Add(mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_Operator")), mySqlReader.GetString(mySqlReader.GetOrdinal("Surname")));
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_SurNames()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Read BD");
+                throw (ex);
+            }
+            try
+            {
+                mySqlReader.Close();
+                connection.Close();
+                connection = null;
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_WorkSmens()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Close BD");
+                throw (ex);
+            }
 
             return surNames;
         }
@@ -74,98 +186,298 @@ namespace test2
         //                       плавка
         public Dictionary<int, string> GetDb_Gost()
         {
-            Connection connection = new Connection();
             var gost = new Dictionary<int, string>();
-
-            connection.Open();
-            MySqlCommand mySqlCommand = new MySqlCommand("SELECT Id_Gost, NameGost FROM gosts WHERE active = 1", connection.mySqlConnection);
-            MySqlDataReader mySqlReader = mySqlCommand.ExecuteReader();
-
-            while (mySqlReader.Read())
+            Connection connection = null;
+            try
             {
-                gost.Add(mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_Gost")), mySqlReader.GetString(mySqlReader.GetOrdinal("NameGost")));
+                connection = new Connection();
+                connection.Open();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_Gost()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Open BD");
+                throw (ex);
             }
-
+            MySqlCommand mySqlCommand = new MySqlCommand("SELECT Id_Gost, NameGost FROM gosts WHERE active = 1", connection.mySqlConnection);
+            MySqlDataReader mySqlReader = null;
+            try
+            {
+                mySqlReader = mySqlCommand.ExecuteReader();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_Gost()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("ExecuteReader");
+                throw (ex);
+            }
+            try
+            {
+                while (mySqlReader.Read())
+                {
+                    gost.Add(mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_Gost")), mySqlReader.GetString(mySqlReader.GetOrdinal("NameGost")));
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_Gost()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Read BD");
+                throw (ex);
+            }
+            try
+            {
+                mySqlReader.Close();
+                connection.Close();
+                connection = null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_Gost()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Close BD");
+                throw (ex);
+            }
             return gost;
         }
 
         public Dictionary<int, string> GetDb_SizeTube()
         {
-            Connection connection = new Connection();
             var sizeTube = new Dictionary<int, string>();
-
-            connection.Open();
-            MySqlCommand mySqlCommand = new MySqlCommand("SELECT Id_SizeTube, SizeTube FROM sizetubes WHERE active = 1", connection.mySqlConnection);
-            MySqlDataReader mySqlReader = mySqlCommand.ExecuteReader();
-
-            while (mySqlReader.Read())
+            Connection connection = null;
+            try
             {
-                sizeTube.Add(mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_SizeTube")), mySqlReader.GetString(mySqlReader.GetOrdinal("SizeTube")));
+                connection = new Connection();
+                connection.Open();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_SizeTube()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Open BD");
+                throw (ex);
             }
-
-            mySqlReader.Close();
-            connection.Close();
+            MySqlCommand mySqlCommand = new MySqlCommand("SELECT Id_SizeTube, SizeTube FROM sizetubes WHERE active = 1", connection.mySqlConnection);
+            MySqlDataReader mySqlReader = null;
+            try
+            {
+                mySqlReader = mySqlCommand.ExecuteReader();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_SizeTube()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("ExecuteReader");
+                throw (ex);
+            }
+            try
+            {
+                while (mySqlReader.Read())
+                {
+                    sizeTube.Add(mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_SizeTube")), mySqlReader.GetString(mySqlReader.GetOrdinal("SizeTube")));
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_SizeTube()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Read BD");
+                throw (ex);
+            }
+            try
+            {
+                mySqlReader.Close();
+                connection.Close();
+                connection = null;
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_SizeTube()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Close BD");
+                throw (ex);
+            }
 
             return sizeTube;
         }
 
         public Dictionary<int, string> GetDb_ControlSample()
         {
-            Connection connection = new Connection();
             var controlSample = new Dictionary<int, string>();
-
-            connection.Open();
-            MySqlCommand mySqlCommand = new MySqlCommand("SELECT Id_ControlSample, NameControlSample FROM controlsamples WHERE active = 1", connection.mySqlConnection);
-            MySqlDataReader mySqlReader = mySqlCommand.ExecuteReader();
-
-            while (mySqlReader.Read())
+            Connection connection = null;
+            try
             {
-                controlSample.Add(mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_ControlSample")), mySqlReader.GetString(mySqlReader.GetOrdinal("NameControlSample")));
+                connection = new Connection();
+                connection.Open();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_ControlSample()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Open BD");
+                throw (ex);
             }
-
-            mySqlReader.Close();
-            connection.Close();
-
+            MySqlCommand mySqlCommand = new MySqlCommand("SELECT Id_ControlSample, NameControlSample FROM controlsamples WHERE active = 1", connection.mySqlConnection);
+            MySqlDataReader mySqlReader = null;
+            try
+            {
+                mySqlReader = mySqlCommand.ExecuteReader();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_ControlSample()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("ExecuteReader");
+                throw (ex);
+            }
+            try
+            {
+                while (mySqlReader.Read())
+                {
+                    controlSample.Add(mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_ControlSample")), mySqlReader.GetString(mySqlReader.GetOrdinal("NameControlSample")));
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_ControlSample()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Read BD");
+                throw (ex);
+            }
+            try
+            {
+                mySqlReader.Close();
+                connection.Close();
+                connection = null;
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_ControlSample()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Close BD");
+                throw (ex);
+            }
             return controlSample;
         }
 
         public Dictionary<int, string> GetDb_ListDefects()
         {
-            Connection connection = new Connection();
             var listDefects = new Dictionary<int, string>();
-
-            connection.Open();
-            MySqlCommand mySqlCommand = new MySqlCommand("SELECT Id_NameDefect, NameDefect FROM listdefects WHERE active = 1", connection.mySqlConnection);
-            MySqlDataReader mySqlReader = mySqlCommand.ExecuteReader();
-
-            while (mySqlReader.Read())
+            Connection connection = null;
+            try
             {
-                listDefects.Add(mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_NameDefect")), mySqlReader.GetString(mySqlReader.GetOrdinal("NameDefect")));
+                connection = new Connection();
+                connection.Open();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_ListDefects()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Open BD");
+                throw (ex);
             }
-
-            mySqlReader.Close();
-            connection.Close();
-
+            MySqlCommand mySqlCommand = new MySqlCommand("SELECT Id_NameDefect, NameDefect FROM listdefects WHERE active = 1", connection.mySqlConnection);
+            MySqlDataReader mySqlReader = null;
+            try
+            {
+                mySqlReader = mySqlCommand.ExecuteReader();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_ListDefects()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("ExecuteReader");
+                throw (ex);
+            }
+            try
+            {
+                while (mySqlReader.Read())
+                {
+                    listDefects.Add(mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_NameDefect")), mySqlReader.GetString(mySqlReader.GetOrdinal("NameDefect")));
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_ListDefects()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Read BD");
+                throw (ex);
+            }
+            try
+            {
+                mySqlReader.Close();
+                connection.Close();
+                connection = null;
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_ListDefects()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Close BD");
+                throw (ex);
+            }
             return listDefects;
         }
 
         public Dictionary<int, string> GetDb_Device()
         {
-            Connection connection = new Connection();
             var device = new Dictionary<int, string>();
-
-            connection.Open();
-            MySqlCommand mySqlCommand = new MySqlCommand("SELECT Id_Device, NameDevice FROM device WHERE active = 1", connection.mySqlConnection);
-            MySqlDataReader mySqlReader = mySqlCommand.ExecuteReader();
-
-            while (mySqlReader.Read())
+            Connection connection = null;
+            try
             {
-                device.Add(mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_Device")), mySqlReader.GetString(mySqlReader.GetOrdinal("NameDevice")));
+                connection = new Connection();
+                connection.Open();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_Device()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Open BD");
+                throw (ex);
             }
-
-            mySqlReader.Close();
-            connection.Close();
-
+            MySqlCommand mySqlCommand = new MySqlCommand("SELECT Id_Device, NameDevice FROM device WHERE active = 1", connection.mySqlConnection);
+            MySqlDataReader mySqlReader = null;
+            try
+            {
+                mySqlReader = mySqlCommand.ExecuteReader();
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_Device()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("ExecuteReader");
+                throw (ex);
+            }
+            try
+            {
+                while (mySqlReader.Read())
+                {
+                    device.Add(mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_Device")), mySqlReader.GetString(mySqlReader.GetOrdinal("NameDevice")));
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_ListDefects()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Read BD");
+                throw (ex);
+            }
+            try
+            {
+                mySqlReader.Close();
+                connection.Close();
+                connection = null;
+            } catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Parameters.cs");
+                Console.WriteLine("Dictionary GetDb_ListDefects()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Close BD");
+                throw (ex);
+            }
             return device;
         }
 
