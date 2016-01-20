@@ -1,0 +1,229 @@
+﻿<Window x:Class="test2.BDEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:test2"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Icon="images\icon.ico"
+        Title="BDEditorWindow" Height="420" Width="810" Closing="Window_Closing">
+    <Grid>
+        <TabControl Margin="10" Name="TabControl" SelectionChanged="TabControl_SelectionChanged">
+            <TabItem Header="Специалисты" Name="TabItemSpecialists">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="Данные" Margin="10,10,248,10" BorderBrush="#FF303030">
+                        <DataGrid Name="dg_Specs" CanUserResizeRows="False" IsReadOnly="True">
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Уничтожить" Name="Spec_MenuItemDestroy" Click="Spec_MenuItemDestroy_Click" ></MenuItem>
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </GroupBox>
+                    <GroupBox Header="Добавить" Margin="0,10,10,10" BorderBrush="#FF303030" HorizontalAlignment="Right" Width="233">
+                        <Grid HorizontalAlignment="Left" Height="255" Margin="0,10,-12,0" VerticalAlignment="Top" Width="233">
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,3,0,0" Content="ФИО" />
+                            <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,3,0,0" Width="120" TextWrapping="Wrap" Text="" Name="TextBox_FIO" />
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,47,0,0" Content="Уровень MD" />
+                            <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,47,0,0" Width="120" TextWrapping="Wrap" Text="" Name="TextBox_LevelMD" />
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,78,0,0" Content="Уровень USD" />
+                            <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,78,0,0" Width="120" TextWrapping="Wrap" Text="" Name="TextBox_LevelUSD" />
+                            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,125,0,0" Width="79" Height="35" Name="Button_AddUser" Content="Добавить" Click="Button_AddUser_Click" />
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Смены">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="Данные" Margin="10,10,248,10" BorderBrush="#FF303030">
+                        <DataGrid CanUserResizeRows="False" IsReadOnly="True" Name="dg_Smens">
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Уничтожить" Name="Smens_MenuIteamDestroy" Click="Smens_MenuIteamDestroy_Click" ></MenuItem>
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </GroupBox>
+                    <GroupBox Header="Добавить" Margin="0,10,10,10" BorderBrush="#FF303030" HorizontalAlignment="Right" Width="233">
+                        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,-12,0" Width="233">
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,3,0,0" Content="Название" />
+                            <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,3,0,0" Width="120" TextWrapping="Wrap" Text="" Name="TextBox_NameSmen" />
+                            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,31,0,0" Width="79" Height="35" Content="Добавить" Name="Button_AddNameSmen" Click="Button_AddNameSmen_Click" />
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Типо размеры трубы">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="Данные" Margin="10,10,248,10" BorderBrush="#FF303030">
+                        <DataGrid Name="dg_SizeTube" CanUserResizeRows="False" IsReadOnly="True" >
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Уничтожить" Name="SizeTube_MenuItemDestroy" Click="SizeTube_MenuItemDestroy_Click"></MenuItem>
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </GroupBox>
+                    <GroupBox Header="Добавить" Margin="0,10,10,10" HorizontalAlignment="Right" Width="233" BorderBrush="#FF303030">
+                        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="233"  Margin="0,10,10,10">
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,3,0,0" Content="Диаметр" />
+                            <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,3,0,0" Width="120" TextWrapping="Wrap" Text="" Name="TextBox_SizeTube" />
+                            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,31,0,0" Width="79" Height="35" Content="Добавить" Name="Button_AddSizeTube" Click="Button_AddSizeTube_Click" />
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Контрольные образцы" >
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="Данные" Margin="10,10,248,10" BorderBrush="#FF303030">
+                        <DataGrid Name="dg_Sample" CanUserResizeRows="False" IsReadOnly="True">
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Уничтожить" Name="Sample_MenuItemDestroy" Click="Sample_MenuItemDestroy_Click" />
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </GroupBox>
+                    <GroupBox Header="Добавить" HorizontalAlignment="Right" Margin="0,10,10,10" Width="233" BorderBrush="#FF303030">
+                        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="233" Margin="0,10,10,10">
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,3,0,0" Content="Название" />
+                            <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,3,0,0" Width="120" TextWrapping="Wrap" Text="" Name="Textbox_Sample_Name" />
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,32,0,0" Content="Диаметр" />
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,32,0,0" Width="120" DisplayMemberPath="Value" Name="Combobox_Sample_d" />
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,59,0,0" Content="Мин. диаметр" />
+                            <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,59,0,0" Width="120" TextWrapping="Wrap" Text="" Name="Textbox_Sample_DepthMin" />
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,87,0,0" Content="Макс. диаметр" />
+                            <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,87,0,0" Width="120" TextWrapping="Wrap" Text="" Name="Textbox_Sample_DepthMax"  />
+                            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,118,0,0" Width="79" Height="35" Content="Добавить" Name="Button_AddSample" Click="Button_AddSample_Click" />
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Нормативные документы" >
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="Данные" Margin="10,10,248,10" BorderBrush="#FF303030" >
+                        <DataGrid Name="dg_NormDoc" CanUserResizeRows="False" IsReadOnly="True">
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Уничтожить" Name="NormDoc_MenuItemDestroy" Click="NormDoc_MenuItemDestroy_Click" />
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </GroupBox>
+                    <GroupBox Header="Добавить" HorizontalAlignment="Right" Margin="0,10,10,10" Width="233" >
+                        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="233" Margin="0,10,10,10" >
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,3,0,0" Content="Название" />
+                            <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,3,0,0" Width="120" TextWrapping="Wrap" Text="" Name="Textbox_NormDocName" />
+                            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,31,0,0" Width="79" Height="35" Content="Добавить" Name="Button_AddNormDoc" Click="Button_AddNormDoc_Click" />
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Дефектоскопы">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="Данные" Margin="10,10,248,10" BorderBrush="#FF303030" >
+                        <DataGrid Name="dg_Device" CanUserResizeRows="False" IsReadOnly="True" >
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Уничтожить" Name="Device_MenuItemDestroy" Click="Device_MenuItemDestroy_Click" />
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </GroupBox>
+                    <GroupBox Header="Добавить" HorizontalAlignment="Right" Margin="0,10,10,10" Width="233" BorderBrush="#ff303030" >
+                        <Grid HorizontalAlignment="Left" Margin="0,10,10,10" Width="233" >
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,3,0,0" Content="Название" />
+                            <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,3,0,0" Width="120" Height="23" TextWrapping="Wrap" Text="" Name="Textbox_DeviceName" />
+                            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,31,0,0" Width="79" Height="35" Content="Добавить" Name="Button_AddDevice" Click="Button_AddDevice_Click" />
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Датчики" >
+                <Grid Background="#FFE5E5E5" >
+                    <GroupBox Header="Данные" Margin="10,10,248,10" BorderBrush="#FF303030" >
+                        <DataGrid Name="dg_Sensors" CanUserResizeRows="False" IsReadOnly="True">
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Уничтожить" Name="Sensors_MenuItemDestroy" Click="Sensors_MenuItemDestroy_Click" />
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </GroupBox>
+                    <GroupBox Header="Добавить" HorizontalAlignment="Right" Margin="0,10,10,10" Width="233" BorderBrush="#FF303030" >
+                        <Grid HorizontalAlignment="Left" Margin="0,10,10,10" Width="233" >
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,3,0,0" Content="Название" />
+                            <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,3,0,0"   Width="120" Height="23" TextWrapping="Wrap" Text="" Name="Textbox_Sensors" />
+                            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,31,0,0" Width="79" Height="35" Content="Добавить" Name="Button_AddSensors" Click="Button_AddSensors_Click" />
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Соответствия" >
+                <Grid Background="#FFE5E5E5" >
+                    <GroupBox Header="Данные" Margin="10,10,248,10" BorderBrush="#FF303030" >
+                        <DataGrid Name="dg_Conformity" CanUserAddRows="False" IsReadOnly="True" >
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Уничтожить" Name="Conformity_MenuItemDestroy" Click="Conformity_MenuItemDestroy_Click" />
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </GroupBox>
+                    <GroupBox Header="Добавить" HorizontalAlignment="Right" Margin="0,10,10,10" Width="233" BorderBrush="#FF303030" >
+                        <Grid HorizontalAlignment="Left" Margin="0,10,10,10" Width="233" >
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0" Content="Название" />
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,4,0,0" Width="120" DisplayMemberPath="Value" Name="Combobox_Conformity_Name" />
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,32,0,0" Content="Диаметр" />
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,32,0,0" Width="120" DisplayMemberPath="Value" Name="Combobox_Conformity_d" />
+                            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,63,0,0" Width="79" Height="35" Content="Добавить" Name="Button_Conformity" Click="Button_Conformity_Click" />
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Временные интервалы смен" >
+                <Grid Background="#FFE5E5E5" >
+                    <GroupBox Header="Данные" Margin="10,10,248,10" BorderBrush="#FF303030" >
+                        <DataGrid Name="dg_VremSmens" CanUserAddRows="False" IsReadOnly="True" >
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Уничтожить" Name="VermSmens_MenuItemDestroy" Click="VermSmens_MenuItemDestroy_Click" />
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </GroupBox>
+                    <GroupBox Header="Добавить" HorizontalAlignment="Right" Margin="0,10,10,10" Width="233" BorderBrush="#FF303030" >
+                        <Grid HorizontalAlignment="Left" Margin="0,10,10,10" Width="233" >
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Content="Начало" />
+                            <xctk:DateTimeUpDown Margin="77,0,18,229" Format="ShortTime" FormatString="hh:mm" Name="UpDn_VremSmens_Begin" Value="{Binding LastUpdate}" />
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,31,0,0" Content="Конец" />
+                            <xctk:DateTimeUpDown Margin="77,31,18,198" Format="ShortTime" FormatString="hh:mm" Name="UpDn_VremSmens_End" Value="{Binding LastUpdate}" />
+                            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,69,0,0" Width="79" Height="35" Content="Добавить" Name="Button_AddVremSmens" Click="Button_AddVremSmens_Click" />
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Виды искусственых дефектов" >
+                <Grid Background="#FFE5E5E5" >
+                    <GroupBox Header="Данные" Margin="10,10,248,10" BorderBrush="#FF303030" >
+                        <DataGrid Name="dg_ArtificialDefect" CanUserAddRows="False" IsReadOnly="True" >
+                            <DataGrid.ContextMenu >
+                                <ContextMenu>
+                                    <MenuItem Header="Уничтожить" Name="ArtificialDefect_MenuItemDestroy" Click="ArtificialDefect_MenuItemDestroy_Click" />
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </GroupBox>
+                    <GroupBox HorizontalAlignment="Right" Margin="0,10,10,10" Width="233" BorderBrush="#FF303030" Header="Добавить" >
+                        <Grid HorizontalAlignment="Left" Margin="0,10,10,10" Width="233" >
+                            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,3,0,0" Content="Название" />
+                            <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,3,0,0" Width="120" Height="23" TextWrapping="Wrap" Text="" Name="Textbox_ArtificialDefect" />
+                            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,31,0,0" Width="79" Height="35" Content="Добавить" Name="Button_AddArtificialDefect" Click="Button_AddArtificialDefect_Click" />
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

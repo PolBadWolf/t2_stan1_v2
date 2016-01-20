@@ -1,0 +1,175 @@
+﻿<Window x:Class="test2.ArchiveWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:test2"
+        mc:Ignorable="d"
+        Icon="images\icon.ico"
+        Title="Просмотр данных стана 73-219" MinHeight="530" Height="530" MinWidth="965" Width="965" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="562*" />
+            <ColumnDefinition Width="282*" />
+        </Grid.ColumnDefinitions>
+        <ListBox Margin="12,12,0,0" Height="88" VerticalAlignment="Top" Background="{x:Null}" Name="listBox1" />
+        <Canvas Margin="10,105,0,251" Width="627" HorizontalAlignment="Left" Background="{x:Null}" Grid.ColumnSpan="2" Name="Canvas_Archive" >
+            <!-- стрелочка -->
+            <Polyline Width="550" Height="24" Canvas.Left="37" Canvas.Top="87" Stroke="LightSalmon" StrokeThickness="1" StrokeEndLineCap="Flat" SnapsToDevicePixels="True"
+                      Points="0,10 530,10 530,0 540,10 530,20 530,10" />
+            <!-- сетка -->
+            <Line X1="40" Y1="123" X2="40" Y2="253" Width="628" Height="350" Stroke="Black" StrokeThickness="1" />
+            <Line X1="88" Y1="123" X2="88" Y2="253" Width="628" Height="350" Stroke="Black" StrokeThickness="1" />
+            <Line X1="136" Y1="123" X2="136" Y2="253" Width="628" Height="350" Stroke="Black" StrokeThickness="1" />
+            <Line X1="184" Y1="123" X2="184" Y2="253" Width="628" Height="350" Stroke="Black" StrokeThickness="1" />
+            <Line X1="232" Y1="123" X2="232" Y2="253" Width="628" Height="350" Stroke="Black" StrokeThickness="1" />
+            <Line X1="280" Y1="123" X2="280" Y2="253" Width="628" Height="350" Stroke="Black" StrokeThickness="1" />
+            <Line X1="328" Y1="123" X2="328" Y2="253" Width="628" Height="350" Stroke="Black" StrokeThickness="1" />
+            <Line X1="376" Y1="123" X2="376" Y2="253" Width="628" Height="350" Stroke="Black" StrokeThickness="1" />
+            <Line X1="424" Y1="123" X2="424" Y2="253" Width="628" Height="350" Stroke="Black" StrokeThickness="1" />
+            <Line X1="472" Y1="123" X2="472" Y2="253" Width="628" Height="350" Stroke="Black" StrokeThickness="1" />
+            <Line X1="520" Y1="123" X2="520" Y2="253" Width="628" Height="350" Stroke="Black" StrokeThickness="1" />
+            <Line X1="568" Y1="123" X2="568" Y2="253" Width="628" Height="350" Stroke="Black" StrokeThickness="1" />
+            <Rectangle Canvas.Left="40" Canvas.Top="151" Width="0" Height="70" RadiusX="3" RadiusY="5" Name="Rectangle1" >
+                <Rectangle.Fill>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" >
+                        <GradientStop Offset="0" Color="Gray" />
+                        <GradientStop Offset="1" Color="#FF9E9E9E" />
+                        <GradientStop Offset="0.437" Color="White" />
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Label Canvas.Left="6" Canvas.Top="6" Content="LABEL" Name="Label1" />
+            <Label Canvas.Left="6" Canvas.Top="39" Content="LABEL" Name="Label2" />
+
+            <Label Canvas.Left="146" Canvas.Top="6" Height="28" Content="LABEL" Name="Label3" />
+            <Label Canvas.Left="146" Canvas.Top="39" Height="28" Content="LABEL" Name="Label4" />
+
+            <Label Canvas.Left="374" Canvas.Top="6" Height="28" Content="LABEL" Name="Label5" />
+            <Label Canvas.Left="374" Canvas.Top="39" Height="28" Content="LABEL" Name="Label6" />
+
+            <Label Canvas.Left="6" Canvas.Top="263" Height="28" Content="LABEL" Name="Label7" />
+            <Label Canvas.Left="183" Canvas.Top="263" Height="28" Content="LABEL" Name="Label8" />
+            <Label Canvas.Left="183" Canvas.Top="297" Height="28" Content="LABEL" Name="Label9" />
+            
+            <Label Canvas.Left="32" Canvas.Top="100" Content="0" />
+            <Label Canvas.Left="79" Canvas.Top="100" Content="2" />
+            <Label Canvas.Left="128" Canvas.Top="100" Content="4" />
+            <Label Canvas.Left="176" Canvas.Top="100" Content="6" />
+            <Label Canvas.Left="224" Canvas.Top="100" Content="8" />
+            <Label Canvas.Left="269" Canvas.Top="100" Content="10" />
+            <Label Canvas.Left="317" Canvas.Top="100" Content="12" />
+            <Label Canvas.Left="365" Canvas.Top="100" Content="14" />
+            <Label Canvas.Left="412" Canvas.Top="100" Content="16" />
+            <Label Canvas.Left="460" Canvas.Top="100" Content="18" />
+            <Label Canvas.Left="508" Canvas.Top="100" Content="20" />
+            <Label Canvas.Left="557" Canvas.Top="100" Content="22" />
+            <Label Canvas.Left="37" Canvas.Top="72" Height="28" Content="Метры" />
+        </Canvas>
+        <TreeView Margin="6,52,12,29" Grid.Row="0" Grid.Column="1" Background="#EFEFF2" TreeViewItem.Expanded="trw_Expanded"
+                  VirtualizingPanel.IsVirtualizing="True"
+                  VirtualizingPanel.VirtualizationMode="Recycling"
+                  Name="TreeView_arc" SelectedItemChanged="TreeView_arc_SelectedItemChanged">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}" >
+                    <Style.Triggers>
+                        <Trigger Property="Tag" Value="year" >
+                            <Setter Property="HeaderTemplate" >
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Width="14" Height="14" Stretch="Fill" Source="images/calendar.png" Name="img" />
+                                            <TextBlock Margin="5,0" Text="{Binding}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="Tag" Value="month" >
+                            <Setter Property="HeaderTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Width="14" Height="14" Stretch="Fill" Source="images/calendar.png" Name="img" />
+                                            <TextBlock Margin="5,0" Text="{Binding}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="Tag" Value="day" >
+                            <Setter Property="HeaderTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Width="14" Height="14" Stretch="Fill" Source="images/calendar.png" Name="img" />
+                                            <TextBlock Margin="5,0" Text="{Binding}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="Tag" Value="smena" >
+                            <Setter Property="HeaderTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Width="14" Height="14" Stretch="Fill" Source="images/112group.png" Name="img" />
+                                            <TextBlock Margin="5,0" Text="{Binding}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="Tag" Value="part" >
+                            <Setter Property="HeaderTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Width="14" Height="14" Stretch="Fill" Source="images/Melting.png" Name="img" />
+                                            <TextBlock Margin="5,0" Text="{Binding}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="Tag" Value="tube0" >
+                            <Setter Property="HeaderTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Width="14" Height="14" Stretch="Fill" Source="images/pipeline.png" Name="img" />
+                                            <TextBlock Margin="5,0" Text="{Binding}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="Tag" Value="tube1" >
+                            <Setter Property="HeaderTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Width="14" Height="14" Stretch="Fill" Source="images/pipeline_er.png" Name="img" />
+                                            <TextBlock Margin="5,0" Text="{Binding}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TreeView.ItemContainerStyle>
+        </TreeView>
+        <StatusBar Margin="0,0,0,0" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Height="24" >
+            <TextBlock Margin="3,0,0,0" >Ready</TextBlock>
+            <StatusBarItem HorizontalAlignment="Right" >
+                <ResizeGrip Opacity="0.75" />
+            </StatusBarItem>
+        </StatusBar>
+        <Button Margin="6,12,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Height="35" Grid.Column="1" IsEnabled="False" Content="Отчет" Name="Button_Otchet" Click="Button_Otchet_Click" />
+    </Grid>
+</Window>
