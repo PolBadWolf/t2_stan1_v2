@@ -26,7 +26,10 @@ namespace test2
         public BDSettingsWindow()
         {
             InitializeComponent();
-            
+            textBox1.Text = ps.DataBase;
+            textBox2.Text = ps.DataSource;
+            textBox3.Text = ps.UserId;
+            passwordBox1.Password = ps.Password;
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)

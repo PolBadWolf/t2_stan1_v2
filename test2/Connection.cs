@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 using System.Windows;
 using test2.Properties;
 
@@ -25,12 +26,10 @@ namespace test2
                 connect = "Database=" + ps.DataBase + ";Data Source=" + ps.DataSource + ";User Id=" + ps.UserId + ";Password=" + ps.Password + ";CharSet=utf8";
                 mySqlConnection = new MySqlConnection(connect);
                 mySqlConnection.Open();
-                /*
-                MainWindow.mainWindow.BdStatus.Dispatcher.Invoke(delegate
-                {
-                    MainWindow.mainWindow.BdStatus.Text = "   BD open ok   ";
-                });
-                */
+
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, 
+                    new Action(() => MainWindow.mainWindow.BdStatus.Text = " Status BD : ok   " ));
+                
             }
             catch
             {
@@ -46,12 +45,9 @@ namespace test2
                     bdSettingsWindow = new BDSettingsWindow();
                     bdSettingsWindow.label1.Content = "Ошибка подключения к БД";
                     bdSettingsWindow.ShowDialog();
-                    /*
-                    MainWindow.mainWindow.BdStatus.Dispatcher.Invoke(delegate
-                    {
-                        MainWindow.mainWindow.BdStatus.Text = "   BD open error   ";
-                    });
-                    */
+
+                    Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
+                        new Action(() => MainWindow.mainWindow.BdStatus.Text = " Status BD : fail "));
                 }
             }
         }
