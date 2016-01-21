@@ -61,5 +61,11 @@ namespace test2
             reportWindow = new ReportWindow1((TreeViewItem)TreeView_arc.SelectedItem);
             reportWindow.Show();
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            //MainWindow.mainWindow.myThrArchive.Abort();
+            MainWindow.mainWindow.myThrArchive = null;
+        }
     }
 }

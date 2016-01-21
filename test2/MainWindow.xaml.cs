@@ -245,6 +245,7 @@ namespace test2
                 {
                     bdEditorWindow.Close();
                     bdEditorWindow = null;
+                    myThrArchive = null;
                 }
                 catch
                 {
@@ -555,9 +556,12 @@ namespace test2
         }
         private void showArchiveWindow()
         {
-            archiveWindow = new ArchiveWindow();
-            archiveWindow.Show();
-            System.Windows.Threading.Dispatcher.Run();
+            try
+            {
+                archiveWindow = new ArchiveWindow();
+                archiveWindow.Show();
+                System.Windows.Threading.Dispatcher.Run();
+            } catch { }
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)

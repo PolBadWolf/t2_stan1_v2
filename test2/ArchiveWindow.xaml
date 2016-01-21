@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:test2"
         mc:Ignorable="d"
         Icon="images\icon.ico"
-        Title="Просмотр данных стана 73-219" MinHeight="530" Height="530" MinWidth="965" Width="965" WindowStartupLocation="CenterOwner">
+        Title="Просмотр данных стана 73-219" MinHeight="530" Height="530" MinWidth="965" Width="965" WindowStartupLocation="CenterOwner" Closed="Window_Closed">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
