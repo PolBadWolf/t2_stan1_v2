@@ -14,6 +14,7 @@ namespace test2
     class Writer
     {
         public static readonly int maxLenTube = 13000 * 6 / 1000; // 15000 - 15 metrov
+        public static readonly int minLenTube =  4000 * 6 / 1000; // 15000 - 15 metrov
         private static readonly Settings ps = Settings.Default;
         private readonly Byte[] buffForRead = new Byte[11];
         private List<byte> bufferRecive = new List<byte>(maxLenTube);
@@ -131,6 +132,10 @@ namespace test2
             // авто рез
             if (bufferRecive.Count >= maxLenTube)
             {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Write.cs");
+                Console.WriteLine("Recived_SegmentTube()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Error very big tube : ");
                 Recived_NewTube();
             }
         }

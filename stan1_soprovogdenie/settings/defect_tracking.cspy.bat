@@ -22,12 +22,12 @@
 @REM but they are listed at the end of this file for reference.
 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 5.3\common\bin\cspybat" "C:\Program Files (x86)\IAR Systems\Embedded Workbench 5.3\avr\bin\avrproc.dll" "C:\Program Files (x86)\IAR Systems\Embedded Workbench 5.3\avr\bin\avrsim.dll"  %1 --plugin "C:\Program Files (x86)\IAR Systems\Embedded Workbench 5.3\avr\bin\<libsupport_plugin>" --backend -B "--cpu=m128" "--enhanced_core" "-p" "C:\Program Files (x86)\IAR Systems\Embedded Workbench 5.3\avr\Config\iom128.ddf" "--eeprom_size" "4096" "-d" "sim" 
+"C:\Program Files\IAR Systems\Embedded Workbench 5.3\common\bin\cspybat" "C:\Program Files\IAR Systems\Embedded Workbench 5.3\avr\bin\avrproc.dll" "C:\Program Files\IAR Systems\Embedded Workbench 5.3\avr\bin\avrsim.dll"  %1 --plugin "C:\Program Files\IAR Systems\Embedded Workbench 5.3\avr\bin\<libsupport_plugin>" --backend -B "--cpu=m128" "--enhanced_core" "-p" "C:\Program Files\IAR Systems\Embedded Workbench 5.3\avr\Config\iom128.ddf" "--eeprom_size" "4096" "-d" "sim" 
 
 
 @REM Loaded plugins:
-@REM    C:\Program Files (x86)\IAR Systems\Embedded Workbench 5.3\avr\bin\avrlibsupport.dll
-@REM    C:\Program Files (x86)\IAR Systems\Embedded Workbench 5.3\common\plugins\CodeCoverage\CodeCoverage.dll
-@REM    C:\Program Files (x86)\IAR Systems\Embedded Workbench 5.3\common\plugins\Profiling\Profiling.dll
-@REM    C:\Program Files (x86)\IAR Systems\Embedded Workbench 5.3\common\plugins\stack\stack.dll
-@REM    C:\Program Files (x86)\IAR Systems\Embedded Workbench 5.3\common\plugins\SymList\SymList.dll
+@REM    C:\Program Files\IAR Systems\Embedded Workbench 5.3\avr\bin\avrlibsupport.dll
+@REM    C:\Program Files\IAR Systems\Embedded Workbench 5.3\common\plugins\CodeCoverage\CodeCoverage.dll
+@REM    C:\Program Files\IAR Systems\Embedded Workbench 5.3\common\plugins\Profiling\Profiling.dll
+@REM    C:\Program Files\IAR Systems\Embedded Workbench 5.3\common\plugins\stack\stack.dll
+@REM    C:\Program Files\IAR Systems\Embedded Workbench 5.3\common\plugins\SymList\SymList.dll

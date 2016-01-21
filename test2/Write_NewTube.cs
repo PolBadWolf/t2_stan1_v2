@@ -17,6 +17,13 @@ namespace test2
 
         public void DoIt(byte[] buffForRead, List<byte> bufferRecive)
         {
+            if (bufferRecive.Count < Writer.minLenTube)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("Write_NewTube.cs");
+                Console.WriteLine("DoIt()  :  " + DateTime.Now.ToString());
+                Console.WriteLine("Very small tube : "+((double)bufferRecive.Count/6.0).ToString()+"метров");
+            }
             try
             {
                 Connection connection = new Connection();
