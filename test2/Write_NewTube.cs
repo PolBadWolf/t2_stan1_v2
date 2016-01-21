@@ -30,7 +30,7 @@ namespace test2
                 }
                 {
                     MySqlCommand myCommand = defectsdata_sql(connection.mySqlConnection);
-                    defectsdata_param(myCommand, buffForRead, bufferRecive);
+                    defectsdata_param(myCommand, bufferRecive);
                     try { myCommand.ExecuteNonQuery(); }
                     catch
                     {
@@ -80,7 +80,7 @@ values(@A, @B, @C, @D, @E, @F, @G, @H, @I)";
             myCommand.Connection = conn;
             return myCommand;
         }
-        private void defectsdata_param(MySqlCommand myCommand, byte[] buffForRead, List<byte> bufferRecive)
+        private void defectsdata_param(MySqlCommand myCommand, List<byte> bufferRecive)
         {
             int hasDeffect = 0;
             myCommand.Parameters.Clear();
@@ -93,7 +93,7 @@ values(@A, @B, @C, @D, @E, @F, @G, @H, @I)";
             // номер трубы
             myCommand.Parameters.AddWithValue("B", LastNumberTube(MainWindow.mainWindow.Parameters["part"]) + 1);
             // размер трубы
-            myCommand.Parameters.AddWithValue("C", buffForRead[5]);
+            myCommand.Parameters.AddWithValue("C", bufferRecive.Count);
             // дефекты
             Byte[] deffectsArray = new Byte[bufferRecive.Count];
             try

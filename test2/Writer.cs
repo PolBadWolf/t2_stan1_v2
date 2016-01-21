@@ -13,7 +13,7 @@ namespace test2
 {
     class Writer
     {
-        public static readonly int maxLenTube = 15000 * 6 / 1000; // 15000 - 15 metrov
+        public static readonly int maxLenTube = 13000 * 6 / 1000; // 15000 - 15 metrov
         private static readonly Settings ps = Settings.Default;
         private readonly Byte[] buffForRead = new Byte[11];
         private List<byte> bufferRecive = new List<byte>(maxLenTube);
@@ -109,10 +109,10 @@ namespace test2
                     mainWindow.button_CONTROL_Click(null, null);
                 }
             }));
-            mainWindow.Move_Tube();
-            // запись дефектов
             if (bufferRecive.Count < maxLenTube)
             {
+                mainWindow.Move_Tube();
+                // запись дефектов
                 try { bufferRecive.Add(buffForRead[6]); }
                 catch (Exception ex)
                 {
@@ -127,6 +127,11 @@ namespace test2
             if (buffForRead[6]!=0)
             {
                 mainWindow.Error_Segment();
+            }
+            // авто рез
+            if (bufferRecive.Count >= maxLenTube)
+            {
+                Recived_NewTube();
             }
         }
         private void Recived_Sample()
