@@ -25,6 +25,10 @@ namespace test2
                 connect = "Database=" + ps.DataBase + ";Data Source=" + ps.DataSource + ";User Id=" + ps.UserId + ";Password=" + ps.Password + ";CharSet=utf8";
                 mySqlConnection = new MySqlConnection(connect);
                 mySqlConnection.Open();
+                MainWindow.mainWindow.BdStatus.Dispatcher.Invoke(delegate
+                {
+                    MainWindow.mainWindow.BdStatus.Text = "   BD open ok   ";
+                });
             }
             catch
             {
@@ -40,6 +44,10 @@ namespace test2
                     bdSettingsWindow = new BDSettingsWindow();
                     bdSettingsWindow.label1.Content = "Ошибка подключения к БД";
                     bdSettingsWindow.ShowDialog();
+                    MainWindow.mainWindow.BdStatus.Dispatcher.Invoke(delegate
+                    {
+                        MainWindow.mainWindow.BdStatus.Text = "   BD open error   ";
+                    });
                 }
             }
         }
