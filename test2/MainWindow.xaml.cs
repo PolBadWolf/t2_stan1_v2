@@ -314,40 +314,46 @@ namespace test2
         {
             Dispatcher.Invoke(new ThreadStart(delegate
             {
-                var redBrush = new SolidColorBrush { Color = Colors.Red };
-                var errorLine = new Line();
+                try
+                {
+                    var redBrush = new SolidColorBrush { Color = Colors.Red };
+                    var errorLine = new Line();
 
-                Canvas.SetLeft(errorLine, Tube.Width + Canvas.GetLeft(Tube) - 4);
-                errorLine.X1 = 0;
-                errorLine.X2 = 0;
-                errorLine.Y1 = 151;
-                errorLine.Y2 = errorLine.Y1 + 70;
-                errorLine.StrokeThickness = 4;
-                errorLine.Stroke = redBrush;
-                errorLine.Fill = redBrush;
-                Canvas.RegisterName("errorLine" + _count, errorLine);
-                _count++;
-                Canvas.Children.Add(errorLine);
+                    Canvas.SetLeft(errorLine, Tube.Width + Canvas.GetLeft(Tube) - 4);
+                    errorLine.X1 = 0;
+                    errorLine.X2 = 0;
+                    errorLine.Y1 = 151;
+                    errorLine.Y2 = errorLine.Y1 + 70;
+                    errorLine.StrokeThickness = 4;
+                    errorLine.Stroke = redBrush;
+                    errorLine.Fill = redBrush;
+                    Canvas.RegisterName("errorLine" + _count, errorLine);
+                    _count++;
+                    Canvas.Children.Add(errorLine);
+                } catch { }
             }));
         }
         public void Error_Sample_Segment(int segment)
         {
             Dispatcher.Invoke(new ThreadStart(delegate
             {
-                var redBrush = new SolidColorBrush { Color = Colors.Red };
-                var errorLine = new Line();
+                try
+                {
+                    var redBrush = new SolidColorBrush { Color = Colors.Red };
+                    var errorLine = new Line();
 
-                Canvas.SetLeft(errorLine, (Canvas.GetLeft(Tube) + (segment * 4)));
-                errorLine.X1 = 0;
-                errorLine.X2 = 0;
-                errorLine.Y1 = 151;
-                errorLine.Y2 = errorLine.Y1 + 70;
-                errorLine.StrokeThickness = 4;
-                errorLine.Stroke = redBrush;
-                errorLine.Fill = redBrush;
-                string regStr = "errorLine" + _count.ToString();
-                Canvas1.RegisterName(regStr, errorLine);
-                indxSample.Add(Canvas1.Children.Add(errorLine));
+                    Canvas.SetLeft(errorLine, (Canvas.GetLeft(Tube) + (segment * 4)));
+                    errorLine.X1 = 0;
+                    errorLine.X2 = 0;
+                    errorLine.Y1 = 151;
+                    errorLine.Y2 = errorLine.Y1 + 70;
+                    errorLine.StrokeThickness = 4;
+                    errorLine.Stroke = redBrush;
+                    errorLine.Fill = redBrush;
+                    string regStr = "errorLine" + _count.ToString();
+                    Canvas1.RegisterName(regStr, errorLine);
+                    indxSample.Add(Canvas1.Children.Add(errorLine));
+                } catch { }
                 _count++;
             }));
         }
