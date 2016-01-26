@@ -407,10 +407,14 @@ LIMIT 1
                                 archiveWindow.listBox1.Items.Add("ВРЕМЯ: \t\t\t" + item.Uid);
                                 try { archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + _countYears[item.Uid]); } catch
                                 {
-                                    archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
+                                    archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t0");
                                     _countYears.Add(item.Uid, "0");
                                 }
-                                archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsYears[item.Uid]);
+                                try { archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsYears[item.Uid]); } catch
+                                {
+                                    archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
+                                    _countDefectsYears.Add(item.Uid, "0");
+                                }
                                 double cd = Convert.ToInt32(_countDefectsYears[item.Uid]);
                                 double c = Convert.ToInt32(_countYears[item.Uid]);
                                 var result = Math.Round(((cd / c) * 100), 2);
@@ -430,7 +434,11 @@ LIMIT 1
                             {
                                 archiveWindow.listBox1.Items.Clear();
                                 archiveWindow.listBox1.Items.Add("ВРЕМЯ: \t\t\t" + item.Uid);
-                                archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + _countMonths[item.Uid]);
+                                try { archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + _countMonths[item.Uid]); } catch
+                                {
+                                    archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t0");
+                                    _countMonths.Add(item.Uid, "0");
+                                }
                                 try { archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsMonths[item.Uid]); } catch
                                 {
                                     archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
