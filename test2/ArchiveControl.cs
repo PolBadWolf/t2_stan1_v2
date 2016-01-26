@@ -152,8 +152,9 @@ INNER JOIN defectsdata ON defectsdata.IndexData = indexes.IndexData
 INNER JOIN worksmens ON worksmens.Id_WorkSmen = indexes.Id_WorkSmen
 WHERE
 defectsdata.DatePr = @A
-ORDER BY worksmens.NameSmen
 ";
+//ORDER BY worksmens.NameSmen
+//";
                     myCommand.Connection = connection.mySqlConnection;
                     myCommand.Parameters.Clear();
                     myCommand.Parameters.AddWithValue("A", item.Uid);
@@ -300,7 +301,7 @@ INNER JOIN worksmens ON worksmens.Id_WorkSmen = indexes.Id_WorkSmen
 INNER JOIN operators o1 ON o1.Id_Operator = indexes.Id_Operator1
 INNER JOIN operators o2 ON o2.Id_Operator = indexes.Id_Operator2
 WHERE
-defectsdata.IndexData = @A
+indexes.IndexData = @A
 LIMIT 1
 ";
                     myCommand.Parameters.Clear();
@@ -404,7 +405,11 @@ LIMIT 1
                             {
                                 archiveWindow.listBox1.Items.Clear();
                                 archiveWindow.listBox1.Items.Add("ВРЕМЯ: \t\t\t" + item.Uid);
-                                archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + _countYears[item.Uid]);
+                                try { archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + _countYears[item.Uid]); } catch
+                                {
+                                    archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
+                                    _countYears.Add(item.Uid, "0");
+                                }
                                 archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsYears[item.Uid]);
                                 double cd = Convert.ToInt32(_countDefectsYears[item.Uid]);
                                 double c = Convert.ToInt32(_countYears[item.Uid]);
@@ -426,7 +431,11 @@ LIMIT 1
                                 archiveWindow.listBox1.Items.Clear();
                                 archiveWindow.listBox1.Items.Add("ВРЕМЯ: \t\t\t" + item.Uid);
                                 archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + _countMonths[item.Uid]);
-                                archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsMonths[item.Uid]);
+                                try { archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsMonths[item.Uid]); } catch
+                                {
+                                    archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
+                                    _countDefectsMonths.Add(item.Uid, "0");
+                                }
                                 double cd = Convert.ToInt32(_countDefectsMonths[item.Uid]);
                                 double c = Convert.ToInt32(_countMonths[item.Uid]);
                                 var result = Math.Round(((cd / c) * 100), 2);
@@ -448,11 +457,7 @@ LIMIT 1
                                 archiveWindow.listBox1.Items.Add("ВРЕМЯ: \t\t\t" + item.Uid);
                                 archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + _countDays[item.Uid]);
                                 //                                archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDays[item.Uid]);
-                                try
-                                {
-                                    archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsDays[item.Uid]);
-                                }
-                                catch
+                                try { archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsDays[item.Uid]); } catch
                                 {
                                     archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
                                     _countDefectsDays.Add(item.Uid, "0");
@@ -477,7 +482,11 @@ LIMIT 1
                                 archiveWindow.listBox1.Items.Clear();
                                 archiveWindow.listBox1.Items.Add("ВРЕМЯ: \t\t\t" + item.Uid.Split('+')[1]);
                                 archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + _countSmens[item.Uid.Split('+')[0]]);
-                                archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsSmens[item.Uid.Split('+')[0]]);
+                                try { archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsSmens[item.Uid.Split('+')[0]]); } catch
+                                {
+                                    archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
+                                    _countDefectsSmens.Add(item.Uid, "0");
+                                }
                                 double cd = Convert.ToInt32(_countDefectsSmens[item.Uid.Split('+')[0]]);
                                 double c = Convert.ToInt32(_countSmens[item.Uid.Split('+')[0]]);
                                 var result = Math.Round(((cd / c) * 100), 2);
@@ -498,7 +507,11 @@ LIMIT 1
                                 archiveWindow.listBox1.Items.Clear();
                                 archiveWindow.listBox1.Items.Add("ПЛАВКА: \t\t" + item.Uid.Split('|')[0]);
                                 archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + _countParts[item.Uid.Split('|')[0]]);
-                                archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsParts[item.Uid.Split('|')[0]]);
+                                try { archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsParts[item.Uid.Split('|')[0]]); } catch
+                                {
+                                    archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
+                                    _countDefectsParts.Add(item.Uid, "0");
+                                }
                                 double cd = Convert.ToInt32(_countDefectsParts[item.Uid.Split('|')[0]]);
                                 double c = Convert.ToInt32(_countParts[item.Uid.Split('|')[0]]);
                                 var result = Math.Round(((cd / c) * 100), 2);

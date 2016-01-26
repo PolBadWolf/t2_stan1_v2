@@ -39,8 +39,9 @@ namespace test2
             {
                 while (mySqlDataReader.Read())
                 {
-                    workSmens.Add(mySqlDataReader.GetInt32(mySqlDataReader.GetOrdinal("Id_WorkSmen")),
-                                  mySqlDataReader.GetString(mySqlDataReader.GetOrdinal("NameSmen")));
+                    workSmens.Add(
+                        mySqlDataReader.GetInt32(0),
+                        mySqlDataReader.GetString(1));
                 }
             } catch (Exception ex)
             {
@@ -95,7 +96,9 @@ namespace test2
             {
                 while (mySqlDataReader.Read())
                 {
-                    intervalSmens.Add(mySqlDataReader.GetInt32(mySqlDataReader.GetOrdinal("Id_TimeIntervalSmen")), mySqlDataReader.GetString(mySqlDataReader.GetOrdinal("TimeIntervalSmen")));
+                    intervalSmens.Add(
+                        mySqlDataReader.GetInt32(0),
+                        mySqlDataReader.GetString(1));
                 }
             } catch (Exception ex)
             {
@@ -156,7 +159,9 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    surNames.Add(mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_Operator")), mySqlReader.GetString(mySqlReader.GetOrdinal("Surname")));
+                    surNames.Add(
+                        mySqlReader.GetInt32(0),
+                        mySqlReader.GetString(1));
                 }
             } catch (Exception ex)
             {
@@ -217,7 +222,9 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    gost.Add(mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_Gost")), mySqlReader.GetString(mySqlReader.GetOrdinal("NameGost")));
+                    gost.Add(
+                        mySqlReader.GetInt32(0),
+                        mySqlReader.GetString(1));
                 }
             } catch (Exception ex)
             {
@@ -277,7 +284,9 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    sizeTube.Add(mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_SizeTube")), mySqlReader.GetString(mySqlReader.GetOrdinal("SizeTube")));
+                    sizeTube.Add(
+                        mySqlReader.GetInt32(0),
+                        mySqlReader.GetString(1));
                 }
             } catch (Exception ex)
             {
@@ -337,7 +346,9 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    controlSample.Add(mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_ControlSample")), mySqlReader.GetString(mySqlReader.GetOrdinal("NameControlSample")));
+                    controlSample.Add(
+                        mySqlReader.GetInt32(0),
+                        mySqlReader.GetString(1));
                 }
             } catch (Exception ex)
             {
@@ -396,7 +407,9 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    listDefects.Add(mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_NameDefect")), mySqlReader.GetString(mySqlReader.GetOrdinal("NameDefect")));
+                    listDefects.Add(
+                        mySqlReader.GetInt32(0),
+                        mySqlReader.GetString(1));
                 }
             } catch (Exception ex)
             {
@@ -455,7 +468,9 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    device.Add(mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_Device")), mySqlReader.GetString(mySqlReader.GetOrdinal("NameDevice")));
+                    device.Add(
+                        mySqlReader.GetInt32(0),
+                        mySqlReader.GetString(1));
                 }
             } catch (Exception ex)
             {
@@ -529,7 +544,9 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    sizeTubes.Add(mySqlReader.GetInt32(mySqlReader.GetOrdinal("sizetubes.Id_SizeTube")), mySqlReader.GetString(mySqlReader.GetOrdinal("sizetubes.SizeTube")));
+                    sizeTubes.Add(
+                        mySqlReader.GetInt32(0),
+                        mySqlReader.GetString(1));
                 }
             } catch (Exception ex)
             {
@@ -605,7 +622,9 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    controlSamples.Add(mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_ControlSample")), mySqlReader.GetString(mySqlReader.GetOrdinal("NameControlSample")));
+                    controlSamples.Add(
+                        mySqlReader.GetInt32(0),
+                        mySqlReader.GetString(1));
                 }
             } catch (Exception ex)
             {
@@ -671,7 +690,7 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_WorkSmen"));
+                    last = mySqlReader.GetInt32(0);
                 }
             } catch (Exception ex)
             {
@@ -737,7 +756,7 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_TimeIntervalSmen"));
+                    last = mySqlReader.GetInt32(0);
                 }
             } catch (Exception ex)
             {
@@ -803,7 +822,7 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_Operator1"));
+                    last = mySqlReader.GetInt32(0);
                 }
             } catch (Exception ex)
             {
@@ -869,7 +888,7 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_Operator2"));
+                    last = mySqlReader.GetInt32(0);
                 }
             } catch (Exception ex)
             {
@@ -935,7 +954,7 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_Gost"));
+                    last = mySqlReader.GetInt32(0);
                 }
             } catch (Exception ex)
             {
@@ -1001,7 +1020,7 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_SizeTube"));
+                    last = mySqlReader.GetInt32(0);
                 }
             } catch (Exception ex)
             {
@@ -1067,7 +1086,7 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_ControlSample"));
+                    last = mySqlReader.GetInt32(0);
                 }
             }
             catch (Exception ex)
@@ -1133,7 +1152,7 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_NameDefect"));
+                    last = mySqlReader.GetInt32(0);
                 }
             } catch (Exception ex)
             {
@@ -1199,7 +1218,7 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("Id_Device"));
+                    last = mySqlReader.GetInt32(0);
                 }
             } catch (Exception ex)
             {
@@ -1265,7 +1284,7 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("NumberPart"));
+                    last = mySqlReader.GetInt32(0);
                 }
             } catch (Exception ex)
             {
@@ -1331,7 +1350,7 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    last = mySqlReader.GetDouble(mySqlReader.GetOrdinal("Id_Sensor"));
+                    last = mySqlReader.GetDouble(0);
                 }
             } catch (Exception ex)
             {
@@ -1397,7 +1416,7 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("Porog"));
+                    last = mySqlReader.GetInt32(0);
                 }
             } catch (Exception ex)
             {
@@ -1463,7 +1482,7 @@ namespace test2
             {
                 while (mySqlReader.Read())
                 {
-                    last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("Current"));
+                    last = mySqlReader.GetInt32(0);
                 }
             } catch (Exception ex)
             {
@@ -1531,7 +1550,7 @@ namespace test2
                 {
                     while (mySqlReader.Read())
                     {
-                        last = mySqlReader.GetInt32(mySqlReader.GetOrdinal("NumberTube"));
+                        last = mySqlReader.GetInt32(0);
                     }
                 } catch (Exception ex)
                 {
