@@ -19,7 +19,7 @@ namespace test2
     /// </summary>
     public partial class ArchiveWindow : Window
     {
-        private ArchiveControl ac = new ArchiveControl();
+        private ArchiveControl ac = MainWindow.mainWindow.ac;
         public ReportWindow1 reportWindow = null;
 
         public ArchiveWindow()

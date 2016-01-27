@@ -563,47 +563,18 @@ LIMIT 1
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            var worker = sender as BackgroundWorker;
+            //var worker = sender as BackgroundWorker;
             CollectClass collectClass = new CollectClass();
 
-            _countYears = new Dictionary<string, string>();
-            _countYears.Clear();
             _countYears = collectClass.Cyears();
-
-            _countDefectsYears = new Dictionary<string, string>();
-            _countDefectsYears.Clear();
             _countDefectsYears = collectClass.Cdyears();
-
-            _countMonths = new Dictionary<string, string>();
-            _countMonths.Clear();
             _countMonths = collectClass.Cmonths();
-
-            _countDefectsMonths = new Dictionary<string, string>();
-            _countDefectsMonths.Clear();
             _countDefectsMonths = collectClass.Cdmonths();
-
-            _countDays = new Dictionary<string, string>();
-            _countDays.Clear();
             _countDays = collectClass.Cdays();
-
-            _countDefectsDays = new Dictionary<string, string>();
-            _countDefectsDays.Clear();
             _countDefectsDays = collectClass.Cddays();
-
-            _countSmens = new Dictionary<string, string>();
-            _countSmens.Clear();
             _countSmens = collectClass.Csmens();
-
-            _countDefectsSmens = new Dictionary<string, string>();
-            _countDefectsSmens.Clear();
             _countDefectsSmens = collectClass.Cdsmens();
-
-            _countParts = new Dictionary<string, string>();
-            _countParts.Clear();
             _countParts = collectClass.Cparts();
-
-            _countDefectsParts = new Dictionary<string, string>();
-            _countDefectsParts.Clear();
             _countDefectsParts = collectClass.cdparts();
 
         }
@@ -959,13 +930,16 @@ ORDER BY DatePr
             // за смену труб
             public Dictionary<string, string> Csmens()
             {
-                Connection connection = new Connection();
-                connection.Open();
-
                 var DictSmens = new Dictionary<string, string>();
                 DictSmens.Clear();
 
-                myCommand.CommandText = @"
+                Connection connection = null;
+                try
+                {
+                    connection = new Connection();
+                    connection.Open();
+
+                    myCommand.CommandText = @"
 SELECT
 Count(defectsdata.IndexData),
 CONCAT(DATE_FORMAT(defectsdata.DatePr, '%Y-%m-%d'), '|', indexes.Id_WorkSmen)
@@ -977,31 +951,38 @@ GROUP BY
 defectsdata.DatePr,
 indexes.Id_WorkSmen
 ";
-                try
-                {
-                    myCommand.Connection = connection.mySqlConnection;
-                    dataReader = myCommand.ExecuteReader();
-                }
-                catch
-                {
-                    connection.Open();
-                    myCommand.Connection = connection.mySqlConnection;
-                    dataReader = myCommand.ExecuteReader();
-                }
-
-                while (dataReader.Read())
-                {
                     try
                     {
-                        DictSmens.Add(dataReader.GetString(1), dataReader.GetString(0));
+                        myCommand.Connection = connection.mySqlConnection;
+                        dataReader = myCommand.ExecuteReader();
                     }
                     catch
                     {
-
+                        throw (new Exception("Error execureread count smens"));
                     }
+
+                    try
+                    {
+                        while (dataReader.Read())
+                        {
+                                DictSmens.Add(dataReader.GetString(1), dataReader.GetString(0));
+                        }
+                    } catch
+                    {
+                        throw (new Exception("Error Read"));
+                    }
+
+                    dataReader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("ArchiveControl.cs");
+                    Console.WriteLine("Dictionary<string, string> Csmens()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine("exit error:");
+                    Console.WriteLine(ex.ToString());
                 }
 
-                dataReader.Close();
                 try
                 {
                     connection.Close();

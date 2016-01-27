@@ -45,6 +45,10 @@ namespace test2
         public System.IO.StreamWriter log_sw = null;
         public System.Windows.Threading.DispatcherTimer _LogTimer = new System.Windows.Threading.DispatcherTimer();
 
+        private ArchiveControl ac_m = new ArchiveControl();
+
+        internal ArchiveControl ac { get { return ac_m; } }
+
         public test2.Parameters parAdvn
         {
             get { return parametrs; }
