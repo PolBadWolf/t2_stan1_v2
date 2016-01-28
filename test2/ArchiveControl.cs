@@ -728,13 +728,25 @@ GROUP BY YEAR(DatePr)
             // за месяц труб
             public Dictionary<string,string> Cmonths()
             {
-                Connection connection = new Connection();
-                connection.Open();
-
                 var DictMonths = new Dictionary<string, string>();
                 DictMonths.Clear();
 
-                myCommand.CommandText = @"
+                Connection connection = null;
+                MySqlCommand myCommand = null;
+                MySqlDataReader dataReader = null;
+
+                try
+                {
+                    try
+                    {
+                        connection = new Connection();
+                        connection.Open();
+                    } catch
+                    { throw (new Exception("Open Error")); }
+
+                    try
+                    {
+                        myCommand = new MySqlCommand(@"
 SELECT
 Count(IndexData),
 DATE_FORMAT(DatePr, '%Y-%m')
@@ -746,38 +758,40 @@ DATE_FORMAT(DatePr, '%Y-%m')
 ORDER BY
 YEAR(DatePr),
 MONTH(DatePr)
-";
-                try
-                {
-                    myCommand.Connection = connection.mySqlConnection;
-                    dataReader = myCommand.ExecuteReader();
-                }
-                catch
-                {
-                    connection.Open();
-                    myCommand.Connection = connection.mySqlConnection;
-                    dataReader = myCommand.ExecuteReader();
-                }
+", connection.mySqlConnection);
+                    } catch
+                    { throw (new Exception("MySqlCommand Error")); }
 
-                while (dataReader.Read())
-                {
                     try
                     {
-                        DictMonths.Add(dataReader.GetString(1), dataReader.GetString(0));
-                    }
-                    catch
+                        dataReader = myCommand.ExecuteReader();
+                    } catch
+                    { throw (new Exception("ExecuteRead Error")); }
+
+                    try
                     {
+                        while (dataReader.Read())
+                        {
+                            DictMonths.Add(dataReader.GetString(1), dataReader.GetString(0));
+                        }
+                    } catch
+                    { throw (new Exception("Read Error")); }
 
-                    }
+                    try
+                    {
+                        dataReader.Close();
+                        connection.Close();
+                    } catch
+                    { throw (new Exception("Close Error")); }
                 }
-
-                dataReader.Close();
-                try
+                catch (Exception ex)
                 {
-                    connection.Close();
-                    connection = null;
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("ArchiveControl.cs");
+                    Console.WriteLine("class CollectClass");
+                    Console.WriteLine("Cmonths()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine(ex.ToString());
                 }
-                catch { }
 
                 return DictMonths;
             }
@@ -785,13 +799,26 @@ MONTH(DatePr)
             // за месяц дефектных труб
             public Dictionary<string,string> Cdmonths()
             {
-                Connection connection = new Connection();
-                connection.Open();
-
                 var DictDMonths = new Dictionary<string, string>();
                 DictDMonths.Clear();
 
-                myCommand.CommandText = @"
+                Connection connection = null;
+                MySqlCommand myCommand = null;
+                MySqlDataReader dataReader = null;
+
+                try
+                {
+                    try
+                    {
+                        connection = new Connection();
+                        connection.Open();
+                    }
+                    catch
+                    { throw (new Exception("Open Error")); }
+
+                    try
+                    {
+                        myCommand = new MySqlCommand(@"
 SELECT
 Count(IndexData),
 DATE_FORMAT(DatePr, '%Y-%m')
@@ -803,38 +830,45 @@ NumberTube <> 0
 GROUP BY
 DATE_FORMAT(DatePr, '%Y-%m')
 ORDER BY YEAR(DatePr), MONTH(DatePr)
-";
-                try
-                {
-                    myCommand.Connection = connection.mySqlConnection;
-                    dataReader = myCommand.ExecuteReader();
-                }
-                catch
-                {
-                    connection.Open();
-                    myCommand.Connection = connection.mySqlConnection;
-                    dataReader = myCommand.ExecuteReader();
-                }
-
-                while (dataReader.Read())
-                {
-                    try
-                    {
-                        DictDMonths.Add(dataReader.GetString(1), dataReader.GetString(0));
+", connection.mySqlConnection);
                     }
                     catch
+                    { throw (new Exception("MySqlCommand Error")); }
+
+                    try
                     {
-
+                        dataReader = myCommand.ExecuteReader();
                     }
-                }
+                    catch
+                    { throw (new Exception("ExecuteRead Error")); }
 
-                dataReader.Close();
-                try
-                {
-                    connection.Close();
-                    connection = null;
+                    try
+                    {
+                        while (dataReader.Read())
+                        {
+                            DictDMonths.Add(dataReader.GetString(1), dataReader.GetString(0));
+                        }
+                    }
+                    catch
+                    { throw (new Exception("Read Error")); }
+
+                    try
+                    {
+                        dataReader.Close();
+                        connection.Close();
+                    }
+                    catch
+                    { throw (new Exception("Close Error")); }
+
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("ArchiveControl.cs");
+                    Console.WriteLine("class CollectClass");
+                    Console.WriteLine("Cdmonths()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine(ex.ToString());
+                }
 
                 return DictDMonths;
             }
