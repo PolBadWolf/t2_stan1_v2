@@ -593,13 +593,25 @@ LIMIT 1
             // за год всего труб (без образцов)
             public Dictionary<string, string> Cyears()
             {
-                Connection connection = new Connection();
-                connection.Open();
-
                 var DictDYears = new Dictionary<string, string>();
                 DictDYears.Clear();
 
-                myCommand.CommandText = @"
+                Connection connection = null;
+                MySqlCommand myCommand = null;
+                MySqlDataReader dataReader = null;
+
+                try
+                {
+                    try
+                    {
+                        connection = new Connection();
+                        connection.Open();
+                    } catch
+                    { throw (new Exception("Open Error")); }
+
+                    try
+                    {
+                        myCommand = new MySqlCommand(@"
 SELECT
 Count(IndexData),
 YEAR(DatePr)
@@ -607,51 +619,65 @@ FROM defectsdata
 WHERE
 NumberTube <> 0
 GROUP BY YEAR(DatePr)
-";
-                try
-                {
-                    myCommand.Connection = connection.mySqlConnection;
-                    dataReader = myCommand.ExecuteReader();
-                }
-                catch
-                {
+", connection.mySqlConnection);
+                    } catch
+                    { throw (new Exception("MySqlCommand Error")); }
 
-                    connection.Open();
-                    myCommand.Connection = connection.mySqlConnection;
-                    dataReader = myCommand.ExecuteReader();
-                }
-
-                while (dataReader.Read())
-                {
                     try
                     {
-                        DictDYears.Add(dataReader.GetString(1), dataReader.GetString(0));
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                    }
-                }
-                dataReader.Close();
-                try
-                {
-                    connection.Close();
-                    connection = null;
-                }
-                catch { }
+                        dataReader = myCommand.ExecuteReader();
+                    } catch
+                    { throw (new Exception("ExecuteRead Error")); }
 
+                    try
+                    {
+                        while (dataReader.Read())
+                        {
+                            DictDYears.Add(dataReader.GetString(1), dataReader.GetString(0));
+                        }
+                    } catch
+                    { throw (new Exception("Read Error")); }
+
+                    try
+                    {
+                        dataReader.Close();
+                        connection.Close();
+                    } catch
+                    { throw (new Exception("Close Error")); }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("ArchiveControl.cs");
+                    Console.WriteLine("class CollectClass");
+                    Console.WriteLine("Cyears()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine(ex.ToString());
+                }
                 return DictDYears;
             }
             // за год дефектных (без образцов)
-            public Dictionary<string,string> Cdyears()
+            public Dictionary<string, string> Cdyears()
             {
-                Connection connection = new Connection();
-                connection.Open();
-
                 var DictDYears = new Dictionary<string, string>();
                 DictDYears.Clear();
 
-                myCommand.CommandText = @"
+                Connection connection = null;
+                MySqlCommand myCommand = null;
+                MySqlDataReader dataReader = null;
+
+                try
+                {
+                    try
+                    {
+                        connection = new Connection();
+                        connection.Open();
+                    } catch
+                    { throw (new Exception("Open Error")); }
+
+                    try
+                    {
+                        myCommand = new MySqlCommand(@"
 SELECT
 Count(IndexData),
 YEAR(DatePr)
@@ -661,38 +687,40 @@ FlDefectTube = 1
 AND
 NumberTube <> 0
 GROUP BY YEAR(DatePr)
-";
-                try
-                {
-                    myCommand.Connection = connection.mySqlConnection;
-                    dataReader = myCommand.ExecuteReader();
-                }
-                catch
-                {
-                    connection.Open();
-                    myCommand.Connection = connection.mySqlConnection;
-                    dataReader = myCommand.ExecuteReader();
-                }
+", connection.mySqlConnection);
+                    } catch
+                    { throw (new Exception("MySqlCommand Error")); }
 
-                while (dataReader.Read())
-                {
                     try
                     {
-                        DictDYears.Add(dataReader.GetString(1), dataReader.GetString(0));
+                        dataReader = myCommand.ExecuteReader();
                     }
-                    catch 
+                    catch
+                    { throw (new Exception("ExecuteRead Error")); }
+
+                    try
                     {
+                        while (dataReader.Read())
+                        {
+                            DictDYears.Add(dataReader.GetString(1), dataReader.GetString(0));
+                        }
+                    } catch
+                    { throw (new Exception("Read Error")); }
 
-                    }
-                }
-
-                dataReader.Close();
-                try
+                    try
+                    {
+                        dataReader.Close();
+                        connection.Close();
+                    } catch
+                    { throw (new Exception("Close Error")); }
+                } catch (Exception ex)
                 {
-                    connection.Close();
-                    connection = null;
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("ArchiveControl.cs");
+                    Console.WriteLine("class CollectClass");
+                    Console.WriteLine("Cdyears()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine(ex.ToString());
                 }
-                catch { }
 
                 return DictDYears;
             }
