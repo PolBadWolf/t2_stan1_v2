@@ -1173,6 +1173,11 @@ NumberPart
 
 
         }
+        // ======================================================
+        void addNewTube(string year, string mounth, string day, string smen, string party, int flDef)
+        {
 
+        }
+        // ======================================================
     }
 }
