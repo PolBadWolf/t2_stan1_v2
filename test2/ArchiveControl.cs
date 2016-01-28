@@ -493,7 +493,7 @@ LIMIT 1
                                 try { archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsSmens[item.Uid.Split('+')[0]]); } catch
                                 {
                                     archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
-                                    _countDefectsSmens.Add(item.Uid, "0");
+                                    _countDefectsSmens.Add(item.Uid.Split('+')[0], "0");
                                 }
                                 double cd = Convert.ToInt32(_countDefectsSmens[item.Uid.Split('+')[0]]);
                                 double c = Convert.ToInt32(_countSmens[item.Uid.Split('+')[0]]);
@@ -1004,7 +1004,9 @@ ORDER BY DatePr
                     }
                     catch
                     { throw (new Exception("Close Error")); }
-                } catch (Exception ex)
+
+                }
+                catch (Exception ex)
                 {
                     Console.WriteLine("========================================");
                     Console.WriteLine("ArchiveControl.cs");
@@ -1024,12 +1026,21 @@ ORDER BY DatePr
                 DictSmens.Clear();
 
                 Connection connection = null;
+                MySqlCommand myCommand = null;
+                MySqlDataReader dataReader = null;
+
                 try
                 {
-                    connection = new Connection();
-                    connection.Open();
+                    try
+                    {
+                        connection = new Connection();
+                        connection.Open();
+                    } catch
+                    { throw (new Exception("Open Error")); }
 
-                    myCommand.CommandText = @"
+                    try
+                    {
+                        myCommand = new MySqlCommand(@"
 SELECT
 Count(defectsdata.IndexData),
 CONCAT(DATE_FORMAT(defectsdata.DatePr, '%Y-%m-%d'), '|', indexes.Id_WorkSmen)
@@ -1040,46 +1051,41 @@ defectsdata.NumberTube <> 0
 GROUP BY
 defectsdata.DatePr,
 indexes.Id_WorkSmen
-";
+", connection.mySqlConnection);
+                    } catch
+                    { throw (new Exception("MySqlCommand Error")); }
+
                     try
                     {
-                        myCommand.Connection = connection.mySqlConnection;
                         dataReader = myCommand.ExecuteReader();
-                    }
-                    catch
-                    {
-                        throw (new Exception("Error execureread count smens"));
-                    }
+                    } catch
+                    { throw (new Exception("ExecuteRead Error")); }
 
                     try
                     {
                         while (dataReader.Read())
                         {
-                                DictSmens.Add(dataReader.GetString(1), dataReader.GetString(0));
+                            DictSmens.Add(dataReader.GetString(1), dataReader.GetString(0));
                         }
                     } catch
-                    {
-                        throw (new Exception("Error Read"));
-                    }
+                    { throw (new Exception("Read Error")); }
 
-                    dataReader.Close();
+                    try
+                    {
+                        dataReader.Close();
+                        connection.Close();
+                    } catch
+                    { throw (new Exception("Close Error")); }
+
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("========================================");
                     Console.WriteLine("ArchiveControl.cs");
-                    Console.WriteLine("Dictionary<string, string> Csmens()  :  " + DateTime.Now.ToString());
-                    Console.WriteLine("exit error:");
+                    Console.WriteLine("class CollectClass");
+                    Console.WriteLine("Csmens()  :  " + DateTime.Now.ToString());
                     Console.WriteLine(ex.ToString());
                 }
-
-                try
-                {
-                    connection.Close();
-                    connection = null;
-                }
-                catch
-                { }
 
                 return DictSmens;
             }
@@ -1088,13 +1094,25 @@ indexes.Id_WorkSmen
             // за смену дефектных труб
             public Dictionary<string, string> Cdsmens()
             {
-                Connection connection = new Connection();
-                connection.Open();
-
                 var DictDSmens = new Dictionary<string, string>();
                 DictDSmens.Clear();
 
-                myCommand.CommandText = @"
+                Connection connection = null;
+                MySqlCommand myCommand = null;
+                MySqlDataReader dataReader = null;
+
+                try
+                {
+                    try
+                    {
+                        connection = new Connection();
+                        connection.Open();
+                    } catch
+                    { throw (new Exception("Open Error")); }
+
+                    try
+                    {
+                        myCommand = new MySqlCommand(@"
 SELECT
 Count(defectsdata.IndexData),
 CONCAT(DATE_FORMAT(defectsdata.DatePr, '%Y-%m-%d'), '|', indexes.Id_WorkSmen)
@@ -1107,40 +1125,41 @@ defectsdata.NumberTube <> 0
 GROUP BY
 defectsdata.DatePr,
 indexes.Id_WorkSmen
-";
-                try
-                {
-                    myCommand.Connection = connection.mySqlConnection;
-                    dataReader = myCommand.ExecuteReader();
-                }
-                catch
-                {
-                    connection.Open();
-                    myCommand.Connection = connection.mySqlConnection;
-                    dataReader = myCommand.ExecuteReader();
-                }
+", connection.mySqlConnection);
+                    } catch
+                    { throw (new Exception("MySqlCommand Error")); }
 
-                while (dataReader.Read())
-                {
                     try
                     {
-                        DictDSmens.Add(dataReader.GetString(1), dataReader.GetString(0));
-                    }
-                    catch
+                        dataReader = myCommand.ExecuteReader();
+                    } catch
+                    { throw (new Exception("ExecuteRead Error")); }
+
+                    try
                     {
+                        while (dataReader.Read())
+                        {
+                            DictDSmens.Add(dataReader.GetString(1), dataReader.GetString(0));
+                        }
+                    } catch
+                    { throw (new Exception("Read Error")); }
 
-                    }
+                    try
+                    {
+                        dataReader.Close();
+                        connection.Close();
+                    } catch
+                    { throw (new Exception("Close Error")); }
 
                 }
-
-                dataReader.Close();
-                try
+                catch (Exception ex)
                 {
-                    connection.Close();
-                    connection = null;
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("ArchiveControl.cs");
+                    Console.WriteLine("class CollectClass");
+                    Console.WriteLine("Cdsmens()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine(ex.ToString());
                 }
-                catch
-                { }
 
                 return DictDSmens;
             }
@@ -1149,13 +1168,26 @@ indexes.Id_WorkSmen
             // за плавку труб
             public Dictionary<string, string> Cparts()
             {
-                Connection connection = new Connection();
-                connection.Open();
-
                 var DictParts = new Dictionary<string, string>();
                 DictParts.Clear();
 
-                myCommand.CommandText = @"
+                Connection connection = null;
+                MySqlCommand myCommand = null;
+                MySqlDataReader dataReader = null;
+
+                try
+                {
+                    try
+                    {
+                        connection = new Connection();
+                        connection.Open();
+                    }
+                    catch
+                    { throw (new Exception("Open Error")); }
+
+                    try
+                    {
+                        myCommand = new MySqlCommand(@"
 SELECT
 Count(IndexData),
 NumberPart
@@ -1164,55 +1196,72 @@ WHERE
 NumberTube <> 0
 GROUP BY
 NumberPart
-";
-                try
-                {
-                    myCommand.Connection = connection.mySqlConnection;
-                    dataReader = myCommand.ExecuteReader();
-                }
-                catch
-                {
-                    connection.Open();
-                    myCommand.Connection = connection.mySqlConnection;
-                    dataReader = myCommand.ExecuteReader();
-                }
-
-                while (dataReader.Read())
-                {
-                    try
-                    {
-                        DictParts.Add(dataReader.GetString(1), dataReader.GetString(0));
+", connection.mySqlConnection);
                     }
                     catch
+                    { throw (new Exception("MySqlCommand Error")); }
+
+                    try
                     {
-
+                        dataReader = myCommand.ExecuteReader();
                     }
-                }
+                    catch
+                    { throw (new Exception("ExecuteRead Error")); }
 
-                dataReader.Close();
-                try
-                {
-                    connection.Close();
-                    connection = null;
+                    try
+                    {
+                        while (dataReader.Read())
+                        {
+                            DictParts.Add(dataReader.GetString(1), dataReader.GetString(0));
+                        }
+                    }
+                    catch
+                    { throw (new Exception("Read Error")); }
+
+                    try
+                    {
+                        dataReader.Close();
+                        connection.Close();
+                    }
+                    catch
+                    { throw (new Exception("Close Error")); }
+
                 }
-                catch
-                { }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("ArchiveControl.cs");
+                    Console.WriteLine("class CollectClass");
+                    Console.WriteLine("Cparts()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine(ex.ToString());
+                }
 
                 return DictParts;
-
             }
 
             //=========================================
             // дефектных труб за плавку
             public Dictionary<string, string> cdparts()
             {
-                Connection connection = new Connection();
-                connection.Open();
-
                 var DictDParts = new Dictionary<string, string>();
                 DictDParts.Clear();
 
-                myCommand.CommandText = @"
+                Connection connection = null;
+                MySqlCommand myCommand = null;
+                MySqlDataReader dataReader = null;
+
+                try
+                {
+                    try
+                    {
+                        connection = new Connection();
+                        connection.Open();
+                    } catch
+                    { throw (new Exception("Open Error")); }
+
+                    try
+                    {
+                        myCommand = new MySqlCommand(@"
 SELECT
 Count(IndexData),
 NumberPart
@@ -1223,42 +1272,43 @@ AND
 NumberTube <> 0
 GROUP BY
 NumberPart
-";
-                try
-                {
-                    myCommand.Connection = connection.mySqlConnection;
-                    dataReader = myCommand.ExecuteReader();
-                }
-                catch
-                {
-                    connection.Open();
-                    myCommand.Connection = connection.mySqlConnection;
-                    dataReader = myCommand.ExecuteReader();
-                }
+", connection.mySqlConnection);
+                    } catch
+                    { throw (new Exception("MySqlCommand Error")); }
 
-                while (dataReader.Read())
-                {
                     try
                     {
-                        DictDParts.Add(dataReader.GetString(1), dataReader.GetString(0));
-                    }
-                    catch
+                        dataReader = myCommand.ExecuteReader();
+                    } catch
+                    { throw (new Exception("ExecuteRead Error")); }
+
+                    try
                     {
+                        while (dataReader.Read())
+                        {
+                            DictDParts.Add(dataReader.GetString(1), dataReader.GetString(0));
+                        }
+                    } catch
+                    { throw (new Exception("Read Error")); }
 
-                    }
+                    try
+                    {
+                        dataReader.Close();
+                        connection.Close();
+                    } catch
+                    { throw (new Exception("Close Error")); }
+
                 }
-
-                dataReader.Close();
-                try
+                catch (Exception ex)
                 {
-                    connection.Close();
-                    connection = null;
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("ArchiveControl.cs");
+                    Console.WriteLine("class CollectClass");
+                    Console.WriteLine("cdparts()  :  " + DateTime.Now.ToString());
+                    Console.WriteLine(ex.ToString());
                 }
-                catch
-                { }
 
                 return DictDParts;
-
             }
 
 
