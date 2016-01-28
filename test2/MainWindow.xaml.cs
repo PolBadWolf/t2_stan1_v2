@@ -84,26 +84,6 @@ namespace test2
             TabItem4.Visibility = Visibility.Hidden;
             //
             mainWindow = this;
-            /*
-            // open serial port
-            try
-            {
-                //write.PortOpen();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            // parameters
-            try
-            {
-                //fillp
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            */
         }
 
         private void FillParameters()

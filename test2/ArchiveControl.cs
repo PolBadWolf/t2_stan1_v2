@@ -28,8 +28,9 @@ namespace test2
         private Dictionary<string, string> _countYears;
         private Dictionary<string, string> _countParts;
         private Dictionary<string, string> _countSmens;
+        private Int64 _countLastIndex = 0;
 
-        private bool _countsLoaded = true;
+        private bool _countsLoaded = false;
 
         public void Fist_TreeData()
         {
@@ -566,17 +567,67 @@ LIMIT 1
             //var worker = sender as BackgroundWorker;
             CollectClass collectClass = new CollectClass();
 
-            _countYears = collectClass.Cyears();
-            _countDefectsYears = collectClass.Cdyears();
-            _countMonths = collectClass.Cmonths();
-            _countDefectsMonths = collectClass.Cdmonths();
-            _countDays = collectClass.Cdays();
-            _countDefectsDays = collectClass.Cddays();
-            _countSmens = collectClass.Csmens();
-            _countDefectsSmens = collectClass.Cdsmens();
-            _countParts = collectClass.Cparts();
-            _countDefectsParts = collectClass.cdparts();
+            _countsLoaded = false;
+            _countLastIndex = 0;
 
+            Connection connection = null;
+            MySqlCommand myCommand = null;
+            MySqlDataReader dataReader = null;
+
+            try
+            {
+                try
+                {
+                    connection = new Connection();
+                    connection.Open();
+                } catch
+                { throw (new Exception("Open Error")); }
+
+                try
+                {
+                    myCommand = new MySqlCommand(@"
+SELECT Ind
+FROM indexes
+ORDER BY Ind DESC
+LIMIT 1", connection.mySqlConnection);
+                } catch
+                { throw (new Exception("Open Error")); }
+
+                try
+                {
+                    dataReader = myCommand.ExecuteReader();
+                    dataReader.Read();
+                    _countLastIndex = dataReader.GetInt64(0);
+                } catch
+                { throw (new Exception("Read Error")); }
+
+                try
+                {
+                    dataReader.Close();
+                    connection.Close();
+                } catch
+                { throw (new Exception("Close Error")); }
+
+                _countYears = collectClass.Cyears();
+                _countDefectsYears = collectClass.Cdyears();
+                _countMonths = collectClass.Cmonths();
+                _countDefectsMonths = collectClass.Cdmonths();
+                _countDays = collectClass.Cdays();
+                _countDefectsDays = collectClass.Cddays();
+                _countSmens = collectClass.Csmens();
+                _countDefectsSmens = collectClass.Cdsmens();
+                _countParts = collectClass.Cparts();
+                _countDefectsParts = collectClass.cdparts();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("========================================");
+                Console.WriteLine("ArchiveControl.cs");
+                Console.WriteLine("backgroundWorker1_DoWork()  :  " + DateTime.Now.ToString());
+                Console.WriteLine(ex.ToString());
+                MessageBox.Show("Ошибка загрузки статистики");
+            }
         }
         //==================================
         public void count()
