@@ -30,6 +30,8 @@ namespace test2
         private Dictionary<string, string> _countSmens;
         private Int64 _countLastIndex = 0;
 
+        public Int64 lastIndex { get { return _countLastIndex; } }
+
         private bool _countsLoaded = false;
 
         public void Fist_TreeData()
@@ -381,163 +383,151 @@ LIMIT 1
         //======================================================================
         public void info_router(TreeViewItem item)
         {
+            #region statistic tube
+            string it = item.Tag.ToString();
+            if (it == "tube0")
+            {
+                archiveWindow.Button_Otchet.IsEnabled = false;
+                Tube_Control(item);
+                return;
+            }
+            if (it == "tube1")
+            {
+                archiveWindow.Button_Otchet.IsEnabled = false;
+                Tube_Control(item);
+                return;
+            }
+            #endregion
+            if (!_countsLoaded)
+            {
+                MessageBox.Show("Статистика еще загружается, попробуйте позже.");
+                return;
+            }
             try
             {
-                switch (item.Tag.ToString())
+                switch (it)
                 {
-                    case "tube0":
-                        {
-                            archiveWindow.Button_Otchet.IsEnabled = false;
-                            Tube_Control(item);
-                        }
-                        break;
-
-                    case "tube1":
-                        {
-                            archiveWindow.Button_Otchet.IsEnabled = false;
-                            Tube_Control(item);
-                        }
-                        break;
-
+                    #region case "year" :
                     case "year":
                         {
                             archiveWindow.Button_Otchet.IsEnabled = false;
-                            if (_countsLoaded)
+                            archiveWindow.listBox1.Items.Clear();
+                            archiveWindow.listBox1.Items.Add("ВРЕМЯ: \t\t\t" + item.Uid);
+                            try { archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + _countYears[item.Uid]); }
+                            catch
                             {
-                                archiveWindow.listBox1.Items.Clear();
-                                archiveWindow.listBox1.Items.Add("ВРЕМЯ: \t\t\t" + item.Uid);
-                                try { archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + _countYears[item.Uid]); } catch
-                                {
-                                    archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t0");
-                                    _countYears.Add(item.Uid, "0");
-                                }
-                                try { archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsYears[item.Uid]); } catch
-                                {
-                                    archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
-                                    _countDefectsYears.Add(item.Uid, "0");
-                                }
-                                double cd = Convert.ToInt32(_countDefectsYears[item.Uid]);
-                                double c = Convert.ToInt32(_countYears[item.Uid]);
-                                var result = Math.Round(((cd / c) * 100), 2);
-                                archiveWindow.listBox1.Items.Add("ПРОЦЕНТ БРАКА: \t" + result);
+                                archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t0");
+                                _countYears.Add(item.Uid, "0");
                             }
-                            else
+                            try { archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsYears[item.Uid]); }
+                            catch
                             {
-                                MessageBox.Show("Статистика еще загружается, попробуйте позже.");
+                                archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
+                                _countDefectsYears.Add(item.Uid, "0");
                             }
+                            double cd = Convert.ToInt32(_countDefectsYears[item.Uid]);
+                            double c = Convert.ToInt32(_countYears[item.Uid]);
+                            var result = Math.Round(((cd / c) * 100), 2);
+                            archiveWindow.listBox1.Items.Add("ПРОЦЕНТ БРАКА: \t" + result);
                         }
                         break;
-                    
+                    #endregion
+                    #region case "month" :
                     case "month":
                         {
                             archiveWindow.Button_Otchet.IsEnabled = false;
-                            if (_countsLoaded)
+                            archiveWindow.listBox1.Items.Clear();
+                            archiveWindow.listBox1.Items.Add("ВРЕМЯ: \t\t\t" + item.Uid);
+                            try { archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + _countMonths[item.Uid]); }
+                            catch
                             {
-                                archiveWindow.listBox1.Items.Clear();
-                                archiveWindow.listBox1.Items.Add("ВРЕМЯ: \t\t\t" + item.Uid);
-                                try { archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + _countMonths[item.Uid]); } catch
-                                {
-                                    archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t0");
-                                    _countMonths.Add(item.Uid, "0");
-                                }
-                                try { archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsMonths[item.Uid]); } catch
-                                {
-                                    archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
-                                    _countDefectsMonths.Add(item.Uid, "0");
-                                }
-                                double cd = Convert.ToInt32(_countDefectsMonths[item.Uid]);
-                                double c = Convert.ToInt32(_countMonths[item.Uid]);
-                                var result = Math.Round(((cd / c) * 100), 2);
-                                archiveWindow.listBox1.Items.Add("ПРОЦЕНТ БРАКА: \t" + result);
+                                archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t0");
+                                _countMonths.Add(item.Uid, "0");
                             }
-                            else
+                            try { archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsMonths[item.Uid]); }
+                            catch
                             {
-                                MessageBox.Show("Статистика еще загружается, попробуйте позже.");
+                                archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
+                                _countDefectsMonths.Add(item.Uid, "0");
                             }
+                            double cd = Convert.ToInt32(_countDefectsMonths[item.Uid]);
+                            double c = Convert.ToInt32(_countMonths[item.Uid]);
+                            var result = Math.Round(((cd / c) * 100), 2);
+                            archiveWindow.listBox1.Items.Add("ПРОЦЕНТ БРАКА: \t" + result);
                         }
                         break;
-
+                    #endregion
+                    #region case "day" :
                     case "day":
                         {
                             archiveWindow.Button_Otchet.IsEnabled = false;
-                            if (_countsLoaded)
+                            archiveWindow.listBox1.Items.Clear();
+                            archiveWindow.listBox1.Items.Add("ВРЕМЯ: \t\t\t" + item.Uid);
+                            archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + _countDays[item.Uid]);
+                            try { archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsDays[item.Uid]); }
+                            catch
                             {
-                                archiveWindow.listBox1.Items.Clear();
-                                archiveWindow.listBox1.Items.Add("ВРЕМЯ: \t\t\t" + item.Uid);
-                                archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + _countDays[item.Uid]);
-                                //                                archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDays[item.Uid]);
-                                try { archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsDays[item.Uid]); } catch
-                                {
-                                    archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
-                                    _countDefectsDays.Add(item.Uid, "0");
-                                }
-                                double cd = Convert.ToInt32(_countDefectsDays[item.Uid]);
-                                double c = Convert.ToInt32(_countDays[item.Uid]);
-                                var result = Math.Round(((cd / c) * 100), 2);
-                                archiveWindow.listBox1.Items.Add("ПРОЦЕНТ БРАКА: \t" + result);
+                                archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
+                                _countDefectsDays.Add(item.Uid, "0");
                             }
-                            else
-                            {
-                                MessageBox.Show("Статистика еще загружается, попробуйте позже.");
-                            }
+                            double cd = Convert.ToInt32(_countDefectsDays[item.Uid]);
+                            double c = Convert.ToInt32(_countDays[item.Uid]);
+                            var result = Math.Round(((cd / c) * 100), 2);
+                            archiveWindow.listBox1.Items.Add("ПРОЦЕНТ БРАКА: \t" + result);
                         }
                         break;
-
+                    #endregion
+                    #region case "smena":
                     case "smena":
                         {
                             archiveWindow.Button_Otchet.IsEnabled = true;
-                            if (_countsLoaded)
+                            archiveWindow.listBox1.Items.Clear();
+                            archiveWindow.listBox1.Items.Add("ВРЕМЯ: \t\t\t" + item.Uid.Split('+')[1]);
+                            archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + _countSmens[item.Uid.Split('+')[0]]);
+                            try
                             {
-                                archiveWindow.listBox1.Items.Clear();
-                                archiveWindow.listBox1.Items.Add("ВРЕМЯ: \t\t\t" + item.Uid.Split('+')[1]);
-                                archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + _countSmens[item.Uid.Split('+')[0]]);
-                                try { archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsSmens[item.Uid.Split('+')[0]]); } catch
-                                {
-                                    archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
-                                    _countDefectsSmens.Add(item.Uid.Split('+')[0], "0");
-                                }
-                                double cd = Convert.ToInt32(_countDefectsSmens[item.Uid.Split('+')[0]]);
-                                double c = Convert.ToInt32(_countSmens[item.Uid.Split('+')[0]]);
-                                var result = Math.Round(((cd / c) * 100), 2);
-                                archiveWindow.listBox1.Items.Add("ПРОЦЕНТ БРАКА: \t" + result);
+                                string fn = item.Uid.Split('+')[0];
+                                string nd = _countDefectsSmens[fn];
+                                archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + nd);
                             }
-                            else
+                            catch
                             {
-                                MessageBox.Show("Статистика еще загружается, попробуйте позже.");
+                                archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
+                                _countDefectsSmens.Add(item.Uid.Split('+')[0], "0");
                             }
+                            double cd = Convert.ToInt32(_countDefectsSmens[item.Uid.Split('+')[0]]);
+                            double c = Convert.ToInt32(_countSmens[item.Uid.Split('+')[0]]);
+                            var result = Math.Round(((cd / c) * 100), 2);
+                            archiveWindow.listBox1.Items.Add("ПРОЦЕНТ БРАКА: \t" + result);
                         }
                         break;
-
+                    #endregion
+                    #region case "part" :
                     case "part":
                         {
                             archiveWindow.Button_Otchet.IsEnabled = false;
-                            if (_countsLoaded)
+                            archiveWindow.listBox1.Items.Clear();
+                            archiveWindow.listBox1.Items.Add("ПЛАВКА: \t\t" + item.Uid.Split('|')[0]);
+                            archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + _countParts[item.Uid.Split('|')[0]]);
+                            try { archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsParts[item.Uid.Split('|')[0]]); }
+                            catch
                             {
-                                archiveWindow.listBox1.Items.Clear();
-                                archiveWindow.listBox1.Items.Add("ПЛАВКА: \t\t" + item.Uid.Split('|')[0]);
-                                archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + _countParts[item.Uid.Split('|')[0]]);
-                                try { archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsParts[item.Uid.Split('|')[0]]); } catch
-                                {
-                                    archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
-                                    _countDefectsParts.Add(item.Uid, "0");
-                                }
-                                double cd = Convert.ToInt32(_countDefectsParts[item.Uid.Split('|')[0]]);
-                                double c = Convert.ToInt32(_countParts[item.Uid.Split('|')[0]]);
-                                var result = Math.Round(((cd / c) * 100), 2);
-                                archiveWindow.listBox1.Items.Add("ПРОЦЕНТ БРАКА: \t" + result);
+                                archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
+                                _countDefectsParts.Add(item.Uid.Split('|')[0], "0");
                             }
-                            else
-                            {
-                                MessageBox.Show("Статистика еще загружается, попробуйте позже.");
-                            }
+                            double cd = Convert.ToInt32(_countDefectsParts[item.Uid.Split('|')[0]]);
+                            double c = Convert.ToInt32(_countParts[item.Uid.Split('|')[0]]);
+                            var result = Math.Round(((cd / c) * 100), 2);
+                            archiveWindow.listBox1.Items.Add("ПРОЦЕНТ БРАКА: \t" + result);
                         }
                         break;
-
+                    #endregion
                     default:
                         {
                             archiveWindow.Button_Otchet.IsEnabled = false;
                         }
                         break;
+
                 }
             }
             catch
@@ -668,9 +658,13 @@ Count(IndexData),
 YEAR(DatePr)
 FROM defectsdata
 WHERE
+IndexData <= @I
+AND
 NumberTube <> 0
 GROUP BY YEAR(DatePr)
 ", connection.mySqlConnection);
+                        myCommand.Parameters.Clear();
+                        myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
                     } catch
                     { throw (new Exception("MySqlCommand Error")); }
 
