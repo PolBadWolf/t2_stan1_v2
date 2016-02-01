@@ -183,7 +183,7 @@
         Height="24" VerticalAlignment="Bottom" Grid.ColumnSpan="3" >
             <!--            <TextBlock x:Name="ReadyStatus" Margin="3,0,0,0">Ready</TextBlock> -->
             <TextBlock x:Name="ReadyStatus" Margin="3,0,0,0" Text="Ready" />
-            <TextBlock x:Name="BdStatus" HorizontalAlignment="Right" Text="Bad" MouseDown="BdStatus_MouseDown"  />
+            <TextBlock x:Name="BdStatus" HorizontalAlignment="Right" Text=" Status BD : fail " MouseDown="BdStatus_MouseDown"  />
             <TextBlock x:Name="ComStatus" HorizontalAlignment="Right" Text="COM" />
             <StatusBarItem HorizontalAlignment="Right">
                 <ResizeGrip Opacity="0.75" />

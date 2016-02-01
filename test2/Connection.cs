@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Threading;
 using System.Windows;
 using test2.Properties;
+using System.Threading;
 
 namespace test2
 {
@@ -17,7 +18,7 @@ namespace test2
         public MySqlConnection mySqlConnection;
 
         //public BDSettingsWindow bdSettingsWindow { get; set; }
-        public BDSettingsWindow bdSettingsWindow;// { get; set; }
+        public BDSettingsWindow bdSettingsWindow = null;// { get; set; }
 
         public void Open()
         {
@@ -27,28 +28,15 @@ namespace test2
                 mySqlConnection = new MySqlConnection(connect);
                 mySqlConnection.Open();
 
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
+                    new Action(() => MainWindow.mainWindow.ComStatus.Text = " Port=" + ps.Com));
+
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, 
                     new Action(() => MainWindow.mainWindow.BdStatus.Text = " Status BD : ok   " ));
-                
             }
             catch
             {
-                try
-                {
-                    ps.Reset();
-                    connect = "Database=" + ps.DataBase + ";Data Source=" + ps.DataSource + ";User Id=" + ps.UserId + ";Password=" + ps.Password + ";CherSet=utf8";
-                    mySqlConnection = new MySqlConnection(connect);
-                    mySqlConnection.Open();
-                }
-                catch (Exception)
-                {
-                    bdSettingsWindow = new BDSettingsWindow();
-                    bdSettingsWindow.label1.Content = "Ошибка подключения к БД";
-                    bdSettingsWindow.ShowDialog();
-
-                    Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
-                        new Action(() => MainWindow.mainWindow.BdStatus.Text = " Status BD : fail "));
-                }
+                throw (new Exception("Ошибка открытия БД: host=" + ps.DataSource + "   BD=" + ps.DataBase));
             }
         }
 

@@ -55,7 +55,7 @@ namespace test2
         }
 
         private void flushLog(object sender, EventArgs e)
-        {
+       {
             if (log_sw != null)
             {
                 try { log_sw.Flush(); }
@@ -76,8 +76,11 @@ namespace test2
             Console.WriteLine(DateTime.Now.ToString());
             log_sw.Flush();
             write.mainWindow = this;
-            button_NP_Click(null, null);
-            button_NS_Click(null, null);
+            try
+            {
+                button_NP_Click(null, null);
+                button_NS_Click(null, null);
+            } catch { }
             TabItem1.Visibility = Visibility.Hidden;
             TabItem2.Visibility = Visibility.Hidden;
             TabItem3.Visibility = Visibility.Hidden;
@@ -452,6 +455,7 @@ namespace test2
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+                throw (ex);
             }
         }
 
@@ -596,7 +600,14 @@ namespace test2
         private void BdStatus_MouseDown(object sender, MouseButtonEventArgs e)
         {
             BDSettingsWindow win = new BDSettingsWindow();
-            win.Show();
+            var x = win.ShowDialog();
+            try
+            {
+                MainWindow.mainWindow.BdStatus.Text = " Status BD : fail ";
+                button_NP_Click(null, null);
+            }
+            catch { }
+
         }
     }
 }

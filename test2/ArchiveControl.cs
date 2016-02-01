@@ -629,7 +629,7 @@ LIMIT 1", connection.mySqlConnection);
         {
             //private readonly Connection connection = new Connection();
             private readonly MySqlCommand myCommand = new MySqlCommand();
-            private MySqlDataReader dataReader;
+            //private MySqlDataReader dataReader;
 
             // за год всего труб (без образцов)
             public Dictionary<string, string> Cyears()
