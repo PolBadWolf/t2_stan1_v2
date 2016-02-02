@@ -35,18 +35,18 @@ namespace test2
         private bool _countsLoaded = false;
 
         private static object savO = new object();
-        public static void addStat(Dictionary<string, string> obi, string adr, int dt)
+        public static void addStat(Dictionary<string, string> obi, string adr, Int64 dt)
         {
             lock(savO)
             {
-                int x = 0;
+                Int64 x = 0;
                 try
                 {
-                    x = Convert.ToInt32(obi[adr]);
+                    x = Convert.ToInt64(obi[adr]);
                     obi[adr] = (x + dt).ToString();
                 } catch
                 {
-                    obi.Add(adr, x.ToString());
+                    obi.Add(adr, dt.ToString());
                 }
             }
         }
@@ -619,9 +619,9 @@ LIMIT 1
                 try
                 {
                     myCommand = new MySqlCommand(@"
-SELECT Ind
-FROM indexes
-ORDER BY Ind DESC
+SELECT IndexData
+FROM defectsdata
+ORDER BY IndexData DESC
 LIMIT 1", connection.mySqlConnection);
                 } catch
                 { throw (new Exception("Open Error")); }
@@ -642,16 +642,16 @@ LIMIT 1", connection.mySqlConnection);
                 { throw (new Exception("Close Error")); }
                 #endregion
 
-                _countYears = collectClass.Cyears();
-                _countDefectsYears = collectClass.Cdyears();
-                _countMonths = collectClass.Cmonths();
-                _countDefectsMonths = collectClass.Cdmonths();
-                _countDays = collectClass.Cdays();
-                _countDefectsDays = collectClass.Cddays();
-                _countSmens = collectClass.Csmens();
-                _countDefectsSmens = collectClass.Cdsmens();
-                _countParts = collectClass.Cparts();
-                _countDefectsParts = collectClass.cdparts();
+                collectClass.Cyears(_countYears);
+                collectClass.Cdyears(_countDefectsYears);
+                collectClass.Cmonths(_countMonths);
+                collectClass.Cdmonths(_countDefectsMonths);
+                collectClass.Cdays(_countDays);
+                collectClass.Cddays(_countDays);
+                collectClass.Csmens(_countSmens);
+                collectClass.Cdsmens(_countDefectsSmens);
+                collectClass.Cparts(_countParts);
+                collectClass.cdparts(_countDefectsParts);
 
             }
             catch (Exception ex)
@@ -676,11 +676,8 @@ LIMIT 1", connection.mySqlConnection);
             //private MySqlDataReader dataReader;
 
             // за год всего труб (без образцов)
-            public Dictionary<string, string> Cyears()
+            public void Cyears(Dictionary<string, string> DictDYears)
             {
-                var DictDYears = new Dictionary<string, string>();
-                DictDYears.Clear();
-
                 Connection connection = null;
                 MySqlCommand myCommand = null;
                 MySqlDataReader dataReader = null;
@@ -726,7 +723,7 @@ GROUP BY YEAR(DatePr)
                     {
                         while (dataReader.Read())
                         {
-                            DictDYears.Add(dataReader.GetString(1), dataReader.GetString(0));
+                            addStat(DictDYears, dataReader.GetString(1), dataReader.GetInt32(0));
                         }
                     } catch
                     { throw (new Exception("Read Error")); }
@@ -748,14 +745,10 @@ GROUP BY YEAR(DatePr)
                     Console.WriteLine("Cyears()  :  " + DateTime.Now.ToString());
                     Console.WriteLine(ex.ToString());
                 }
-                return DictDYears;
             }
             // за год дефектных (без образцов)
-            public Dictionary<string, string> Cdyears()
+            public void Cdyears(Dictionary<string, string> DictDYears)
             {
-                var DictDYears = new Dictionary<string, string>();
-                DictDYears.Clear();
-
                 Connection connection = null;
                 MySqlCommand myCommand = null;
                 MySqlDataReader dataReader = null;
@@ -815,16 +808,11 @@ GROUP BY YEAR(DatePr)
                     Console.WriteLine("Cdyears()  :  " + DateTime.Now.ToString());
                     Console.WriteLine(ex.ToString());
                 }
-
-                return DictDYears;
             }
             //========================================================
             // за месяц труб
-            public Dictionary<string,string> Cmonths()
+            public void Cmonths(Dictionary<string, string> DictMonths)
             {
-                var DictMonths = new Dictionary<string, string>();
-                DictMonths.Clear();
-
                 Connection connection = null;
                 MySqlCommand myCommand = null;
                 MySqlDataReader dataReader = null;
@@ -886,16 +874,11 @@ MONTH(DatePr)
                     Console.WriteLine("Cmonths()  :  " + DateTime.Now.ToString());
                     Console.WriteLine(ex.ToString());
                 }
-
-                return DictMonths;
             }
 
             // за месяц дефектных труб
-            public Dictionary<string,string> Cdmonths()
+            public void Cdmonths(Dictionary<string, string> DictDMonths)
             {
-                var DictDMonths = new Dictionary<string, string>();
-                DictDMonths.Clear();
-
                 Connection connection = null;
                 MySqlCommand myCommand = null;
                 MySqlDataReader dataReader = null;
@@ -963,17 +946,12 @@ ORDER BY YEAR(DatePr), MONTH(DatePr)
                     Console.WriteLine("Cdmonths()  :  " + DateTime.Now.ToString());
                     Console.WriteLine(ex.ToString());
                 }
-
-                return DictDMonths;
             }
             //=====================================================
             // за сутки труб
 
-            public Dictionary<string, string> Cdays()
+            public void Cdays(Dictionary<string, string> DictDays)
             {
-                var DictDays = new Dictionary<string, string>();
-                DictDays.Clear();
-
                 Connection connection = null;
                 MySqlCommand myCommand = null;
                 MySqlDataReader dataReader = null;
@@ -1035,17 +1013,12 @@ ORDER BY DatePr
                     Console.WriteLine("Cdays()  :  " + DateTime.Now.ToString());
                     Console.WriteLine(ex.ToString());
                 }
-
-                return DictDays;
             }
 
             // ==========
             // за сутки дефектных труб
-            public Dictionary<string, string> Cddays()
+            public void Cddays(Dictionary<string, string> DictDays)
             {
-                var DictDays = new Dictionary<string, string>();
-                DictDays.Clear();
-
                 Connection connection = null;
                 MySqlCommand myCommand = null;
                 MySqlDataReader dataReader = null;
@@ -1108,17 +1081,12 @@ ORDER BY DatePr
                     Console.WriteLine("Cddays()  :  " + DateTime.Now.ToString());
                     Console.WriteLine(ex.ToString());
                 }
-
-                return DictDays;
             }
 
             //====================
             // за смену труб
-            public Dictionary<string, string> Csmens()
+            public void Csmens(Dictionary<string, string> DictSmens)
             {
-                var DictSmens = new Dictionary<string, string>();
-                DictSmens.Clear();
-
                 Connection connection = null;
                 MySqlCommand myCommand = null;
                 MySqlDataReader dataReader = null;
@@ -1180,17 +1148,12 @@ indexes.Id_WorkSmen
                     Console.WriteLine("Csmens()  :  " + DateTime.Now.ToString());
                     Console.WriteLine(ex.ToString());
                 }
-
-                return DictSmens;
             }
 
             //===========================================
             // за смену дефектных труб
-            public Dictionary<string, string> Cdsmens()
+            public void Cdsmens(Dictionary<string, string> DictDSmens)
             {
-                var DictDSmens = new Dictionary<string, string>();
-                DictDSmens.Clear();
-
                 Connection connection = null;
                 MySqlCommand myCommand = null;
                 MySqlDataReader dataReader = null;
@@ -1254,17 +1217,12 @@ indexes.Id_WorkSmen
                     Console.WriteLine("Cdsmens()  :  " + DateTime.Now.ToString());
                     Console.WriteLine(ex.ToString());
                 }
-
-                return DictDSmens;
             }
 
             //=============================
             // за плавку труб
-            public Dictionary<string, string> Cparts()
+            public void Cparts(Dictionary<string, string> DictParts)
             {
-                var DictParts = new Dictionary<string, string>();
-                DictParts.Clear();
-
                 Connection connection = null;
                 MySqlCommand myCommand = null;
                 MySqlDataReader dataReader = null;
@@ -1329,17 +1287,12 @@ NumberPart
                     Console.WriteLine("Cparts()  :  " + DateTime.Now.ToString());
                     Console.WriteLine(ex.ToString());
                 }
-
-                return DictParts;
             }
 
             //=========================================
             // дефектных труб за плавку
-            public Dictionary<string, string> cdparts()
+            public void cdparts(Dictionary<string, string> DictDParts)
             {
-                var DictDParts = new Dictionary<string, string>();
-                DictDParts.Clear();
-
                 Connection connection = null;
                 MySqlCommand myCommand = null;
                 MySqlDataReader dataReader = null;
@@ -1401,8 +1354,6 @@ NumberPart
                     Console.WriteLine("cdparts()  :  " + DateTime.Now.ToString());
                     Console.WriteLine(ex.ToString());
                 }
-
-                return DictDParts;
             }
 
 
