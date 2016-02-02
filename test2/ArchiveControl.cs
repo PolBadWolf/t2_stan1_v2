@@ -456,20 +456,14 @@ LIMIT 1
                             archiveWindow.Button_Otchet.IsEnabled = false;
                             archiveWindow.listBox1.Items.Clear();
                             archiveWindow.listBox1.Items.Add("ВРЕМЯ: \t\t\t" + item.Uid);
-                            try { archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + _countYears[item.Uid]); }
-                            catch
-                            {
-                                archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t0");
-                                _countYears.Add(item.Uid, "0");
-                            }
-                            try { archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + _countDefectsYears[item.Uid]); }
-                            catch
-                            {
-                                archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
-                                _countDefectsYears.Add(item.Uid, "0");
-                            }
-                            double cd = Convert.ToInt32(_countDefectsYears[item.Uid]);
-                            double c = Convert.ToInt32(_countYears[item.Uid]);
+                            string count = "0";
+                            string countD = "0";
+                            try { count  = _countYears[item.Uid]; }         catch { }
+                            try { countD = _countDefectsYears[item.Uid]; }  catch { }
+                            archiveWindow.listBox1.Items.Add("ТРУБ: \t\t\t" + count);
+                            archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t" + countD);
+                            double cd = Convert.ToInt32(countD);
+                            double c = Convert.ToInt32(count);
                             var result = Math.Round(((cd / c) * 100), 2);
                             archiveWindow.listBox1.Items.Add("ПРОЦЕНТ БРАКА: \t" + result);
                         }
@@ -770,12 +764,17 @@ Count(IndexData),
 YEAR(DatePr)
 FROM defectsdata
 WHERE
+IndexData <= @I
+AND
 FlDefectTube = 1
 AND
 NumberTube <> 0
 GROUP BY YEAR(DatePr)
 ", connection.mySqlConnection);
-                    } catch
+                        myCommand.Parameters.Clear();
+                        myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
+                    }
+                    catch
                     { throw (new Exception("MySqlCommand Error")); }
 
                     try
@@ -789,7 +788,7 @@ GROUP BY YEAR(DatePr)
                     {
                         while (dataReader.Read())
                         {
-                            DictDYears.Add(dataReader.GetString(1), dataReader.GetString(0));
+                            addStat(DictDYears, dataReader.GetString(1), dataReader.GetInt32(0));
                         }
                     } catch
                     { throw (new Exception("Read Error")); }
@@ -834,6 +833,8 @@ Count(IndexData),
 DATE_FORMAT(DatePr, '%Y-%m')
 FROM defectsdata
 WHERE
+IndexData <= @I
+AND
 NumberTube <> 0
 GROUP BY
 DATE_FORMAT(DatePr, '%Y-%m')
@@ -841,7 +842,10 @@ ORDER BY
 YEAR(DatePr),
 MONTH(DatePr)
 ", connection.mySqlConnection);
-                    } catch
+                        myCommand.Parameters.Clear();
+                        myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
+                    }
+                    catch
                     { throw (new Exception("MySqlCommand Error")); }
 
                     try
@@ -854,7 +858,7 @@ MONTH(DatePr)
                     {
                         while (dataReader.Read())
                         {
-                            DictMonths.Add(dataReader.GetString(1), dataReader.GetString(0));
+                            addStat(DictMonths, dataReader.GetString(1), dataReader.GetInt32(0));
                         }
                     } catch
                     { throw (new Exception("Read Error")); }
@@ -901,6 +905,8 @@ Count(IndexData),
 DATE_FORMAT(DatePr, '%Y-%m')
 FROM defectsdata
 WHERE
+IndexData <= @I
+AND
 FlDefectTube = 1
 AND
 NumberTube <> 0
@@ -908,6 +914,8 @@ GROUP BY
 DATE_FORMAT(DatePr, '%Y-%m')
 ORDER BY YEAR(DatePr), MONTH(DatePr)
 ", connection.mySqlConnection);
+                        myCommand.Parameters.Clear();
+                        myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
                     }
                     catch
                     { throw (new Exception("MySqlCommand Error")); }
@@ -923,7 +931,7 @@ ORDER BY YEAR(DatePr), MONTH(DatePr)
                     {
                         while (dataReader.Read())
                         {
-                            DictDMonths.Add(dataReader.GetString(1), dataReader.GetString(0));
+                            addStat(DictDMonths, dataReader.GetString(1), dataReader.GetInt32(0));
                         }
                     }
                     catch
@@ -973,11 +981,16 @@ Count(IndexData),
 DATE_FORMAT(DatePr, '%Y-%m-%d')
 FROM defectsdata
 WHERE
+IndexData <= @I
+AND
 NumberTube <> 0
 GROUP BY DatePr
 ORDER BY DatePr
 ", connection.mySqlConnection);
-                    } catch
+                        myCommand.Parameters.Clear();
+                        myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
+                    }
+                    catch
                     { throw (new Exception("MySqlCommand Error")); }
 
                     try
@@ -991,7 +1004,7 @@ ORDER BY DatePr
                     {
                         while (dataReader.Read())
                         {
-                            DictDays.Add(dataReader.GetString(1), dataReader.GetString(0));
+                            addStat(DictDays, dataReader.GetString(1), dataReader.GetInt32(0));
                         }
                     } catch
                     { throw (new Exception("Read Error")); }
@@ -1040,13 +1053,18 @@ Count(IndexData),
 DATE_FORMAT(DatePr, '%Y-%m-%d')
 FROM defectsdata
 WHERE
+IndexData <= @I
+AND
 FlDefectTube = 1
 AND
 NumberTube <> 0
 GROUP BY DatePr
 ORDER BY DatePr
 ", connection.mySqlConnection);
-                    } catch
+                        myCommand.Parameters.Clear();
+                        myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
+                    }
+                    catch
                     { throw (new Exception("MySqlCommand Error")); }
 
                     try
@@ -1059,7 +1077,7 @@ ORDER BY DatePr
                     {
                         while (dataReader.Read())
                         {
-                            DictDays.Add(dataReader.GetString(1), dataReader.GetString(0));
+                            addStat(DictDays, dataReader.GetString(1), dataReader.GetInt32(0));
                         }
                     } catch
                     { throw (new Exception("Read Error")); }
@@ -1109,12 +1127,17 @@ CONCAT(DATE_FORMAT(defectsdata.DatePr, '%Y-%m-%d'), '|', indexes.Id_WorkSmen)
 FROM defectsdata
 Inner Join indexes ON defectsdata.IndexData = indexes.IndexData
 WHERE
+defectsdata.IndexData <= @I
+AND
 defectsdata.NumberTube <> 0
 GROUP BY
 defectsdata.DatePr,
 indexes.Id_WorkSmen
 ", connection.mySqlConnection);
-                    } catch
+                        myCommand.Parameters.Clear();
+                        myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
+                    }
+                    catch
                     { throw (new Exception("MySqlCommand Error")); }
 
                     try
@@ -1127,7 +1150,7 @@ indexes.Id_WorkSmen
                     {
                         while (dataReader.Read())
                         {
-                            DictSmens.Add(dataReader.GetString(1), dataReader.GetString(0));
+                            addStat(DictSmens, dataReader.GetString(1), dataReader.GetInt32(0));
                         }
                     } catch
                     { throw (new Exception("Read Error")); }
@@ -1176,6 +1199,8 @@ CONCAT(DATE_FORMAT(defectsdata.DatePr, '%Y-%m-%d'), '|', indexes.Id_WorkSmen)
 FROM defectsdata
 Inner Join indexes ON defectsdata.IndexData = indexes.IndexData
 WHERE
+defectsdata.IndexData <= @I
+AND
 defectsdata.FlDefectTube = 1
 AND
 defectsdata.NumberTube <> 0
@@ -1183,7 +1208,10 @@ GROUP BY
 defectsdata.DatePr,
 indexes.Id_WorkSmen
 ", connection.mySqlConnection);
-                    } catch
+                        myCommand.Parameters.Clear();
+                        myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
+                    }
+                    catch
                     { throw (new Exception("MySqlCommand Error")); }
 
                     try
@@ -1196,7 +1224,7 @@ indexes.Id_WorkSmen
                     {
                         while (dataReader.Read())
                         {
-                            DictDSmens.Add(dataReader.GetString(1), dataReader.GetString(0));
+                            addStat(DictDSmens, dataReader.GetString(1), dataReader.GetInt32(0));
                         }
                     } catch
                     { throw (new Exception("Read Error")); }
@@ -1245,10 +1273,14 @@ Count(IndexData),
 NumberPart
 FROM defectsdata
 WHERE
+IndexData <= @I
+AND
 NumberTube <> 0
 GROUP BY
 NumberPart
 ", connection.mySqlConnection);
+                        myCommand.Parameters.Clear();
+                        myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
                     }
                     catch
                     { throw (new Exception("MySqlCommand Error")); }
@@ -1264,7 +1296,7 @@ NumberPart
                     {
                         while (dataReader.Read())
                         {
-                            DictParts.Add(dataReader.GetString(1), dataReader.GetString(0));
+                            addStat(DictParts, dataReader.GetString(1), dataReader.GetInt32(0));
                         }
                     }
                     catch
@@ -1314,13 +1346,18 @@ Count(IndexData),
 NumberPart
 FROM defectsdata
 WHERE
+IndexData <= @I
+AND
 FlDefectTube = 1
 AND
 NumberTube <> 0
 GROUP BY
 NumberPart
 ", connection.mySqlConnection);
-                    } catch
+                        myCommand.Parameters.Clear();
+                        myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
+                    }
+                    catch
                     { throw (new Exception("MySqlCommand Error")); }
 
                     try
@@ -1334,6 +1371,7 @@ NumberPart
                         while (dataReader.Read())
                         {
                             DictDParts.Add(dataReader.GetString(1), dataReader.GetString(0));
+                            addStat(DictDParts, dataReader.GetString(1), dataReader.GetInt32(0));
                         }
                     } catch
                     { throw (new Exception("Read Error")); }
