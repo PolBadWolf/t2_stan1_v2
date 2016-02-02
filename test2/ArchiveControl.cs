@@ -79,72 +79,84 @@ namespace test2
 //=================================================================
         public void Expander(RoutedEventArgs e)
         {
-            Connection connection = new Connection();
             Mouse.OverrideCursor = Cursors.Wait;
-            MySqlCommand myCommand = new MySqlCommand();
+            Connection connection = null;
+            MySqlCommand myCommand = null;
             try
             {
+                connection = new Connection();
                 connection.Open();
                 var item = (TreeViewItem)e.OriginalSource;
                 item.Items.Clear();
+                #region Tag year
                 if (item.Tag.ToString() == "year")
                 {
-                    myCommand.CommandText = @"
+                    try
+                    {
+                        myCommand = new MySqlCommand(@"
 SELECT DISTINCT
 DATE_FORMAT(DatePr, '%Y-%m')
 FROM defectsdata
 WHERE
 YEAR(DatePr) = @Yr
-";
-                    myCommand.Parameters.Clear();
-                    myCommand.Parameters.AddWithValue("Yr", item.Uid);
-                    myCommand.Connection = connection.mySqlConnection;
-                    MySqlDataReader dataReader = myCommand.ExecuteReader();
-                    while (dataReader.Read())
-                    {
-                        var itemMonth = new TreeViewItem
+", connection.mySqlConnection);
+                        myCommand.Parameters.Clear();
+                        myCommand.Parameters.AddWithValue("Yr", item.Uid);
+                        MySqlDataReader dataReader = myCommand.ExecuteReader();
+                        while (dataReader.Read())
                         {
-                            Uid = dataReader.GetString(0),
-                            Tag = "month",
-                            Header = dataReader.GetString(0),
-                            ItemContainerStyle = archiveWindow.TreeView_arc.ItemContainerStyle
-                        };
-                        itemMonth.Items.Add("*");
-                        item.Items.Add(itemMonth);
-                    }
-                    dataReader.Close();
+                            var itemMonth = new TreeViewItem
+                            {
+                                Uid = dataReader.GetString(0),
+                                Tag = "month",
+                                Header = dataReader.GetString(0),
+                                ItemContainerStyle = archiveWindow.TreeView_arc.ItemContainerStyle
+                            };
+                            itemMonth.Items.Add("*");
+                            item.Items.Add(itemMonth);
+                        }
+                        dataReader.Close();
+                    } catch { throw (new Exception("year")); }
                 }
+                #endregion
+                #region Tag month
                 if (item.Tag.ToString()== "month")
                 {
-                    myCommand.CommandText = @"
+                    try
+                    {
+                        myCommand = new MySqlCommand(@"
 SELECT DISTINCT
 DATE_FORMAT(DatePr, '%Y-%m-%d')
 FROM defectsdata
 WHERE
 DATE_FORMAT(DatePr, '%Y-%m') = @Yr
-";
-                    myCommand.Connection = connection.mySqlConnection;
-                    myCommand.Parameters.Clear();
-                    myCommand.Parameters.AddWithValue("Yr", item.Uid);
-                    MySqlDataReader dataReader = myCommand.ExecuteReader();
-                    while (dataReader.Read())
-                    {
-                        var itemDay = new TreeViewItem
+", connection.mySqlConnection);
+                        myCommand.Parameters.Clear();
+                        myCommand.Parameters.AddWithValue("Yr", item.Uid);
+                        MySqlDataReader dataReader = myCommand.ExecuteReader();
+                        while (dataReader.Read())
                         {
-                            Uid = dataReader.GetString(0),
-                            Tag = "day",
-                            Header = dataReader.GetString(0),
-                            ItemContainerStyle = archiveWindow.TreeView_arc.ItemContainerStyle
-                        };
-                        itemDay.Items.Add("*");
-                        item.Items.Add(itemDay);
+                            var itemDay = new TreeViewItem
+                            {
+                                Uid = dataReader.GetString(0),
+                                Tag = "day",
+                                Header = dataReader.GetString(0),
+                                ItemContainerStyle = archiveWindow.TreeView_arc.ItemContainerStyle
+                            };
+                            itemDay.Items.Add("*");
+                            item.Items.Add(itemDay);
+                        }
+                        dataReader.Close();
                     }
-                    dataReader.Close();
+                    catch { throw (new Exception("month")); }
                 }
-
+                #endregion
+                #region Tag day
                 if (item.Tag.ToString() == "day")
                 {
-                    myCommand.CommandText = @"
+                    try
+                    {
+                        myCommand = new MySqlCommand(@"
 SELECT DISTINCT
 worksmens.NameSmen,
 DATE_FORMAT(defectsdata.DatePr, '%Y-%M-%d'),
@@ -155,31 +167,35 @@ INNER JOIN defectsdata ON defectsdata.IndexData = indexes.IndexData
 INNER JOIN worksmens ON worksmens.Id_WorkSmen = indexes.Id_WorkSmen
 WHERE
 defectsdata.DatePr = @A
-";
-//ORDER BY worksmens.NameSmen
-//";
-                    myCommand.Connection = connection.mySqlConnection;
-                    myCommand.Parameters.Clear();
-                    myCommand.Parameters.AddWithValue("A", item.Uid);
-                    MySqlDataReader dataReader = myCommand.ExecuteReader();
-                    while (dataReader.Read())
-                    {
-                        var itemSmens = new TreeViewItem
+", connection.mySqlConnection);
+                        //ORDER BY worksmens.NameSmen
+                        //";
+                        myCommand.Parameters.Clear();
+                        myCommand.Parameters.AddWithValue("A", item.Uid);
+                        MySqlDataReader dataReader = myCommand.ExecuteReader();
+                        while (dataReader.Read())
                         {
-                            Uid = dataReader.GetString(2) + "|" + dataReader.GetString(3) + "+" + dataReader.GetString(2) + " / " + dataReader.GetString(0),
-                            Tag = "smena",
-                            Header = dataReader.GetString(0),
-                            ItemContainerStyle = archiveWindow.TreeView_arc.ItemContainerStyle
-                        };
-                        itemSmens.Items.Add("*");
-                        item.Items.Add(itemSmens);
+                            var itemSmens = new TreeViewItem
+                            {
+                                Uid = dataReader.GetString(2) + "|" + dataReader.GetString(3) + "+" + dataReader.GetString(2) + " / " + dataReader.GetString(0),
+                                Tag = "smena",
+                                Header = dataReader.GetString(0),
+                                ItemContainerStyle = archiveWindow.TreeView_arc.ItemContainerStyle
+                            };
+                            itemSmens.Items.Add("*");
+                            item.Items.Add(itemSmens);
+                        }
+                        dataReader.Close();
                     }
-                    dataReader.Close();
+                    catch { throw (new Exception("day")); }
                 }
-
+                #endregion
+                #region Tag smena
                 if (item.Tag.ToString() == "smena")
                 {
-                    myCommand.CommandText = @"
+                    try
+                    {
+                        myCommand = new MySqlCommand(@"
 SELECT DISTINCT
 defectsdata.NumberPart,
 DATE_FORMAT(defectsdata.DatePr, '%Y-%m-%d'),
@@ -192,32 +208,36 @@ WHERE
 defectsdata.DatePr = @A
 AND
 worksmens.Id_WorkSmen = @B
-";
-                    myCommand.Connection = connection.mySqlConnection;
-                    myCommand.Parameters.Clear();
-                    myCommand.Parameters.AddWithValue("A", item.Uid.Split('|')[0]);
-                    myCommand.Parameters.AddWithValue("B", item.Uid.Split('|')[1]);
-                    MySqlDataReader dataRead = myCommand.ExecuteReader();
-                    while (dataRead.Read())
-                    {
-                        var itemPart = new TreeViewItem
+", connection.mySqlConnection);
+                        myCommand.Parameters.Clear();
+                        myCommand.Parameters.AddWithValue("A", item.Uid.Split('|')[0]);
+                        myCommand.Parameters.AddWithValue("B", item.Uid.Split('|')[1]);
+                        MySqlDataReader dataRead = myCommand.ExecuteReader();
+                        while (dataRead.Read())
                         {
-                            Uid = dataRead.GetString(0) + "|" + dataRead.GetString(1) + "|"
-                            + dataRead.GetString(2) + "|" + dataRead.GetString(1) + "/"
-                            + dataRead.GetString(3) + " / плавка " + dataRead.GetString(0),
-                            Tag = "part",
-                            Header = "Плавка № " + dataRead.GetString(0),
-                            ItemContainerStyle = archiveWindow.TreeView_arc.ItemContainerStyle
-                        };
-                        itemPart.Items.Add("*");
-                        item.Items.Add(itemPart);
+                            var itemPart = new TreeViewItem
+                            {
+                                Uid = dataRead.GetString(0) + "|" + dataRead.GetString(1) + "|"
+                                + dataRead.GetString(2) + "|" + dataRead.GetString(1) + "/"
+                                + dataRead.GetString(3) + " / плавка " + dataRead.GetString(0),
+                                Tag = "part",
+                                Header = "Плавка № " + dataRead.GetString(0),
+                                ItemContainerStyle = archiveWindow.TreeView_arc.ItemContainerStyle
+                            };
+                            itemPart.Items.Add("*");
+                            item.Items.Add(itemPart);
+                        }
+                        dataRead.Close();
                     }
-                    dataRead.Close();
+                    catch { throw (new Exception("smena")); }
                 }
-
+                #endregion
+                #region Tag part
                 if (item.Tag.ToString()=="part")
                 {
-                    myCommand.CommandText = @"
+                    try
+                    {
+                        myCommand = new MySqlCommand(@"
 SELECT
 defectsdata.NumberTube,
 defectsdata.FlDefectTube,
@@ -232,44 +252,49 @@ AND
 worksmens.Id_WorkSmen = @B
 AND
 defectsdata.NumberPart = @C
-";
-                    myCommand.Connection = connection.mySqlConnection;
-                    myCommand.Parameters.Clear();
-                    myCommand.Parameters.AddWithValue("A", item.Uid.Split('|')[1]);
-                    myCommand.Parameters.AddWithValue("B", item.Uid.Split('|')[2]);
-                    myCommand.Parameters.AddWithValue("C", item.Uid.Split('|')[0]);
-                    MySqlDataReader dataReader = myCommand.ExecuteReader();
+", connection.mySqlConnection);
+                        myCommand.Parameters.Clear();
+                        myCommand.Parameters.AddWithValue("A", item.Uid.Split('|')[1]);
+                        myCommand.Parameters.AddWithValue("B", item.Uid.Split('|')[2]);
+                        myCommand.Parameters.AddWithValue("C", item.Uid.Split('|')[0]);
+                        MySqlDataReader dataReader = myCommand.ExecuteReader();
 
-                    while (dataReader.Read())
-                    {
-                        var itemTube = new TreeViewItem
+                        while (dataReader.Read())
                         {
-                            Uid = dataReader.GetString(3),
-                            Tag = "tube0",
-                            Header = "Труба №" + dataReader.GetString(0),
-                            ItemContainerStyle = archiveWindow.TreeView_arc.ItemContainerStyle
-                        };
-                        if (dataReader.GetInt32(0) == 0)
-                        {
-                            itemTube.Header = "К.О. (" + dataReader.GetString(2) + ")";
-                        }
-                        if (dataReader.GetInt32(1) == 1)
-                        {
-                            var colBrush = new SolidColorBrush
+                            var itemTube = new TreeViewItem
                             {
-                                Color = Colors.Red
+                                Uid = dataReader.GetString(3),
+                                Tag = "tube0",
+                                Header = "Труба №" + dataReader.GetString(0),
+                                ItemContainerStyle = archiveWindow.TreeView_arc.ItemContainerStyle
                             };
-                            itemTube.Tag = "tube1";
-                            itemTube.Foreground = colBrush;
+                            if (dataReader.GetInt32(0) == 0)
+                            {
+                                itemTube.Header = "К.О. (" + dataReader.GetString(2) + ")";
+                            }
+                            if (dataReader.GetInt32(1) == 1)
+                            {
+                                var colBrush = new SolidColorBrush
+                                {
+                                    Color = Colors.Red
+                                };
+                                itemTube.Tag = "tube1";
+                                itemTube.Foreground = colBrush;
+                            }
+                            item.Items.Add(itemTube);
                         }
-                        item.Items.Add(itemTube);
+                        dataReader.Close();
                     }
-                    dataReader.Close();
+                    catch { throw (new Exception("part")); }
                 }
+                #endregion
             }
-            catch
+            catch (Exception ex)
             {
-                Console.WriteLine("ArchiveControl.cs-Expander() DB Error");
+                Console.WriteLine("========================================");
+                Console.WriteLine("ArchiveControl.cs");
+                Console.WriteLine("Expander()  :  " + DateTime.Now.ToString());
+                Console.WriteLine(ex);
             }
             Mouse.OverrideCursor = Cursors.Arrow;
             try { connection.Close(); connection = null; } catch { }
@@ -643,13 +668,15 @@ LIMIT 1", connection.mySqlConnection);
 
                 try
                 {
+                    #region Open
                     try
                     {
                         connection = new Connection();
                         connection.Open();
                     } catch
                     { throw (new Exception("Open Error")); }
-
+                    #endregion
+                    #region Sql Command
                     try
                     {
                         myCommand = new MySqlCommand(@"
@@ -667,13 +694,15 @@ GROUP BY YEAR(DatePr)
                         myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
                     } catch
                     { throw (new Exception("MySqlCommand Error")); }
-
+                    #endregion
+                    #region Execute Read
                     try
                     {
                         dataReader = myCommand.ExecuteReader();
                     } catch
                     { throw (new Exception("ExecuteRead Error")); }
-
+                    #endregion
+                    #region Read
                     try
                     {
                         while (dataReader.Read())
@@ -682,14 +711,15 @@ GROUP BY YEAR(DatePr)
                         }
                     } catch
                     { throw (new Exception("Read Error")); }
-
+                    #endregion
+                    #region Close
                     try
                     {
                         dataReader.Close();
                         connection.Close();
                     } catch
                     { throw (new Exception("Close Error")); }
-
+                    #endregion
                 }
                 catch (Exception ex)
                 {
