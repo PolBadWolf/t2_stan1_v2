@@ -425,7 +425,8 @@ LIMIT 1
             #endregion
             if (!_countsLoaded)
             {
-                MessageBox.Show("Статистика еще загружается, попробуйте позже.");
+                archiveWindow.listBox1.Items.Clear();
+                archiveWindow.listBox1.Items.Add("Статистика еще загружается, попробуйте позже.");
                 return;
             }
             try
