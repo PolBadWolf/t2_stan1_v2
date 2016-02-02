@@ -23,6 +23,7 @@ namespace test2
                 Console.WriteLine("Write_NewTube.cs");
                 Console.WriteLine("DoIt()  :  " + DateTime.Now.ToString());
                 Console.WriteLine("Very small tube : "+((double)bufferRecive.Count/6.0).ToString()+"метров");
+                return;
             }
             try
             {
@@ -118,6 +119,8 @@ values(@A, @B, @C, @D, @E, @F, @G, @H, @I)";
             myCommand.Parameters.AddWithValue("F", theDateTime.ToString("H:mm:ss"));
             // наличие дефектов
             myCommand.Parameters.AddWithValue("I", hasDeffect);
+            // add statistic
+            MainWindow.mainWindow.ac.addNewTube(theDateTime, hasDeffect);
         }
         //=================================================================================================================
         private int LastNumberTube(int part)

@@ -18,21 +18,38 @@ namespace test2
         public ArchiveWindow archiveWindow;
         private int countDeffectsLine = 0;
 
-        private Dictionary<string, string> _countDefectsDays;
-        private Dictionary<string, string> _countDefectsMonths;
-        private Dictionary<string, string> _countDefectsYears;
-        private Dictionary<string, string> _countDefectsParts;
-        private Dictionary<string, string> _countDefectsSmens;
-        private Dictionary<string, string> _countDays;
-        private Dictionary<string, string> _countMonths;
-        private Dictionary<string, string> _countYears;
-        private Dictionary<string, string> _countParts;
-        private Dictionary<string, string> _countSmens;
+        private Dictionary<string, string> _countYears = new Dictionary<string, string>();
+        private Dictionary<string, string> _countDefectsYears = new Dictionary<string, string>();
+        private Dictionary<string, string> _countMonths = new Dictionary<string, string>();
+        private Dictionary<string, string> _countDefectsMonths = new Dictionary<string, string>();
+        private Dictionary<string, string> _countDays = new Dictionary<string, string>();
+        private Dictionary<string, string> _countDefectsDays = new Dictionary<string, string>();
+        private Dictionary<string, string> _countParts = new Dictionary<string, string>();
+        private Dictionary<string, string> _countDefectsParts = new Dictionary<string, string>();
+        private Dictionary<string, string> _countSmens = new Dictionary<string, string>();
+        private Dictionary<string, string> _countDefectsSmens = new Dictionary<string, string>();
         private Int64 _countLastIndex = 0;
 
         public Int64 lastIndex { get { return _countLastIndex; } }
 
         private bool _countsLoaded = false;
+
+        private static object savO = new object();
+        public static void addStat(Dictionary<string, string> obi, string adr, int dt)
+        {
+            lock(savO)
+            {
+                int x = 0;
+                try
+                {
+                    x = Convert.ToInt32(obi[adr]);
+                    obi[adr] = (x + dt).ToString();
+                } catch
+                {
+                    obi.Add(adr, x.ToString());
+                }
+            }
+        }
 
         public void Fist_TreeData()
         {
@@ -426,7 +443,7 @@ LIMIT 1
             if (!_countsLoaded)
             {
                 archiveWindow.listBox1.Items.Clear();
-                archiveWindow.listBox1.Items.Add("Статистика еще загружается, попробуйте позже.");
+                archiveWindow.listBox1.Items.Add("Статистика загружается");
                 return;
             }
             try
@@ -494,7 +511,6 @@ LIMIT 1
                             catch
                             {
                                 archiveWindow.listBox1.Items.Add("ДЕФЕКТНЫХ ТРУБ: \t0");
-                                _countDefectsDays.Add(item.Uid, "0");
                             }
                             double cd = Convert.ToInt32(_countDefectsDays[item.Uid]);
                             double c = Convert.ToInt32(_countDays[item.Uid]);
@@ -592,6 +608,7 @@ LIMIT 1
 
             try
             {
+                #region last index
                 try
                 {
                     connection = new Connection();
@@ -623,6 +640,7 @@ LIMIT 1", connection.mySqlConnection);
                     connection.Close();
                 } catch
                 { throw (new Exception("Close Error")); }
+                #endregion
 
                 _countYears = collectClass.Cyears();
                 _countDefectsYears = collectClass.Cdyears();
@@ -1390,10 +1408,14 @@ NumberPart
 
         }
         // ======================================================
-        void addNewTube(string year, string mounth, string day, string smen, string party, int flDef)
+        public void addNewTube(DateTime dt, int flDef)
         {
-
+            string year = dt.ToString("yyyy");
+            string mounth = dt.ToString("yyyy-MM");
+            string day = dt.ToString("yyyy-MM-dd");
+            string smen = dt.ToString("yyyy-MM-dd")+"|"+MainWindow.mainWindow.Parameters["smena"].ToString();
+            string party = MainWindow.mainWindow.Parameters["part"].ToString();
         }
-        // ======================================================
-    }
+    // ======================================================
+}
 }
