@@ -19,7 +19,7 @@ namespace test2
     /// </summary>
     public partial class ArchiveWindow : Window
     {
-        private ArchiveControl ac = MainWindow.mainWindow.ac;
+        private ArchiveControl ac = MainWindow.ac;
         public ReportWindow1 reportWindow = null;
 
         public ArchiveWindow()
@@ -27,7 +27,6 @@ namespace test2
             InitializeComponent();
             ac.archiveWindow = this;
             ac.Fist_TreeData();
-            ac.count();
             Label1.Content = "";
             Label2.Content = "";
             Label3.Content = "";

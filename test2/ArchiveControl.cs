@@ -51,6 +51,20 @@ namespace test2
             }
         }
 
+        internal ArchiveControl()
+        {
+            _countYears.Clear();
+            _countDefectsYears.Clear();
+            _countMonths.Clear();
+            _countDefectsMonths.Clear();
+            _countDays.Clear();
+            _countDefectsDays.Clear();
+            _countSmens.Clear();
+            _countDefectsSmens.Clear();
+            _countParts.Clear();
+            _countDefectsParts.Clear();
+        }
+
         public void Fist_TreeData()
         {
             Mouse.OverrideCursor = Cursors.Wait;
@@ -633,6 +647,17 @@ LIMIT 1", connection.mySqlConnection);
                 { throw (new Exception("Close Error")); }
                 #endregion
 
+                _countYears.Clear();
+                _countDefectsYears.Clear();
+                _countMonths.Clear();
+                _countDefectsMonths.Clear();
+                _countDays.Clear();
+                _countDefectsDays.Clear();
+                _countSmens.Clear();
+                _countDefectsSmens.Clear();
+                _countParts.Clear();
+                _countDefectsParts.Clear();
+
                 collectClass.Cyears(_countYears);
                 collectClass.Cdyears(_countDefectsYears);
                 collectClass.Cmonths(_countMonths);
@@ -698,7 +723,7 @@ NumberTube <> 0
 GROUP BY YEAR(DatePr)
 ", connection.mySqlConnection);
                         myCommand.Parameters.Clear();
-                        myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
+                        myCommand.Parameters.AddWithValue("I", MainWindow.ac.lastIndex);
                     } catch
                     { throw (new Exception("MySqlCommand Error")); }
                     #endregion
@@ -769,7 +794,7 @@ NumberTube <> 0
 GROUP BY YEAR(DatePr)
 ", connection.mySqlConnection);
                         myCommand.Parameters.Clear();
-                        myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
+                        myCommand.Parameters.AddWithValue("I", MainWindow.ac.lastIndex);
                     }
                     catch
                     { throw (new Exception("MySqlCommand Error")); }
@@ -840,7 +865,7 @@ YEAR(DatePr),
 MONTH(DatePr)
 ", connection.mySqlConnection);
                         myCommand.Parameters.Clear();
-                        myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
+                        myCommand.Parameters.AddWithValue("I", MainWindow.ac.lastIndex);
                     }
                     catch
                     { throw (new Exception("MySqlCommand Error")); }
@@ -912,7 +937,7 @@ DATE_FORMAT(DatePr, '%Y-%m')
 ORDER BY YEAR(DatePr), MONTH(DatePr)
 ", connection.mySqlConnection);
                         myCommand.Parameters.Clear();
-                        myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
+                        myCommand.Parameters.AddWithValue("I", MainWindow.ac.lastIndex);
                     }
                     catch
                     { throw (new Exception("MySqlCommand Error")); }
@@ -985,7 +1010,7 @@ GROUP BY DatePr
 ORDER BY DatePr
 ", connection.mySqlConnection);
                         myCommand.Parameters.Clear();
-                        myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
+                        myCommand.Parameters.AddWithValue("I", MainWindow.ac.lastIndex);
                     }
                     catch
                     { throw (new Exception("MySqlCommand Error")); }
@@ -1059,7 +1084,7 @@ GROUP BY DatePr
 ORDER BY DatePr
 ", connection.mySqlConnection);
                         myCommand.Parameters.Clear();
-                        myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
+                        myCommand.Parameters.AddWithValue("I", MainWindow.ac.lastIndex);
                     }
                     catch
                     { throw (new Exception("MySqlCommand Error")); }
@@ -1132,7 +1157,7 @@ defectsdata.DatePr,
 indexes.Id_WorkSmen
 ", connection.mySqlConnection);
                         myCommand.Parameters.Clear();
-                        myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
+                        myCommand.Parameters.AddWithValue("I", MainWindow.ac.lastIndex);
                     }
                     catch
                     { throw (new Exception("MySqlCommand Error")); }
@@ -1206,7 +1231,7 @@ defectsdata.DatePr,
 indexes.Id_WorkSmen
 ", connection.mySqlConnection);
                         myCommand.Parameters.Clear();
-                        myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
+                        myCommand.Parameters.AddWithValue("I", MainWindow.ac.lastIndex);
                     }
                     catch
                     { throw (new Exception("MySqlCommand Error")); }
@@ -1277,7 +1302,7 @@ GROUP BY
 NumberPart
 ", connection.mySqlConnection);
                         myCommand.Parameters.Clear();
-                        myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
+                        myCommand.Parameters.AddWithValue("I", MainWindow.ac.lastIndex);
                     }
                     catch
                     { throw (new Exception("MySqlCommand Error")); }
@@ -1352,7 +1377,7 @@ GROUP BY
 NumberPart
 ", connection.mySqlConnection);
                         myCommand.Parameters.Clear();
-                        myCommand.Parameters.AddWithValue("I", MainWindow.mainWindow.ac.lastIndex);
+                        myCommand.Parameters.AddWithValue("I", MainWindow.ac.lastIndex);
                     }
                     catch
                     { throw (new Exception("MySqlCommand Error")); }
@@ -1367,7 +1392,6 @@ NumberPart
                     {
                         while (dataReader.Read())
                         {
-                            DictDParts.Add(dataReader.GetString(1), dataReader.GetString(0));
                             addStat(DictDParts, dataReader.GetString(1), dataReader.GetInt32(0));
                         }
                     } catch
@@ -1401,7 +1425,22 @@ NumberPart
             string day = dt.ToString("yyyy-MM-dd");
             string smen = dt.ToString("yyyy-MM-dd")+"|"+MainWindow.mainWindow.Parameters["smena"].ToString();
             string party = MainWindow.mainWindow.Parameters["part"].ToString();
+
+            addStat(_countParts, party, 1);
+            addStat(_countSmens, smen,  1);
+            addStat(_countDays,  day,   1);
+            addStat(_countMonths, mounth, 1);
+            addStat(_countYears, year, 1);
+
+            if (flDef>0)
+            {
+                addStat(_countDefectsParts, party, 1);
+                addStat(_countDefectsSmens, smen, 1);
+                addStat(_countDefectsDays, day, 1);
+                addStat(_countDefectsMonths, mounth, 1);
+                addStat(_countDefectsYears, year, 1);
+            }
         }
-    // ======================================================
-}
+        // ======================================================
+    }
 }

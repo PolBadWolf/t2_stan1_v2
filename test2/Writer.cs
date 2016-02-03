@@ -19,13 +19,14 @@ namespace test2
         private readonly Byte[] buffForRead = new Byte[11];
         private List<byte> bufferRecive = new List<byte>(maxLenTube);
         private readonly Crc crc = new Crc();
-        private readonly SerialPort serialPort = new SerialPort(ps.Com);
+        private readonly SerialPort serialPort = null;
         public int sampleDataCount = 0;
         private readonly Byte[] sampleDataBytes = new Byte[40];
         public MainWindow mainWindow;
 
         public Writer()
         {
+            serialPort = new SerialPort(ps.Com);
             serialPort.DataReceived += SerialPortDataRecived;
             serialPort.BaudRate = 9600;
             serialPort.Parity = Parity.None;

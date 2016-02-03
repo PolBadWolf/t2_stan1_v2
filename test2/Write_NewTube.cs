@@ -120,7 +120,7 @@ values(@A, @B, @C, @D, @E, @F, @G, @H, @I)";
             // наличие дефектов
             myCommand.Parameters.AddWithValue("I", hasDeffect);
             // add statistic
-            MainWindow.mainWindow.ac.addNewTube(theDateTime, hasDeffect);
+            MainWindow.ac.addNewTube(theDateTime, hasDeffect);
         }
         //=================================================================================================================
         private int LastNumberTube(int part)

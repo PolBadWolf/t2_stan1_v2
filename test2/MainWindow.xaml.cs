@@ -45,9 +45,9 @@ namespace test2
         public System.IO.StreamWriter log_sw = null;
         public System.Windows.Threading.DispatcherTimer _LogTimer = new System.Windows.Threading.DispatcherTimer();
 
-        private ArchiveControl ac_m = new ArchiveControl();
+        private static ArchiveControl ac_m = null;
 
-        internal ArchiveControl ac { get { return ac_m; } }
+        internal static ArchiveControl ac { get { return ac_m; } }
 
         public test2.Parameters parAdvn
         {
@@ -67,6 +67,8 @@ namespace test2
             log_file = new System.IO.FileStream("log3.txt", System.IO.FileMode.Append);
             log_sw = new System.IO.StreamWriter(log_file);
             InitializeComponent();
+            ac_m = new ArchiveControl();
+            ac_m.count();
             Console.SetOut(log_sw);
             _LogTimer.Interval = System.TimeSpan.FromSeconds(5);
             _LogTimer.Tick += flushLog;
