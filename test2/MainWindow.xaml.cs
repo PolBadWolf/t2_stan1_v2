@@ -68,7 +68,7 @@ namespace test2
             log_sw = new System.IO.StreamWriter(log_file);
             InitializeComponent();
             ac_m = new ArchiveControl();
-            ac_m.count();
+            //ac_m.count();
             Console.SetOut(log_sw);
             _LogTimer.Interval = System.TimeSpan.FromSeconds(5);
             _LogTimer.Tick += flushLog;
@@ -89,6 +89,8 @@ namespace test2
             TabItem4.Visibility = Visibility.Hidden;
             //
             mainWindow = this;
+            //
+            ac_m.count();
         }
 
         private void FillParameters()

@@ -610,7 +610,7 @@ LIMIT 1
             _countParts.Clear();
             _countDefectsParts.Clear();
 
-            Thread.Sleep(5000);
+            // Thread.Sleep(5000);
 
             Connection connection = null;
             MySqlCommand myCommand = null;

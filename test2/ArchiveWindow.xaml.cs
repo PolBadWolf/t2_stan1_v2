@@ -27,6 +27,7 @@ namespace test2
             InitializeComponent();
             ac.archiveWindow = this;
             ac.Fist_TreeData();
+            // ac.count();
             Label1.Content = "";
             Label2.Content = "";
             Label3.Content = "";
