@@ -14,6 +14,7 @@ namespace test2
     class Connection
     {
         private static readonly Settings ps = Settings.Default;
+        public static bool stOp = false;
         public static string connect;
         public MySqlConnection mySqlConnection;
 
@@ -28,16 +29,19 @@ namespace test2
                 mySqlConnection = new MySqlConnection(connect);
                 mySqlConnection.Open();
 
-                /*
-                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
-                    new Action(() => MainWindow.mainWindow.ComStatus.Text = " Port=" + ps.Com));
+                if (MainWindow.mainWindow != null && !stOp)
+                {
+                    stOp = true;
+                    Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
+                        new Action(() => MainWindow.mainWindow.ComStatus.Text = " Port=" + ps.Com));
 
-                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, 
-                    new Action(() => MainWindow.mainWindow.BdStatus.Text = " Status BD : ok   " ));
-                */
+                    Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
+                        new Action(() => MainWindow.mainWindow.BdStatus.Text = " Status BD : ok   "));
+                }
             }
             catch
             {
+                stOp = false;
                 throw (new Exception("Ошибка открытия БД: host=" + ps.DataSource + "   BD=" + ps.DataBase));
             }
         }
