@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using System.Threading;
 
 namespace test2
 {
@@ -17,7 +18,6 @@ namespace test2
     public class ArchiveControl
     {
         public ArchiveWindow archiveWindow;
-        private object parent = null;
         private int countDeffectsLine = 0;
 
         private Dictionary<string, string> _countYears = new Dictionary<string, string>();
@@ -53,19 +53,8 @@ namespace test2
             }
         }
 
-        public ArchiveControl(object parent)
+        public ArchiveControl()
         {
-            _countYears.Clear();
-            _countDefectsYears.Clear();
-            _countMonths.Clear();
-            _countDefectsMonths.Clear();
-            _countDays.Clear();
-            _countDefectsDays.Clear();
-            _countSmens.Clear();
-            _countDefectsSmens.Clear();
-            _countParts.Clear();
-            _countDefectsParts.Clear();
-            this.parent = parent;
         }
 
         public void Fist_TreeData()
@@ -609,6 +598,19 @@ LIMIT 1
 
             _countsLoaded = false;
             _countLastIndex = 0;
+
+            _countYears.Clear();
+            _countDefectsYears.Clear();
+            _countMonths.Clear();
+            _countDefectsMonths.Clear();
+            _countDays.Clear();
+            _countDefectsDays.Clear();
+            _countSmens.Clear();
+            _countDefectsSmens.Clear();
+            _countParts.Clear();
+            _countDefectsParts.Clear();
+
+            Thread.Sleep(5000);
 
             Connection connection = null;
             MySqlCommand myCommand = null;

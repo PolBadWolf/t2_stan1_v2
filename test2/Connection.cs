@@ -57,6 +57,8 @@ namespace test2
             {
                 MessageBox.Show(e.ToString());
             }
+            stOp = false;
         }
+
     }
 }

@@ -67,7 +67,7 @@ namespace test2
             log_file = new System.IO.FileStream("log3.txt", System.IO.FileMode.Append);
             log_sw = new System.IO.StreamWriter(log_file);
             InitializeComponent();
-            ac_m = new ArchiveControl(this);
+            ac_m = new ArchiveControl();
             ac_m.count();
             Console.SetOut(log_sw);
             _LogTimer.Interval = System.TimeSpan.FromSeconds(5);
@@ -607,6 +607,7 @@ namespace test2
             {
                 MainWindow.mainWindow.BdStatus.Text = " Status BD : fail ";
                 button_NP_Click(null, null);
+                ac_m.count();
             }
             catch { }
 
