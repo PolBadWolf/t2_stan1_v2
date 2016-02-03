@@ -79,8 +79,7 @@ GROUP BY YEAR(DatePr)
             catch (Exception ex)
             {
                 Console.WriteLine("========================================");
-                Console.WriteLine("ArchiveControl.cs");
-                Console.WriteLine("class CollectClass");
+                Console.WriteLine("CollectClass.cs");
                 Console.WriteLine("Cyears()  :  " + DateTime.Now.ToString());
                 Console.WriteLine(ex.ToString());
             }
@@ -151,8 +150,7 @@ GROUP BY YEAR(DatePr)
             catch (Exception ex)
             {
                 Console.WriteLine("========================================");
-                Console.WriteLine("ArchiveControl.cs");
-                Console.WriteLine("class CollectClass");
+                Console.WriteLine("CollectClass.cs");
                 Console.WriteLine("Cdyears()  :  " + DateTime.Now.ToString());
                 Console.WriteLine(ex.ToString());
             }
@@ -226,8 +224,7 @@ MONTH(DatePr)
             catch (Exception ex)
             {
                 Console.WriteLine("========================================");
-                Console.WriteLine("ArchiveControl.cs");
-                Console.WriteLine("class CollectClass");
+                Console.WriteLine("CollectClass.cs");
                 Console.WriteLine("Cmonths()  :  " + DateTime.Now.ToString());
                 Console.WriteLine(ex.ToString());
             }
@@ -302,8 +299,7 @@ ORDER BY YEAR(DatePr), MONTH(DatePr)
             catch (Exception ex)
             {
                 Console.WriteLine("========================================");
-                Console.WriteLine("ArchiveControl.cs");
-                Console.WriteLine("class CollectClass");
+                Console.WriteLine("CollectClass.cs");
                 Console.WriteLine("Cdmonths()  :  " + DateTime.Now.ToString());
                 Console.WriteLine(ex.ToString());
             }
@@ -376,8 +372,7 @@ ORDER BY DatePr
             catch (Exception ex)
             {
                 Console.WriteLine("========================================");
-                Console.WriteLine("ArchiveControl.cs");
-                Console.WriteLine("class CollectClass");
+                Console.WriteLine("CollectClass.cs");
                 Console.WriteLine("Cdays()  :  " + DateTime.Now.ToString());
                 Console.WriteLine(ex.ToString());
             }
@@ -452,8 +447,7 @@ ORDER BY DatePr
             catch (Exception ex)
             {
                 Console.WriteLine("========================================");
-                Console.WriteLine("ArchiveControl.cs");
-                Console.WriteLine("class CollectClass");
+                Console.WriteLine("CollectClass.cs");
                 Console.WriteLine("Cddays()  :  " + DateTime.Now.ToString());
                 Console.WriteLine(ex.ToString());
             }
@@ -524,8 +518,7 @@ GROUP BY defectsdata.DatePr, indexes.Id_WorkSmen", connection.mySqlConnection);
             catch (Exception ex)
             {
                 Console.WriteLine("========================================");
-                Console.WriteLine("ArchiveControl.cs");
-                Console.WriteLine("class CollectClass");
+                Console.WriteLine("CollectClass.cs");
                 Console.WriteLine("Csmens()  :  " + DateTime.Now.ToString());
                 Console.WriteLine(ex.ToString());
                 throw (ex);
@@ -603,8 +596,7 @@ indexes.Id_WorkSmen
             catch (Exception ex)
             {
                 Console.WriteLine("========================================");
-                Console.WriteLine("ArchiveControl.cs");
-                Console.WriteLine("class CollectClass");
+                Console.WriteLine("CollectClass.cs");
                 Console.WriteLine("Cdsmens()  :  " + DateTime.Now.ToString());
                 Console.WriteLine(ex.ToString());
             }
@@ -677,8 +669,7 @@ NumberPart
             catch (Exception ex)
             {
                 Console.WriteLine("========================================");
-                Console.WriteLine("ArchiveControl.cs");
-                Console.WriteLine("class CollectClass");
+                Console.WriteLine("CollectClass.cs");
                 Console.WriteLine("Cparts()  :  " + DateTime.Now.ToString());
                 Console.WriteLine(ex.ToString());
             }
@@ -753,13 +744,11 @@ NumberPart
             catch (Exception ex)
             {
                 Console.WriteLine("========================================");
-                Console.WriteLine("ArchiveControl.cs");
-                Console.WriteLine("class CollectClass");
+                Console.WriteLine("CollectClass.cs");
                 Console.WriteLine("cdparts()  :  " + DateTime.Now.ToString());
                 Console.WriteLine(ex.ToString());
             }
         }
-
 
     }
 }
