@@ -45,7 +45,7 @@ namespace test2
         public System.IO.StreamWriter log_sw = null;
         public System.Windows.Threading.DispatcherTimer _LogTimer = new System.Windows.Threading.DispatcherTimer();
 
-        private static ArchiveControl ac_m = null;
+        public static ArchiveControl ac_m = null;
 
         internal static ArchiveControl ac { get { return ac_m; } }
 
@@ -67,7 +67,7 @@ namespace test2
             log_file = new System.IO.FileStream("log3.txt", System.IO.FileMode.Append);
             log_sw = new System.IO.StreamWriter(log_file);
             InitializeComponent();
-            ac_m = new ArchiveControl();
+            ac_m = new ArchiveControl(this);
             ac_m.count();
             Console.SetOut(log_sw);
             _LogTimer.Interval = System.TimeSpan.FromSeconds(5);

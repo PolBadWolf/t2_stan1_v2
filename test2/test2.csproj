@@ -113,6 +113,7 @@
     <Compile Include="BDEditorWindow.xaml.cs">
       <DependentUpon>BDEditorWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CollectClass.cs" />
     <Compile Include="crc.cs" />
     <Compile Include="ReportWindow1.xaml.cs">
       <DependentUpon>ReportWindow1.xaml</DependentUpon>

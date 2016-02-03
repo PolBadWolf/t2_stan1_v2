@@ -180,7 +180,7 @@ LIMIT 1", connection.mySqlConnection);
             }
             return last;
         }
-        Int64 lastIndex_defectsdata()
+        public Int64 lastIndex_defectsdata()
         {
             Int64 index = 0;
             Connection connection = new Connection();
@@ -201,9 +201,11 @@ LIMIT 1", connection.mySqlConnection);
                 index = myRead.GetInt64(0);
                 myRead.Close();
                 myRead.Dispose();
-            } catch (Exception ex)
+            } catch
             {
-                //throw (ex);
+                Console.WriteLine("========================================");
+                Console.WriteLine("Write_NewTube.cs");
+                Console.WriteLine("lastIndex_defectsdata()  :  " + DateTime.Now.ToString());
             }
             return index;
         }

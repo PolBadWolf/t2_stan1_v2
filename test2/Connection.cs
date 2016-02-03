@@ -28,11 +28,13 @@ namespace test2
                 mySqlConnection = new MySqlConnection(connect);
                 mySqlConnection.Open();
 
+                /*
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
                     new Action(() => MainWindow.mainWindow.ComStatus.Text = " Port=" + ps.Com));
 
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, 
                     new Action(() => MainWindow.mainWindow.BdStatus.Text = " Status BD : ok   " ));
+                */
             }
             catch
             {
