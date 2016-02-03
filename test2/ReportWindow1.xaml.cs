@@ -97,7 +97,7 @@ LIMIT 1
             myCommand.Parameters.AddWithValue("A", item.Uid.Split('|')[0]);
             myCommand.Parameters.AddWithValue("B", item.Uid.Split('|')[1]);
 
-            MySqlDataReader dataReader = myCommand.ExecuteReader();
+            MySqlDataReader dataReader = (MySqlDataReader)myCommand.ExecuteReader();
 
             //==
             Document document = new Document();

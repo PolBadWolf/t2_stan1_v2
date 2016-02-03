@@ -129,7 +129,7 @@
                                 <Setter.Value>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <Image Width="14" Height="14" Stretch="Fill" Source="images/Melting.png" Name="img" />
+                                            <Image Width="14" Height="14" Stretch="Fill" Source="images/Melting-Pot-icon.png" Name="img" />
                                             <TextBlock Margin="5,0" Text="{Binding}" />
                                         </StackPanel>
                                     </DataTemplate>

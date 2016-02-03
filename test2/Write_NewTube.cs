@@ -144,7 +144,7 @@ LIMIT 1", connection.mySqlConnection);
             MySqlDataReader mySqlReader = null; ;
             try
             {
-                mySqlReader = myCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)myCommand.ExecuteReader();
             }
             catch
             {
@@ -196,7 +196,7 @@ LIMIT 1", connection.mySqlConnection);
             MySqlDataReader myRead = null;
             try
             {
-                myRead = myCommand.ExecuteReader();
+                myRead = (MySqlDataReader)myCommand.ExecuteReader();
                 myRead.Read();
                 index = myRead.GetInt64(0);
                 myRead.Close();

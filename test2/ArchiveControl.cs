@@ -82,7 +82,7 @@ namespace test2
                 }
 
                 MySqlCommand myCommand = new MySqlCommand("SELECT DISTINCT YEAR (defectsdata.DatePr) FROM defectsdata", connection.mySqlConnection);
-                MySqlDataReader dataReader = myCommand.ExecuteReader();
+                MySqlDataReader dataReader = (MySqlDataReader)myCommand.ExecuteReader();
 
                 while (dataReader.Read())
                 {
@@ -133,7 +133,7 @@ YEAR(DatePr) = @Yr
 ", connection.mySqlConnection);
                         myCommand.Parameters.Clear();
                         myCommand.Parameters.AddWithValue("Yr", item.Uid);
-                        MySqlDataReader dataReader = myCommand.ExecuteReader();
+                        MySqlDataReader dataReader = (MySqlDataReader)myCommand.ExecuteReader();
                         while (dataReader.Read())
                         {
                             var itemMonth = new TreeViewItem
@@ -164,7 +164,7 @@ DATE_FORMAT(DatePr, '%Y-%m') = @Yr
 ", connection.mySqlConnection);
                         myCommand.Parameters.Clear();
                         myCommand.Parameters.AddWithValue("Yr", item.Uid);
-                        MySqlDataReader dataReader = myCommand.ExecuteReader();
+                        MySqlDataReader dataReader = (MySqlDataReader)myCommand.ExecuteReader();
                         while (dataReader.Read())
                         {
                             var itemDay = new TreeViewItem
@@ -203,7 +203,7 @@ defectsdata.DatePr = @A
                         //";
                         myCommand.Parameters.Clear();
                         myCommand.Parameters.AddWithValue("A", item.Uid);
-                        MySqlDataReader dataReader = myCommand.ExecuteReader();
+                        MySqlDataReader dataReader = (MySqlDataReader)myCommand.ExecuteReader();
                         while (dataReader.Read())
                         {
                             var itemSmens = new TreeViewItem
@@ -243,7 +243,7 @@ worksmens.Id_WorkSmen = @B
                         myCommand.Parameters.Clear();
                         myCommand.Parameters.AddWithValue("A", item.Uid.Split('|')[0]);
                         myCommand.Parameters.AddWithValue("B", item.Uid.Split('|')[1]);
-                        MySqlDataReader dataRead = myCommand.ExecuteReader();
+                        MySqlDataReader dataRead = (MySqlDataReader)myCommand.ExecuteReader();
                         while (dataRead.Read())
                         {
                             var itemPart = new TreeViewItem
@@ -288,7 +288,7 @@ defectsdata.NumberPart = @C
                         myCommand.Parameters.AddWithValue("A", item.Uid.Split('|')[1]);
                         myCommand.Parameters.AddWithValue("B", item.Uid.Split('|')[2]);
                         myCommand.Parameters.AddWithValue("C", item.Uid.Split('|')[0]);
-                        MySqlDataReader dataReader = myCommand.ExecuteReader();
+                        MySqlDataReader dataReader = (MySqlDataReader)myCommand.ExecuteReader();
 
                         while (dataReader.Read())
                         {
@@ -367,7 +367,7 @@ LIMIT 1
                     myCommand.Parameters.AddWithValue("A", item.Uid);
                     myCommand.Connection = connection.mySqlConnection;
 
-                    MySqlDataReader dataReader = myCommand.ExecuteReader();
+                    MySqlDataReader dataReader = (MySqlDataReader)myCommand.ExecuteReader();
 
                     while (dataReader.Read())
                     {
@@ -633,7 +633,7 @@ LIMIT 1", connection.mySqlConnection);
 
                 try
                 {
-                    dataReader = myCommand.ExecuteReader();
+                    dataReader = (MySqlDataReader)myCommand.ExecuteReader();
                     dataReader.Read();
                     _countLastIndex = dataReader.GetInt64(0);
                 } catch
@@ -647,17 +647,6 @@ LIMIT 1", connection.mySqlConnection);
                 { throw (new Exception("Close Error")); }
                 #endregion
 
-                _countYears.Clear();
-                _countDefectsYears.Clear();
-                _countMonths.Clear();
-                _countDefectsMonths.Clear();
-                _countDays.Clear();
-                _countDefectsDays.Clear();
-                _countSmens.Clear();
-                _countDefectsSmens.Clear();
-                _countParts.Clear();
-                _countDefectsParts.Clear();
-
                 collectClass.Cyears(_countYears);
                 collectClass.Cdyears(_countDefectsYears);
                 collectClass.Cmonths(_countMonths);
@@ -668,7 +657,6 @@ LIMIT 1", connection.mySqlConnection);
                 collectClass.Cdsmens(_countDefectsSmens);
                 collectClass.Cparts(_countParts);
                 collectClass.cdparts(_countDefectsParts);
-
             }
             catch (Exception ex)
             {
@@ -730,7 +718,7 @@ GROUP BY YEAR(DatePr)
                     #region Execute Read
                     try
                     {
-                        dataReader = myCommand.ExecuteReader();
+                        dataReader = (MySqlDataReader)myCommand.ExecuteReader();
                     } catch
                     { throw (new Exception("ExecuteRead Error")); }
                     #endregion
@@ -801,7 +789,7 @@ GROUP BY YEAR(DatePr)
 
                     try
                     {
-                        dataReader = myCommand.ExecuteReader();
+                        dataReader = (MySqlDataReader)myCommand.ExecuteReader();
                     }
                     catch
                     { throw (new Exception("ExecuteRead Error")); }
@@ -872,7 +860,7 @@ MONTH(DatePr)
 
                     try
                     {
-                        dataReader = myCommand.ExecuteReader();
+                        dataReader = (MySqlDataReader)myCommand.ExecuteReader();
                     } catch
                     { throw (new Exception("ExecuteRead Error")); }
 
@@ -944,7 +932,7 @@ ORDER BY YEAR(DatePr), MONTH(DatePr)
 
                     try
                     {
-                        dataReader = myCommand.ExecuteReader();
+                        dataReader = (MySqlDataReader)myCommand.ExecuteReader();
                     }
                     catch
                     { throw (new Exception("ExecuteRead Error")); }
@@ -1017,7 +1005,7 @@ ORDER BY DatePr
 
                     try
                     {
-                        dataReader = myCommand.ExecuteReader();
+                        dataReader = (MySqlDataReader)myCommand.ExecuteReader();
                     }
                     catch
                     { throw (new Exception("ExecuteRead Error")); }
@@ -1091,7 +1079,7 @@ ORDER BY DatePr
 
                     try
                     {
-                        dataReader = myCommand.ExecuteReader();
+                        dataReader = (MySqlDataReader)myCommand.ExecuteReader();
                     } catch
                     { throw (new Exception("ExecuteRead Error")); }
 
@@ -1130,7 +1118,6 @@ ORDER BY DatePr
                 Connection connection = null;
                 MySqlCommand myCommand = null;
                 MySqlDataReader dataReader = null;
-
                 try
                 {
                     try
@@ -1152,10 +1139,7 @@ WHERE
 defectsdata.IndexData <= @I
 AND
 defectsdata.NumberTube <> 0
-GROUP BY
-defectsdata.DatePr,
-indexes.Id_WorkSmen
-", connection.mySqlConnection);
+GROUP BY defectsdata.DatePr, indexes.Id_WorkSmen", connection.mySqlConnection);
                         myCommand.Parameters.Clear();
                         myCommand.Parameters.AddWithValue("I", MainWindow.ac.lastIndex);
                     }
@@ -1164,7 +1148,7 @@ indexes.Id_WorkSmen
 
                     try
                     {
-                        dataReader = myCommand.ExecuteReader();
+                        dataReader = (MySqlDataReader)myCommand.ExecuteReader();
                     } catch
                     { throw (new Exception("ExecuteRead Error")); }
 
@@ -1238,7 +1222,7 @@ indexes.Id_WorkSmen
 
                     try
                     {
-                        dataReader = myCommand.ExecuteReader();
+                        dataReader = (MySqlDataReader)myCommand.ExecuteReader();
                     } catch
                     { throw (new Exception("ExecuteRead Error")); }
 
@@ -1309,7 +1293,7 @@ NumberPart
 
                     try
                     {
-                        dataReader = myCommand.ExecuteReader();
+                        dataReader = (MySqlDataReader)myCommand.ExecuteReader();
                     }
                     catch
                     { throw (new Exception("ExecuteRead Error")); }
@@ -1384,7 +1368,7 @@ NumberPart
 
                     try
                     {
-                        dataReader = myCommand.ExecuteReader();
+                        dataReader = (MySqlDataReader)myCommand.ExecuteReader();
                     } catch
                     { throw (new Exception("ExecuteRead Error")); }
 

@@ -398,7 +398,7 @@ WHERE controlsamples.active = 1
                 Connection connection = new Connection();
                 connection.Open();
                 MySqlCommand myCommand = new MySqlCommand("SELECT Id_SizeTube, SizeTube FROM sizetubes WHERE active = 1", connection.mySqlConnection);
-                MySqlDataReader dataReader = myCommand.ExecuteReader();
+                MySqlDataReader dataReader = (MySqlDataReader)myCommand.ExecuteReader();
                 while (dataReader.Read())
                 {
                     sizeTubes.Add(dataReader.GetInt32(0), dataReader.GetString(1));
@@ -756,7 +756,7 @@ WHERE bufferdata.active = 1
                 Connection connection = new Connection();
                 connection.Open();
                 MySqlCommand myCommand = new MySqlCommand("SELECT Id_Gost, NameGost FROM gosts WHERE active = 1", connection.mySqlConnection);
-                MySqlDataReader dataReader = myCommand.ExecuteReader();
+                MySqlDataReader dataReader = (MySqlDataReader)myCommand.ExecuteReader();
                 while (dataReader.Read())
                 {
                     gosts.Add(dataReader.GetInt32(0), dataReader.GetString(1)); ;

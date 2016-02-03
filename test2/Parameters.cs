@@ -27,7 +27,7 @@ namespace test2
             }
             MySqlCommand myCommand = new MySqlCommand("SELECT Id_WorkSmen, NameSmen FROM worksmens WHERE active = 1", connection.mySqlConnection);
             MySqlDataReader mySqlDataReader = null;
-            try { mySqlDataReader = myCommand.ExecuteReader(); } catch (Exception ex)
+            try { mySqlDataReader = (MySqlDataReader)myCommand.ExecuteReader(); } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
                 Console.WriteLine("Parameters.cs");
@@ -84,7 +84,7 @@ namespace test2
             }
             MySqlCommand mySqlCommand = new MySqlCommand("SELECT Id_TimeIntervalSmen, TimeIntervalSmen FROM timeintervalsmens WHERE active = 1", connection.mySqlConnection);
             MySqlDataReader mySqlDataReader = null;
-            try { mySqlDataReader = mySqlCommand.ExecuteReader(); } catch (Exception ex)
+            try { mySqlDataReader = (MySqlDataReader)mySqlCommand.ExecuteReader(); } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
                 Console.WriteLine("Parameters.cs");
@@ -146,7 +146,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = mySqlCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)mySqlCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -209,7 +209,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = mySqlCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)mySqlCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -271,7 +271,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = mySqlCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)mySqlCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -333,7 +333,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = mySqlCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)mySqlCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -394,7 +394,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = mySqlCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)mySqlCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -455,7 +455,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = mySqlCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)mySqlCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -531,7 +531,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = myCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)myCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -609,7 +609,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = myCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)myCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -677,7 +677,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = myCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)myCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -743,7 +743,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = myCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)myCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -809,7 +809,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = myCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)myCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -875,7 +875,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = myCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)myCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -941,7 +941,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = myCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)myCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -1007,7 +1007,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = myCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)myCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -1073,7 +1073,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = myCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)myCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -1139,7 +1139,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = myCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)myCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -1205,7 +1205,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = myCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)myCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -1271,7 +1271,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = myCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)myCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -1337,7 +1337,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = myCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)myCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -1403,7 +1403,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = myCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)myCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -1469,7 +1469,7 @@ namespace test2
             MySqlDataReader mySqlReader = null;
             try
             {
-                mySqlReader = myCommand.ExecuteReader();
+                mySqlReader = (MySqlDataReader)myCommand.ExecuteReader();
             } catch (Exception ex)
             {
                 Console.WriteLine("========================================");
@@ -1537,7 +1537,7 @@ namespace test2
                 MySqlDataReader mySqlReader = null;
                 try
                 {
-                    mySqlReader = myCommand.ExecuteReader();
+                    mySqlReader = (MySqlDataReader)myCommand.ExecuteReader();
                 } catch (Exception ex)
                 {
                     Console.WriteLine("========================================");
