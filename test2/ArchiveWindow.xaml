@@ -171,5 +171,6 @@
             </StatusBarItem>
         </StatusBar>
         <Button Margin="6,12,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Height="35" Grid.Column="1" IsEnabled="False" Content="Отчет" Name="Button_Otchet" Click="Button_Otchet_Click" />
+        <Button x:Name="buttonReload" Content="Reload" Grid.Column="1" HorizontalAlignment="Left" Height="35" Margin="105,12,0,0" VerticalAlignment="Top" Width="79" Click="buttonReload_Click" IsEnabled="False"/>
     </Grid>
 </Window>

@@ -67,5 +67,10 @@ namespace test2
             //MainWindow.mainWindow.myThrArchive.Abort();
             MainWindow.mainWindow.myThrArchive = null;
         }
+
+        private void buttonReload_Click(object sender, RoutedEventArgs e)
+        {
+            ac.count();
+        }
     }
 }

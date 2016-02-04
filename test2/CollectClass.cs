@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace test2
 {
@@ -489,12 +491,15 @@ GROUP BY defectsdata.DatePr, indexes.Id_WorkSmen", connection.mySqlConnection);
                 catch
                 { throw (new Exception("MySqlCommand Error")); }
 
-                try
+                MainWindow.mainWindow.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
                 {
-                    dataReader = (MySqlDataReader)myCommand.ExecuteReader();
-                }
-                catch
-                { throw (new Exception("ExecuteRead Error")); }
+                    try
+                    {
+                        dataReader = myCommand.ExecuteReader();
+                    }
+                    catch (Exception ex)
+                    { throw (new Exception("ExecuteRead Error")); }
+                }));
 
                 try
                 {
@@ -520,7 +525,7 @@ GROUP BY defectsdata.DatePr, indexes.Id_WorkSmen", connection.mySqlConnection);
                 Console.WriteLine("========================================");
                 Console.WriteLine("CollectClass.cs");
                 Console.WriteLine("Csmens()  :  " + DateTime.Now.ToString());
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.Message);
                 throw (ex);
             }
         }

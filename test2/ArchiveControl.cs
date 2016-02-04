@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Threading;
+using System.Windows.Threading;
 
 namespace test2
 {
@@ -35,6 +36,8 @@ namespace test2
         public Int64 lastIndex { get { return _countLastIndex; } }
 
         private bool _countsLoaded = false;
+
+        private BackgroundWorker backgroundWorker1 = null;
 
         private static object savO = new object();
         public static void addStat(Dictionary<string, string> obi, string adr, Int64 dt)
@@ -577,7 +580,12 @@ LIMIT 1
         //=======================================================
         public void bgworkercounter()
         {
-            var backgroundWorker1 = new BackgroundWorker();
+            if (backgroundWorker1!=null)
+            {
+                backgroundWorker1.Dispose();
+                backgroundWorker1 = null;
+            }
+            backgroundWorker1 = new BackgroundWorker();
             backgroundWorker1.DoWork += backgroundWorker1_DoWork;
             backgroundWorker1.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
             backgroundWorker1.RunWorkerAsync();
@@ -587,6 +595,8 @@ LIMIT 1
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             _countsLoaded = true;
+            backgroundWorker1.Dispose();
+            backgroundWorker1 = null;
         }
 
         //=======================================
@@ -616,12 +626,14 @@ LIMIT 1
 
             try
             {
+                Console.WriteLine("Begin load Statistic " + DateTime.Now.ToString());
                 #region last index
                 try
                 {
                     connection = new Connection();
                     connection.Open();
-                } catch
+                }
+                catch
                 { throw (new Exception("Open Error")); }
 
                 try
@@ -631,7 +643,8 @@ SELECT IndexData
 FROM defectsdata
 ORDER BY IndexData DESC
 LIMIT 1", connection.mySqlConnection);
-                } catch
+                }
+                catch
                 { throw (new Exception("Open Error")); }
 
                 try
@@ -639,14 +652,16 @@ LIMIT 1", connection.mySqlConnection);
                     dataReader = (MySqlDataReader)myCommand.ExecuteReader();
                     dataReader.Read();
                     _countLastIndex = dataReader.GetInt64(0);
-                } catch
+                }
+                catch
                 { throw (new Exception("Read Error")); }
 
                 try
                 {
                     dataReader.Close();
                     connection.Close();
-                } catch
+                }
+                catch
                 { throw (new Exception("Close Error")); }
                 #endregion
 
@@ -660,14 +675,19 @@ LIMIT 1", connection.mySqlConnection);
                 collectClass.Cdsmens(_countDefectsSmens);
                 collectClass.Cparts(_countParts);
                 collectClass.cdparts(_countDefectsParts);
+                Console.WriteLine("End load Statistic " + DateTime.Now.ToString());
             }
             catch (Exception ex)
             {
-                Console.WriteLine("========================================");
+                /*Console.WriteLine("========================================");
                 Console.WriteLine("ArchiveControl.cs");
                 Console.WriteLine("backgroundWorker1_DoWork()  :  " + DateTime.Now.ToString());
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.Message);*/
                 MessageBox.Show("Ошибка загрузки статистики");
+                if (MainWindow.mainWindow.myThrArchive != null)
+                {
+                    archiveWindow.buttonReload.IsEnabled = true;
+                }
             }
         }
         //==================================
